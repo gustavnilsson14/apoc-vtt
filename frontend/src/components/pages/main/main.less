@@ -1,0 +1,59 @@
+main {
+  background-color: #ccc;
+  display: flex;
+  flex-direction: row;
+
+  nav {
+    position: fixed;
+    width: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    button {
+      transition: all 0.2s;
+      cursor: pointer;
+      width: 16px;
+      display: flex;
+      justify-content: flex-start;
+      padding: 2px 1px;
+      &.active-true {
+        background-color: #555;
+        color: white;
+      }
+      label {
+        cursor: pointer;
+        width: 1px;
+        line-height: 20px;
+        word-wrap: break-word;
+        font-family: monospace;
+        white-space: pre-wrap;
+        text-align: center;
+      }
+    }
+  }
+  content {
+    margin-left: 20px;
+    width: calc(100vw - 20px);
+    height: 100vh;
+  }
+  play-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-column-gap: 1px;
+    grid-row-gap: 1px;
+    height: 100%;
+  }
+  grid-box {
+    background-color: white;
+    display: grid;
+    overflow-y: scroll;
+    &.character {
+      grid-column-start: 2;
+      grid-column-end: 3;
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+  }
+}

@@ -1,0 +1,4 @@
+<template>
+  <require from="./custom-list-cell/custom-list-cell"></require>
+  <custom-list-cell repeat.for="index of settings.indexes" value.bind="getCellValue(index)" click.delegate="onClick()"></custom-list-cell>
+</template>

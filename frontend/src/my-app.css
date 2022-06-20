@@ -1,0 +1,15 @@
+@import url(../node_modules/bootstrap/dist/css/bootstrap.css);
+body {
+  height: 100vh;
+}
+body > div {
+  display: none;
+}
+@font-face {
+  font-family: "medula";
+  src: url("./assets/fonts/MedulaOne-Regular.ttf");
+}
+@font-face {
+  font-family: "source";
+  src: url("./assets/fonts/SourceCodePro-VariableFont_wght.ttf");
+}

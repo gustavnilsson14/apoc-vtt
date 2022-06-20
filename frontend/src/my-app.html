@@ -1,0 +1,10 @@
+<require from="./components/pages/login/login"></require>
+<require from="./components/pages/main/main"></require>
+<require from="./components/pages/if-test/if-test"></require>
+<div>
+  <login if.bind="session.data.view.name == 'login'"></login>
+  <main if.bind="session.data.view.name == 'main'"></main>
+
+  <button click.delegate="iftest = !iftest">toggle</button>
+  <if-test if.bind="iftest"></if-test>
+</div>

@@ -1,0 +1,6 @@
+<template>
+  <require from="../../partials/custom-form/item-slot/item/item"></require>
+  <container>
+    <item repeat.for="item of allItems" click.delegate="itemClicked(item)" class="selected-${item.isSelected}" value.bind="item"></item>
+  </container>
+</template>

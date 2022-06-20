@@ -1,0 +1,36 @@
+item-stat {
+  width: 12px;
+  height: 12px;
+  stat-inner {
+    pointer-events: all;
+    display: flex;
+    align-self: flex-end;
+    border: 3px solid black;
+    width: 100%;
+    height: 100%;
+    &.durability {
+      &.checked-true {
+        background-color: black;
+      }
+    }
+    &.effect {
+      position: relative;
+      border: 0px solid black;
+      &::before {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        top: -14px;
+        left: -3px;
+        position: absolute;
+        font-size: 24px;
+        font-weight: bold;
+        content: "+";
+      }
+    }
+    &.quality {
+      border-radius: 50%;
+      &.checked-true {
+        background-color: black;
+      }
+    }
+  }
+}

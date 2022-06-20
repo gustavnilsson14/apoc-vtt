@@ -1,0 +1,18 @@
+<template>
+  <require from="./item-stat/item-stat"></require>
+  <background style="background-image: url(${getImage()})"></background>
+  <header><icon style="background-image: url(${getIcon()})"></icon> <label class="${getHeaderFontSize()}">${value.name}</label></header>
+  <damage-types if.bind="value.damageTypes != null">
+    <type repeat.for="damageType of value.damageTypes">${damageType}</type>
+  </damage-types>
+  <stats>
+    <item-stat repeat.for="stat of value.stats" index.bind="$index" stat-type.bind="stat" item.two-way="value" editable.bind="editable"></item-stat>
+  </stats>
+  <skill>
+    <box></box>
+    <box></box>
+    <box></box>
+    <box></box>
+    <box></box>
+  </skill>
+</template>

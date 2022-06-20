@@ -1,0 +1,8 @@
+<template>
+  <require from="./item/item-stat/item-stat"></require>
+  <require from="./item/item"></require>
+  <item-inner class="selected-${isSelected}" click.delegate="onClick()">
+    <header if.bind="value == null">${settings.label}</header>
+    <item if.bind="value != null" value.bind="value" editable.bind="true"> </item>
+  </item-inner>
+</template>

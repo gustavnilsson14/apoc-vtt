@@ -1,0 +1,14 @@
+<form action="">
+  <require from="./custom-input/custom-input"></require>
+  <h2>${settings.label}</h2>
+  <custom-input
+    repeat.for="input of settings.inputs"
+    if.bind="input.dataField != true"
+    settings.bind="input"
+    result.two-way="result"
+    data.bind="data"
+  ></custom-input>
+  <error if.bind="errorText">${errorText}</error>
+  <response if.bind="successText">${successText}</response>
+  <button class="btn btn-primary" click.delegate="submit($event)">${settings.submitTitle}</button>
+</form>

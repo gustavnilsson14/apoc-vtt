@@ -1,0 +1,20 @@
+custom-list-item {
+  display: contents;
+  cursor: pointer;
+  custom-list-cell {
+    border-top: 1px solid #aaa;
+    background-color: #ddd;
+    transition: all 0.2s;
+  }
+  &:hover {
+    custom-list-cell {
+      border-top: 1px solid #aaa;
+      background-color: #eee;
+    }
+  }
+  &:last-child {
+    custom-list-cell {
+      border-bottom: 1px solid #aaa;
+    }
+  }
+}

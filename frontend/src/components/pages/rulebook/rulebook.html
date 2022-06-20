@@ -1,0 +1,1955 @@
+<template> 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Massive Apocalypse</title>
+        <link rel="stylesheet" href="css/default.css">
+        <link rel="stylesheet" href="css/rulebook.css">
+        
+        <script src="js/rules.js"></script>
+        
+    </head>
+    <body>
+        <container>
+            <h1 style="width: 100%;">Massive Apocalypse<br><span>A combat system for, or hack of Into the Odd</span></h1>
+            <row></row>
+            <row>
+                <box>
+                    <p>Combat happens when people disagree violently, and is resolved in the following way, usually involving bruises, blood, and death.</p>
+                    <img src="${getImage('art/capsule_616x353.jpg')}" alt="">
+                </box>
+                <box class="x2">
+                    <p>The following are core concepts of the combat system.</p>
+                    <ul>
+                        <li>Combat takes place on a 1d battle mat called the <i>Battleground</i>. You either push forward, or fall back.</li>
+                        <li>Combat has two measures of time. <i>Rounds</i>, which consists of an arbitrary amount of <i>Turns</i></li>
+                        <li>Combatants can only specify their actions at the beginning of each <i>Round</i>, while during this time, their actions each <i>Turn</i> is dictated by their planning</li>
+                        <li>Combat ends when at the end of a <i>Round</i> either one side is defeated, or has fled the battleground</li>
+                        <li>Exploiting an enemys <i>weaknesses</i> is important to fighting effectively</li>
+                        <li>Likewise, using terrain, features, and hazards of the battlegrounds is equally important</li>
+                        <li>Combatants are likely to be permanently damaged, die, or be kidnapped in the aftermath of combat, players, and their opponents alike</li>
+                    </ul>
+                </box>
+            </row>
+    
+            <row>
+                <box class="x2">
+                    <h2>The Battleground</h2>
+                    <p>The Battleground consists of 13 tiles, where two sides can duke it out.</p>
+                    <p>When the battle starts the GM first decides two tile ranges for the position of the two opposing parties,depending on the scene. Players may place their characters on any tile within the tile range they were assigned, usually spanning 3~ tiles.</p>
+                    <img src="${getImage('art/battleground.jpg')}" alt="">
+                </box>
+                <box>
+                    <h3>Movement</h3>
+                    <p>Combatants may move 1 tile at the start of every round if taking the <i>dash</i> tactical action, then 1 tile at the start of each turn.</p>
+                    <p>These rules apply to movement</p>
+                    <ul>
+                        <li>Conscious combatants of opposing sides may not occupy the same tile.</li>
+                        <li>Combatants of the same side may occupy the same tile, and move freely through tiles occupied by their allies.</li>
+                        <li>A combatant cannot move past an opponent.</li>
+                        <li>Opposing combatants moving into the same tile roll 1d12, adding their strength to the result. The lower result will be unable to move</li>
+                    </ul>
+                    <p>Depending on the combatants perks and/or equipment, they may be able to move further, or ignore some rules regarding invalid movement. These rules are also designed for mainly grounded combat. Aerial combat, or underwater combat would have different rules for movement.</p>
+                </box>
+                <box>
+                    <h3>Features</h3>
+                    <p>Battlegrounds will have features, such as vantage points, explosives, cover, doorways, and whatever the GM dreams up. The location of these features should be marked on the battleground, and their stats should be noted down in advance. How to interact with these features can vary, but mostly requires a tactical action.</p>
+                </box>
+                <box class="x2">
+                    <h4>Common features</h4>
+                    <info-list class="separator-pipes no-roll" style="counter-set: list 0;">
+                        <info-row>
+                            <inner>
+                                <h4>Fire</h4>
+                                <span>Deals 1d10 light damage once per turn. Dies after 2 rounds, may spread</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Conductivity</h4>
+                                <span>Volt damage on these areas arcs, and deals 2d6 extra volt damage to all on, or in the area.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Cold</h4>
+                                <span>Excessively cold areas will cause combatants suffering from hypothermia to, on a failed STR, forfeit their turn.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Darkness</h4>
+                                <span>Fighting in darkness, or while blind, will disallow the assist action. Also, on a failed WIL, the target for any attack will be random.</span>
+                            </inner>
+                        </info-row>
+                    </info-list>
+                </box>
+                <box class="x3">
+                    <h3>Example Battleground</h3>
+                    <row class="internal">
+                        <box class="no-border">
+                            <p>To use the 1d battlemat feature the only thing your group needs is;</p>
+                            <ul>
+                                <li>13 (or more) tiles in a line, represented on a paper</li>
+                                <li>Miniatures (or tokens) to represent the players and the enemies</li>
+                                <li>Tokens (or beautifully crafted props) to, represent battleground features</li>
+                            </ul>
+                            <p>The players would start on the left side, and the enemies on the right, as explained above.</p>
+                            <p>Battleground features and hazard tokens should be positioned on the bottom border of the battlemat, and their effects explained to the players, if applicable.</p>
+                        </box>
+                        <box class="no-border">
+                            <img style="margin-top:14px;" src="${getImage('art/battlemat_example.png')}" alt="">
+                        </box>
+                    </row>
+                </box>
+            </row>
+    
+    
+            <row>
+                <box>
+                    <h2>Fighting the Enemy</h2>
+                    <p>GM decides a range of 3~ tiles available for player characters, place minis on mat.</p>
+                    <h4>Round lifecycle</h4>
+                    <ol>
+                        <li>Handle battlemat features</li>
+                        <li>Roll for initiative, and set combat intensity</li>
+                        <li>Take tactical action</li>
+                        <li>Planning movement and action</li>
+                    </ol>
+                    <h4>Turn lifecycle</h4>
+                    <ol>
+                        <li>Handle battlemat featuress</li>
+                        <li>Move all combatants simultaneously.</li>
+                        <li>Assists and defends</li>
+                        <li>Ranged attack preparation</li>
+                        <li>Melee and Ranged attacks</li>
+                    </ol>
+                    <img src="${getImage('art/starter1.jpg')}" alt="">
+                </box>
+                <box>
+                    <h3>Setup</h3>
+                    <p>As combat starts, all combatants of each respective side are placed on opposing sides, at tile #3. The GM may then, at their discretion move combatants forward, or backwards up to 2 tiles, depending on their perception of how the battle started.</p>
+    
+                    <h4>First Strike</h4>
+                    <p>If a combatant was caught by surprise, with their weapons sheethed and guard down, the initiators may get a first strike. This allows any combatant who was combat ready as the combat starts to attack a non-combat ready combatant within range once.</p>
+    
+                    <h4>Ambush</h4>
+                    <p>If either side ambushed the other side, seemingly springing up from nowhere, trapping or surrounding their opponents, the combat starts as an ambush.</p>
+                    <p>When placing combatants on the battleground when an ambush happens, place the ambushed side on tile #6, and the ambushers on a tile #1 of their choice.</p>
+                    <p>During the first <i>round</i> of an ambush, the ambushers choose how many <i>turns</i> it would last.</p>
+                </box>
+    
+                <box>
+                    <h3>Rounds and Turns</h3>
+                    <p>A round of combat is an amount of turns decided by both the fighting parties. A turn of combat is enough time for every combatant involved to move, and perform an action.</p>
+    
+                    <h4>Commitment</h4>
+                    <p>As a round of combat starts, the GM rolls 1d10 for initiative. If the result is below or equal to the initiative threshold, the players has it, if above the enemies have it</p>
+                    <p>Turn amount starts at 3. After rolling for initiative,  the side which gets it chooses to increase, or decrease the turn amount by 1.</p>
+                    <p>After determining turn amount, all combatants take tactical action, then plan for the round</p>
+                    
+                    <img src="${getImage('art/hqdefault.jpg')}" alt="">
+                    
+                </box>
+    
+                <box class="x1-5">
+                    <h3>Tactical action (TA)</h3>
+                    <p>Tactical actions are special actions which can be performed by all combatants, and allows combatants to adapt to an enemies strengths, or exploit their tactics.</p>
+                    <p>All combatants may use the TA's listed below, but will also have special actions available to them.</p>
+                    <p>After determining the turn amount for the <i>round</i>, each combatant may take a <i>tactical action</i></p>
+                    <p>Tactical actions resolve immediately, and simultaneously.</p>
+                    <h4>Basic tactical actions</h4>
+                    <info-list class="separator-pipes no-roll" style="counter-set: list 0;">
+                        <info-row>
+                            <inner>
+                                <h4>Aim</h4>
+                                <span>When attacking, choose a die and increase its result by 1 before rolling. Also allows the combatant to target opponents at range beyond the closest front.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Brace</h4>
+                                <span>When attacked, choose a die and reduce its result by 1 after rolling.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Cover</h4>
+                                <span>Only usable if on the same tile as something which could provide cover from ranged attacks. When used, all ranged attacks against the combatant have their dice reduced by 1/2/3, depending on the quality of the cover according to the GM.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Equipment</h4>
+                                <span>The equipment action allows a combatant to freely move items between their belt, hands and the ground, as well as either use a single consumable item from the belt or hands, or move 1 item from the backpack into the hands or belt.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Catch Breath</h4>
+                                <span>Using the catch breath action increases your endurance by your level die.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Initiative</h4>
+                                <span>The initiative action increases <i>initiative threshold</i> by 1 when used by the player side, and reduces it by 1 when used by the enemy side</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Escape</h4>
+                                <span>To escape the combat, roll 2d8. If the result of is less than the distance to the closest enemy, plus the amount of rounds the combat has lasted times two, the combatant leaves the combat.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Boost</h4>
+                                <span>The WIL check of your next spell is made at advantage, and your level damage die is added to the damage.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Cast Spell</h4>
+                                <span>The cast spell action allows a combatant to cast one of their spells at the end of the round, unless interrupted.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Kidnap</h4>
+                                <span>Kidnap an unconscious enemy combatant! O_O</span>
+                            </inner>
+                        </info-row>
+                    </info-list>
+                </box>
+    
+                <box class="x1-5">
+                    <h3>Planning</h3>
+                    <p>At the start of each round, players plan what to do with the turns during the round.</p>
+                    <p>This mainly consists of choosing where to attempt to move, which action to take and the target of said action.</p>
+                    <p>The planning will decide what each combatant does each round, and cannot be changed during the round</p>
+                    
+                    <h4>Movement</h4>
+                    <info-list class="separator-pipes no-roll" style="counter-set: list 0;">
+                        <info-row>
+                            <inner>
+                                <h4>Move to tile</h4>
+                                <span>A character may move towards a tile. They will move towards that tile every other turn.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Stand ground</h4>
+                                <span>A character may stand their ground, and forfeit their movement.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Charge</h4>
+                                <span>A charging character will keep attempting to move forward each turn.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Retreat</h4>
+                                <span>A retreating character will keep attempting to move backwards each turn.</span>
+                            </inner>
+                        </info-row>
+                    </info-list>
+    
+                    <h4>Actions</h4>
+                    <info-list class="separator-pipes no-roll" style="counter-set: list 0;">
+                        <info-row>
+                            <inner>
+                                <h4>Melee attack</h4>
+                                <span>Melee attacks can only be made onto adjacent tiles. They are performed each turn.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Ranged attack</h4>
+                                <span>Ranged attacks can be made onto any tile of the battleground unless otherwise specified by the weapon. Ranged attacks must be <i>prepared</i>, so they are completed every other turn. Ranged attacks cannot be made if adjacent to an enemy.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Defend</h4>
+                                <span>The combatant may remove one dice from any attack that targets them. <i>Mitigates</i> one <i>weakness</i></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Assist</h4>
+                                <span>Targets a combatant. The assisted combatant rolls damage with <i>advantage</i></span>
+                            </inner>
+                        </info-row>
+                    </info-list>
+                    
+                    <img src="${getImage('art/monsters-weapons-blood-victory-wallpaper-preview.jpg')}" alt="">
+                </box>
+                
+                <box>
+                    <h3>Escape</h3>
+                    <p>During combat, combatants might find their morale wavering, and want to escape the fight. To accomplish this, the combatants of the escaping side must all succeed in escaping</p>
+                    <p>After escaping the combatant will get away from their enemies, and automatically take a 10 minute break. After the break, the combatant will have their endurance fully restored, but might be separated from their allies, depending on how they escaped.</p>
+                </box>
+    
+                <box class="x2">
+                    <h3>Spells</h3>
+    
+                    <row class="internal">
+                        <box class="no-border">
+                            <p>Spells are manipulation of the foreign energies landed on the planet, also known as magic. These all have powerful effects, and are inherently damaging to the target and volatile such as they might damage the caster. Each spell has an amount of charges, and may be used until those are depleted.</p>
+                            <p>In combat casting spells is done as a tactical action. The caster decides on the amount of charges to spend, and the spell deals damage, and increases its volatility for each charge spent.</p>
+                            <p>Each spell charge spent up to the skill level of the spell increases its damage by 2d8. Each charge which exceeds the skill level increases damage by 1d8.</p>
+                            <p>When casting a spell, any amount of spell charges may be used. The caster must make a WIL save. Each spell charge spent reduces WIL by 1 for this check.</p>
+                            <p>If the WIL save fails, the spell also deals half damage to the player, and they suffer the drained injury.</p>
+                            <p>To replenish the charges of a spell, the caster must meditate at a shine dedicated to the same magic as the spell. When meditating, the spells charges is set to 1d6 + the casters skill level.</p>
+                            
+                            <p>In combat, any spell can only be cast once. A spell interrupted also count towards this.</p>
+                        </box>
+                        <box class="no-border">
+                            
+                            <p>The spell is cast at the end of the round, unless interrupted by any of the following;</p>
+                            <info-list class="separator-pipes no-roll" style="counter-set: list 0;">
+                                <info-row>
+                                    <inner>
+                                        <span>The caster moves in any way during the round, including forced movement like knockback</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <span>The caster is hit by an attack where the attacker used the aim tactical action</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <span>The caster suffers damage from a damage type they are weak against</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <span>The caster is wounded</span>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                            <p>When interrupted, the caster makes a STR save. If the save fails, they lose the charges spent on the spell, and do not cast the spell at the end of the round.</p>
+                            <img style="margin-top: 14px;" src="${getImage('art/caster.png')}" alt="">
+                        </box>
+                    </row>
+                    
+    
+                    
+                </box>
+    
+                <box class="x2">
+                    <h3>Dealing damage</h3>
+                    <p>Attacks are basic offensive actions taken to hurt an enemy combatants. Attacks in combat hit by default.</p>
+                    <p>All attacks deal two or more dice of damage. The amount of faces on the standard three dice are based on the combatants weapon, their familiarity with that specific weapon, and their experience level.</p>
+    
+                    <row class="internal">
+                        <box class="no-border">
+                            <h4>Damage Rating (DR)</h4>
+                            <p>Most items are weapons, and have a damage rating ranging from 0 and upwards, explained further in the weapons section.</p>
+                            <p>The damage rating is the total of hollow quality slots, and effect symbols on the weapon card.</p>
+                        </box>
+                        <box class="no-border">
+                            <h4>Skill Rating (SR)</h4>
+                            <p>A characters skill with the individual weapon affects their efficiency greatly, and can turn any weapon lethal.</p>
+                            <p>Skill is tracked on the weapon card.</p>
+                        </box>
+                        <box class="no-border">
+                            <h4>Level (LVL)</h4>
+                            
+                            <p>The characters general experience level weighs in on how much damage they do.</p>
+                            <p>Level is tracked on your character sheet.</p>
+                        </box>
+                    </row>
+                    <row class="internal">
+                        <box class="no-border">
+                            <info-list class="dice-enumeration weapons no-roll">
+                                <info-row class="na-enumeration">
+                                    <inner>
+                                        <h4>0: Non Weapon</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row style="counter-set: list 2;">
+                                    <inner>
+                                        <h4>1: Improvised</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>2: Shoddy DIY</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>3: Self-Defense</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>4: Army Grade</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4 style="width: 80px;">5: Hi-Tech</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row class="before-increment-static">
+                                    <inner>
+                                        <h4 style="width: 80px;">5+: Legendary</h4>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                        <box class="no-border">
+                            <info-list class="dice-enumeration no-roll" style="counter-set: list 2;">
+                                <info-row>
+                                    <inner>
+                                        <h4>Novice</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Experienced</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Skilled</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Expert</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Master</h4>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                        <box class="no-border">
+                            <info-list class="dice-enumeration no-roll" style="counter-set: list 2;">
+                                <info-row>
+                                    <inner>
+                                        <h4>Nobody</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Exceptional</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Hero</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Legend</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Diety</h4>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                    </row>
+                    <row class="internal">
+                        <box class="no-border">
+                            <h4>Advantage</h4>
+                    <p>When rolling damage with advantage, any number of dice may be rerolled once, and the new result is the one used.</p>
+                        </box>
+                        <box class="no-border">
+                            <h4>Guaranteed damage</h4>
+                    <p>Some TA's, and some weapons add guaranteed damage. This damage is added after rolling for damage, and it ignores armor.</p>
+                        </box>
+                    </row>
+                    
+                    
+                </box>
+                <box class="x2">
+                    <h4>Endurance</h4>
+                    <p>Endurance is a measure of how combat ready a character is. The more damage comes their way, the more endurance is spent to dodge or deflect that damage, until they are finally hit and suffer wounds.</p>
+                    <p>As endurance reaches 0, it can be reduced no further, and instead the character suffers wounds, with one exception.</p>
+                    <p>If any damage would result in a negative endurance less than or equal to a combatants negative max endurance, they die instantly.</p>
+                    
+                    <h4>Wounds</h4>
+                    <p>Each time a combatant is damaged when at 0 endurance they suffer a wound. The amount of wounds sustained have these effects.</p>
+                    <info-list class="separator-pipes no-roll" style="counter-set: list 0;">
+                        <info-row>
+                            <inner>
+                                <h4>Wounded</h4>
+                                <span>Max endurance halved</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Unconscious</h4>
+                                <span>Cant do shit</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Dead</h4>
+                                <span>Game over</span>
+                            </inner>
+                        </info-row>
+                    </info-list>
+                    
+                    <h4>Injury</h4>
+                    <p>Injuries are long term damage to a characters body. A character suffers injury when;</p>
+                    <ul>
+                        <li>Falling unconscious in combat</li>
+                        <li>Taking injury out of combat</li>
+                    </ul>
+                    <p>When suffering an injury, roll 1d6 for a <i>bodypart</i> on your character sheet, and add a injury card to that bodypart</p>
+                    <p>If suffering an injury to an already injured <i>bodypart</i>, this bodypart permanently becomes a <i>special</i> slot</p>
+                </box>
+                <box>
+                    <h4>Armor value</h4>
+                    <p>Characters and creatures are either unarmored, wear armor, or have natural armor. The type, and how much armor they have determine their <i>armor value</i></p>
+                    <p>When attacked, each die rolled for the attack with a result less than or equal to the targets <i>armor value</i> deals no damage.</p>
+                    <img src="${getImage('art/armor.png')}" alt="">
+                </box>
+                <box class="x2">
+                    <h4>Weaknesses</h4>
+                    <p>All weapons deals damage of one or more damage types. All combatants have one or more weakness to these damage types. Figuring out an opponents weakness can be key to winning a battle</p>
+                    <p>When dealing damage to an opponent with a damage type they are weak against this is considered <i>critical damage</i>. Dealing <i>critical damage</i> causes the attack to add another of the highest damage die to the attack.</p>
+                    <h4>Damage types</h4>
+                    <row class="internal">
+                        <box class="no-border">                        
+                            <info-list class="small-span no-min-width no-roll centered" style="counter-set: list 0;">
+                                <info-row>
+                                    <inner>
+                                        <h4>Smash</h4>
+                                        <span class="flex-right">Blunt force trauma</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Cut</h4>
+                                        <span class="flex-right">Sharp edge lacerations</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Stab</h4>
+                                        <span class="flex-right">Pierce and puncture wounds</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Pain</h4>
+                                        <span class="flex-right">Skin ripping, bites and gores</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Gun</h4>
+                                        <span class="flex-right">Bullet shock damage</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Burst</h4>
+                                        <span class="flex-right">Multiple rapid bullet shocks</span>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                        <box class="no-border">
+                            <info-list class="no-min-width small-span centered no-roll" style="counter-set: list 6;">
+                                <info-row>
+                                    <inner>
+                                        <h4>Blast</h4>
+                                        <span class="flex-right">Wide area or explosive</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Ooze</h4>
+                                        <span class="flex-right">Putrid, infectious or fungal</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Nuke</h4>
+                                        <span class="flex-right">Radiation or decay damage</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Light</h4>
+                                        <span class="flex-right">Purifying, or heat damage</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Neural</h4>
+                                        <span class="flex-right">Emotional, or brain damage</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Volt</h4>
+                                        <span class="flex-right">Shock, or circuit damage</span>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                        
+                    </row>
+                </box>
+                <box>
+                    <h3>Fronts</h3>
+                    <p>When opposing melee combatants meet on the battleground a front is created. How melee attackers are allowed to attack, and how the front moves, has specific rules.</p>
+    
+                    <h4>Rules of attacking</h4>
+                    <p>Before any opposing combatant in a front can be the target of two attacks during the same turn, every enemy combatant must be the target of an attack. Only if your side of the front outnumber the other side, you can target the same target as one of your allies.</p>
+                    <img src="${getImage('art/apocalypse.jpg')}" alt="">
+                </box>
+            </row>
+    
+            <row>
+                <box>
+                    <h2>Inventory</h2>
+                    <p>All things a character carries with them which are of note are represented by a item card. Item cards represent any weapons, protection, or tools the character carries and have at their disposal. The character sheet, and vehicle sheets has dedicated slots to contain item cards, which also denote how the item is carried.</p>
+                    <p>Items carried in the characters hands or belt can be used in combat, while items carried on the characters body are items worn or strapped to them, and items in the 3 inventory slots are items stored in a backpack.</p>
+                </box>
+                <box class="x1-5">
+                    <h3>Item types</h3>
+                    <p>There are six different types of items, each with their own icons and usage.</p>
+                    <row class="internal" style="justify-content: space-evenly;">
+                        <ul class="item-types">
+                            <li class="melee">
+                                <span>Melee weapon</span>
+                            </li>
+                            <li class="ranged">
+                                <span>Ranged weapon</span>
+                            </li>
+                            <li class="shield">
+                                <span>Shield</span>
+                            </li>
+                        </ul>
+                        <ul class="item-types">
+                            <li class="headgear">
+                                <span>Headgear</span>
+                            </li>
+                            <li class="armor">
+                                <span>Armor</span>
+                            </li>
+                            <li class="stuff">
+                                <span>Tool</span>
+                            </li>
+                        </ul>
+                    </row>
+                    <img src="${getImage('art/example-item.png')}" alt="">
+                    <p style="text-align:right ;">Example item</p>
+                </box>
+                <box>
+                    <h3>Stats</h3>
+                    <p>All items have stats, but depending on the type of the item the stats may mean different things.</p>
+                    <h4>Quality</h4>
+                    <p>The round slots are called quality. The quality of an item counts as both a durability, and an effect icon. Filling in the quality slot as the result of damaging the item will also result in the quality being lost for effect purposes.</p>
+                    <h4>Durability</h4>
+                    <p>The durability of an item is a measure of how much damage the item can withstand. When all durability, and quality slots are filled in as a result of damage, an item is destroyed.</p>
+                    <h4>Effect</h4>
+                    <p>The effect of an item counts towards either the damage rating, or armor value of the item. Quality also adds to this</p>
+                </box>
+                <box>
+                    <h3>Item damage</h3>
+                    <p>When an item is either used for somthing it is not intended for, suffers rough physical treatment, is partially or completely consumed, or due to combat, it takes damage.</p>
+                    <p>When an item takes damage, cross out the first durability or quality slot (starting from the top left) which is not yet filled in.</p>
+                    <p>Some items, at the GM's discretion are not destroyed when all durability or quality slots are filled in, and may be recharged or refilled, although this is an exception</p>
+                    <h4>Combat damage</h4>
+                    <p>After combat, roll 1d6 for each item used that combat. If the die result is less than or equal to the amount of rounds, during which that it was used that combat, it loses one durability</p>
+                    <h4>Repair</h4>
+                    <p>Repairing a weapon may restore sturdy quality slots. Repairing a quality slot will take some time, and resources, usually worth around ~75% of what the quality slot would cost if new.</p>
+                </box>
+                <box class="x3">
+                    <row class="internal">
+                        <box class="no-border">
+                            <h3>Weapons</h3>
+                            <p>There is a variety of weapons out there, from knives and clubs, to guns and grenades. The following is true for a weapon;</p>
+                            <ul>
+                                <li>Weapons add a damage die to each attack. Which die depends on their <i>damage rating</i></li>
+                                <li>All weapons have a card, and needs to be held by a character to be used</li>
+                                <li>Weapons have several damage types. If a weapon hits an enemy and has a damage type that combatant is weak against, it deals <i>critical damage</i></li>
+                                <li>There are two types of weapons, <i>melee</i> and <i>ranged</i></li>
+                                <li>Quality and effect increases the weapons <i>damage rating</i> by 1</li>
+                                <li>A weapons skill is used to track the players skill swith the individual weapon.</li>
+                            </ul>   
+                        </box>
+                        <box class="no-border">
+                            <h4>Damage Rating</h4>
+                            <p>The damage rating of a weapon is calculated by adding its <i>damage</i> (plus signs) to its unfilled <i>quality</i> (circle slots).</p>
+                            <p>The damage rating determines the weapons damage die. Damage ratings over 5 add +1 to the die roll.</p>
+                            <info-list class="dice-enumeration no-roll" style="counter-set: list 2;">
+                                <info-row>
+                                    <inner>
+                                        <h4>1 Damage Rating</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>2 Damage Rating</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>3 Damage Rating</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>4 Damage Rating</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>5 Damage Rating</h4>
+                                    </inner>
+                                </info-row>
+                                <info-row class="before-increment-static">
+                                    <inner>
+                                        <h4>5+ Damage Rating</h4>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                    </row>
+                    <img src="${getImage('art/weapons.jpg')}" alt="">
+                    
+                </box>
+                <box class="x2">
+                    <h3>Protection</h3>
+                    <p>Different types of armor comes in shields, helmets, bodywear, or complete outfits. The following statements are true about armor;</p>
+                    <ul>
+                        <li>There are four types of protection, <i>armor</i>, <i>headgear</i>, and <i>shield</i></li>
+                        <li>Each quality and effect increases <i>armor value</i> by 1</li>
+                        <li>Quality is also used as durability for protection</li>
+                        <li>The <i>damage types</i> of a protection item determines weaknesses the it <i>mitigates</i></li>
+                        <li>Armor occupying two card slots will occupy a characters body <i>body</i> item slots</li>
+                    </ul>
+                    <h4>Armor value</h4>
+                    <p>The total <i>armor value</i> of all equipped protection is added together when resolving the effect of an attack.</p>
+                    <p>Each damage die equal to or less than <i>armor value</i> has no effect</p>
+                    <h4>Weakness mitigation</h4>
+                    <p>All <i>damage types</i> listed with a protection will mitigate the wearers <i>weakness</i> to that damage type. Additionally, the wearer can never become weak to that damage type as long as they wear the armor.</p>
+                </box>
+                <box>
+                    <h3>Tool</h3>
+                    <p>Tools are a common name for anything not a weapon, or protection. It is anything between batteries, water bottles, food, and egg timers.</p>
+                    <p>Tools only has durability. Durability is reduced when tools is consumed, or used for something it is not made for</p>
+                    
+                    <img src="${getImage('art/do-yourself-tools-pile-white-background-household-diy-chore-concept-38956252-removebg-preview.png')}" alt="">
+                </box>
+            </row>
+    
+            <row>
+                <box>
+                    <h2>Character creation</h2>
+                    <p>First, to create a character requires you to make 3 rolls, one for each attribute, note them down on the character sheet.</p>
+                    <p>Second, calculate your maximum endurance, and note that down on your character sheet. Formula is found below.</p>
+                    <p>Third, use the big roll button in the backgrounds section to determine your background</p>
+                    <p>Fourth, roll for your characters weaknesses, explained below</p>
+                    <p>Fifth, pick one optional tactical action from the skills, or gambits table for your character. Then roll one random tactical action from the opposite table.</p>
+                    <p>Sixth, buy your characters starting gear, also explained below.</p>
+                </box>
+                <box class="x2">
+                    <h3>Attributes</h3>
+                    <p>These constitute your characters benefits and burdens, and is the base for any skill related die rolls you might undertake. The attributes are;</p>
+                    <h4>Strength, STR</h4>
+                    <p>Physical might, pushing and pulling, lifting and bending, enduring and powering through.</p>
+                    <h4>Dexterity, DEX</h4>
+                    <p>Speed, agility, coordination, flexibility, and grace.</p>
+                    <h4>Willpower, WIL</h4>
+                    <p>Force of will, spiritual power, and ability to focus.</p>
+                    <h4>Rolling and assigning</h4>
+                    <p>Roll 3d6 for each attribute and choose two of the dice to add together for the result.</p>
+                    <h4>Endurance</h4>
+                    <p>20+(character level * 10)+STR+DEX+WIL</p>
+                </box>
+                <box class="x1-5">
+                    <h3>Character weaknesses</h3>
+                    <p>Your character will have up to 6 weaknesses to damage types. Roll 6d12 on the damage types table above, and note down every distinct result. A character cannot have the same weakness twice, so rolling more of the same number on several dice will result in less damage types weaknesses</p>
+                    <p>The amount of weaknesses your character has translates to their appearance. Damage weakness = HAWT!</p>
+                    <img class="small" src="${getImage('art/nuare-studio-weakness-2000x2000.jpg')}" alt="">
+                </box>
+                <box class="x1-5">
+                    <h3>Starting gear</h3>
+                    <p>Your character starts with the following items</p>
+                    <ul>
+                        <li>1 Water, containing 3 liters. A character drinks 1 liter per day, and water is also currency.</li>
+                        <li>1 Rations</li>
+                        <li>The characters amount of weaknesses times 5 as <i>purchase points</i></li>
+                    </ul>
+    
+                    <h4>Purchase points</h4>
+                    <p>These only exist in character creation, and allows the character to buy gear. The prices are;</p>
+                    <ul>
+                        <li>Weapons and armor cost 1 point per durability, 3 per effect, and 4 per quality.</li>
+                        <li>Tools cost 2 points if generally useful, 1 if non-impactful.</li>
+                        <li>Spells cost 6 points.</li>
+                        <li>Random mutations cost 4 points.</li>
+                        <li>Purchase points can be spent as <i>experience</i> for the purpose of increaing the skill level of weapons</li>
+                    </ul>
+                </box>
+                
+                <box class="x3" style="counter-set: list 5;">
+                    <h3>Background</h3>
+                    <p>The corpse of earth is home to a number of different peoples and countless tribes, all struggling to survive.</p>
+                    <p>Your background affects your starting equipment, and your GM should always have your background in mind when offering information on what you see and hear. A relevant background for the situation should yield more info.</p>
+                    <p>Your background does not affect what you can do, but might affect, at the GMs discretion if you do something particularly well.</p>
+                    <button id="bg-roll">Roll</button>
+                </box>
+                
+                <box class="x3 backgrounds-container" style="counter-set: list 0;">
+                    <h3>Wastelander</h3>
+                    <row class="internal">
+                        <box class="no-border black-bg">
+                            <background-image style="background-image:url(${getImage('art/wastelander-removebg-preview.png')})"></background-image>
+                            <text>
+                                <p>Life is difficult across the desert wastes of the new world, yet finds a way.  The few resources here are  under constant threat from  brigands and bandits, due to their difficulty to protect, but also their value. Apart from raids, denizens of the wastes also have to deal with feral cacti, great antlions, and shellslugs, all dangerous wildlife.
+                                Old, heavily custom built motorized vehicles are the common way of transportation here.They are sturdy and can take the sand without a problem.
+                                </p>
+                            </text>
+                        </box>
+                        <box class="no-border">
+                            <info-list class="separator-pipes no-roll">
+                                <info-row>
+                                    <inner>
+                                        <h4>Raider</h4>
+                                        <span>Raids stockpiles, plunders settlements</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Brigand</h4>
+                                        <span>Ambushes caravans, roams trade routes</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Purifier</h4>
+                                        <span>Cleans food and water, treats wounds</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Dreamer</h4>
+                                        <span>Sees the future when asleep behind the wheel</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Gearhead</h4>
+                                        <span>Builds vehicles out of junkyard scrap</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Worm Wrangler</h4>
+                                        <span>Finds and wrangles worms to milk them</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Oil Hog</h4>
+                                        <span>Refines oil from meat</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Caravaneer</h4>
+                                        <span>Travels, sells oil, bullets, or wormstuffs</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Bullet Farmer</h4>
+                                        <span>Crafts bullets, bathes in casings</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Motor Nomad</h4>
+                                        <span>Travels far, on wheels, sigma mindset</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Desert Plum Farmer</h4>
+                                        <span>Tends to crops, fights of cacti, outcast badass</span>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                    </row>
+                </box>
+    
+                <box class="x3 backgrounds-container">
+                    <h3>Scavenger</h3>
+                    <row class="internal">
+                        <box class="no-border">
+                            <info-list class="separator-pipes no-roll">
+                                <info-row>
+                                    <inner>
+                                        <h4>Rollerthug</h4>
+                                        <span>Prays on the weak, on rollerblades</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Metro</h4>
+                                        <span>Lives in the tunnels, sees in the dark</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Broadcaster</h4>
+                                        <span>Worships the great FM, makes quality content</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Roach Rancher</h4>
+                                        <span>Raises roaches, sells chitin and meat</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Saurian Hunter</h4>
+                                        <span>Fights Saurians, has mysterious pasts</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Technomancer</h4>
+                                        <span>Spins prophecy in static, rents VHS tapes</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Scrapper</h4>
+                                        <span>Loots malls and markets, keeps trinkets</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>DIY Artist</h4>
+                                        <span>Thinks alot, crafts surprising quality</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Bones</h4>
+                                        <span>Knits tissue, sets bones, has morbid humor</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Recycler</h4>
+                                        <span>Makes clean water, has a strong stomach</span>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                        <box class="no-border black-bg"> 
+                            <text>
+                                <p>
+                                    The people living in the cities of the old world are commonly known as scavengers, or scavs for short. They are quite sceptical of outsiders of their small tribes, but form tight loyalties and friendships once they accept new blood. Scrap, doodads and trash is plenty in the ruins, so resources are plenty for crafting. 
+                                    Food, and drinking water is more scarce as the soil is bad for farming, and water usually floods then flows off.  Stockpiled food also has a tendency to attract roidrats, jellies, or raids from Saurian tribes.
+                                </p>
+                            </text>  
+                            <background-image style="background-image:url(${getImage('art/scavenger-removebg-preview.png')})"></background-image>
+                        </box>
+                    </row>
+                </box>
+    
+                <box class="x3 backgrounds-container">
+                    <h3>Conclave</h3>
+                    <row class="internal">
+                        <box class="no-border black-bg">
+                            <background-image style="background-image:url(${getImage('art/civvie-removebg-preview.png')})"></background-image>
+                            <text>
+                                <p>Where you find good soil, clean groundwater, and less contaminants, you  will find that small authoritarian settlements form naturally, which are commonly called conclaves. These vary in alignment when it comes to ethics, but always strictly enforce their laws. Many conclaves are indifferent of outsiders, viewing them as lower caste, and of less value than the conclave citizens. While heavily onset by raiders, conclaves are usually equipped for the task, with quality defenses prepared for the inevitable invasions.</p>
+                            </text>
+                        </box>
+                        <box class="no-border">
+                            <info-list class="separator-pipes no-roll">
+                                <info-row>
+                                    <inner>
+                                        <h4>Techie</h4>
+                                        <span>Automates things, does computers</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Fence builder</h4>
+                                        <span>Builds fences, sets traps, scouts the perimeter</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Taskmaster</h4>
+                                        <span>Directs the labor, punishes disobedience</span>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Peacekeeper</h4>
+                                        <span>Upholds law and order, shoots outsiders</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Diplomat</h4>
+                                        <span>Has a persuasive tounge, and occult ways</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>True human</h4>
+                                        <span>Leads the conclave, born into wealth</span>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                    </row>
+                </box>
+                
+                <box class="x3 backgrounds-container">
+                    <h3>Zone</h3>
+                    <row class="internal">
+                        <box class="no-border">
+                            <info-list class="separator-pipes no-roll">
+                                <info-row>
+                                    <inner>
+                                        <h4>Sherpa</h4>
+                                        <span>Knows the way, leads the way</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Cultist</h4>
+                                        <span>Worships Pluton, god of extra appendages</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Ruins Explorer</h4>
+                                        <span>Has a fedora, whip, and an explorers mindset</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Eel Rider</h4>
+                                        <span>Rides a zone eel, delivers tidings</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Hag</h4>
+                                        <span>Explores the possibilities of magic, using radiation and toxins.</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Moneybags</h4>
+                                        <span>Parish and outlaw, criminal kingpin.</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Spongewood squeezer</h4>
+                                        <span>Extracts water from spongewood, without rousing the vines.</span>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                        <box class="no-border black-bg">   
+                            <text>
+                                <p>Traveling the radioactive, toxic, and barren zones of the new world is a dangerous life. Here you find the bravest  explorers, most pious believers,  and a lot of mentally deranged  people, as well as mutants  and dangerous artificial  demigods of the old world.  The zone has neither clean  food or water, but the most  valuable, and curious  artifacts. Venture too deep  and you will find the  Deadlands, where you will die  to heavy radiation, test  dummies, or the feared Chrome pyramid.</p>
+                            </text>
+                            <background-image style="background-image:url(${getImage('art/zone.png')})"></background-image>
+                        </box>
+                    </row>
+                </box>
+                
+                <box class="x3 backgrounds-container">
+                    <h3>Swamp People</h3>
+                    <row class="internal">
+                        <box class="no-border black-bg">
+                            <background-image style="background-image:url(${getImage('art/the-great-escape-andre-harris-removebg-preview.png')})"></background-image>
+                            <text>
+                                <p>The sour swamps of the new world are brimming with life adapted to the new conditions. Swamp People live and in some manner thrive here, a generally spiritual yet rough group. The Swamp People’s primary trait is their relation to, and handling of the wildlife  in the new world swamps, which also in many cases is their livelihood. To the outsider, the swamp is often a deathtrap. Many creatures here lay in ambush, and a failure to read the signs will cause a wanderer to be either consumed by swamp kelp, captured by the gators, eaten by ticks, crayfish, or leeches, or to just drown in a whirlpool.</p>
+                            </text>  
+                        </box>
+                        <box class="no-border">
+                            <info-list class="separator-pipes no-roll">
+                                <info-row>
+                                    <inner>
+                                        <h4>Turtleman</h4>
+                                        <span>Rides turtle, ferries people</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Kelp Harvester</h4>
+                                        <span>Harvests kelp in the dead of night, while it sleeps</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Gator spokesperson</h4>
+                                        <span>Upholds the peace between man and gator. Bilingual</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Cajun</h4>
+                                        <span>Hunts crayfish, cooks crayfish, eats crayfish</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Gibbon bagger</h4>
+                                        <span>Captures gibbons, extracts their waterbags into gibbonwater</span>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                    </row>
+                </box>
+                
+                <box class="x3 backgrounds-container">
+                    <h3>Android</h3>
+                    <row class="internal">
+                        <box class="no-border">
+                            <info-list class="separator-pipes no-roll">
+                                <info-row>
+                                    <inner>
+                                        <h4>Mr. Jones</h4>
+                                        <span>Serves people, has flawless manners</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>AxCo Handroid</h4>
+                                        <span>Fixes things, handy with tools</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>SciBot</h4>
+                                        <span>Has a creative AI, dressed in labcoat</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>ElMarco</h4>
+                                        <span>Sold burgers, now peddles anything.</span>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                        
+                        <box class="no-border black-bg">
+                            <text>
+                                <p>Sentient remnants of the old world, super quality at their time, but after centuries without repairs are a dying kind. Androids are self replicating given the conditions to do so, but after the collapse this has not been so. Severed from the network, the local auxiliary AI’s took over the individual android bodies, as the decades  passed by they evolved into individuals. Usually, androids are met with courtesy, but restraint. Many humans either push them away, or try to exploit them. Few friendship bonds are formed with androids, even though it is certainly possible.</p>
+                            </text>  
+                            <background-image style="background-image:url(${getImage('art/android-removebg-preview.png')})"></background-image>
+                        </box>
+                    </row>
+                </box>
+    
+                <box class="x3 backgrounds-container">
+                    <h3>Synthetic</h3>
+                    <row class="internal">
+                        <box class="no-border black-bg">
+                            <background-image style="background-image:url(${getImage('art/synthetic-removebg-preview.png')})"></background-image>   
+                            <text>
+                                <p>Designer made, ageless, and peerless. Synthetic humans are amazing creatures, yet they more than often suffer from a lack of direction. If this is a byproduct of their long lifespan, or if they were made this way anyone who could say is long since dead. Synthetics are normally shun as soulless and unpredictable, which is sometimes all too correct. Those who are not, may grow to lead groups or settlements to great futures, but these are few indeed. Prone to madness and depression, most synthetics wander alone.</p>
+                            </text> 
+                        </box>
+                        <box class="no-border">
+                            <info-list class="separator-pipes no-roll">
+                                <info-row>
+                                    <inner>
+                                        <h4>Companion</h4>
+                                        <span>Beautiful body, strong charisma</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Assasin</h4>
+                                        <span>Deadly and silent, strong and fast</span>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                    </row>
+                </box>
+            </row>
+            
+            <row>
+                <box class="x3 backgrounds-container">
+                    <h2>Relationships</h2>
+                    <p>Your character does not exist in a vaccum, and will have bonds with friends and family, as well as grudges with adversaries and wrongdoers.</p>
+                    <p>A characters relations should be regularly used by the GM to create engaging play for your character, but it only works if you as a player embrace and lean into those relationships. Bonds should be treasures by your character, and grudges should be persued.</p>
+                    <p> Your characters interactions with their relationships are not always logical, but driven by emotion. Your character will act in a more reckless manner when protecting their bonds, or persuing their grudges.</p>
+                    <row class="internal">
+                        <box class="no-border">
+                            <h3>Bonds</h3>
+                            <p>Friends, parents, extended family, loves, spouses, children, or community. A bond is a friendly relationship with one person, or a group. They are important to your character, would help your character, but might also require help from your character. The characters happiness is partially tied to their bond. Bonds can be broken, under serious circumbstances.</p>
+                            <info-list class="separator-pipes" style="counter-set: list 0;">
+                                <info-row>
+                                    <inner>
+                                        <h4>Hometown</h4>
+                                        <span>Your hometown has such fine people, and should be preserved</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Parents</h4>
+                                        <span>Your parents are alive and well, and your bond is strong</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Life debt</h4>
+                                        <span>An individual saved your life at great expense of their own, you owe them</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Mentor</h4>
+                                        <span>The one who tought you what you know</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Idol</h4>
+                                        <span>The one person you look up to, and always try to get on their good side</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Area</h4>
+                                        <span>The beautiful vistas of a certain geographical area, and those who care for it</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Cameraderie</h4>
+                                        <span>Your old brothers and sistrs of arms, who you went through hell with</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Siblings</h4>
+                                        <span>Your siblings and you have a tight bond</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Children</h4>
+                                        <span>Your children, who you protect no matter what</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Benefactor</h4>
+                                        <span>A patron who supported your previous ventures</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Survivors</h4>
+                                        <span>A person or group you survived calamity with</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Partner</h4>
+                                        <span>Your love interest(s) or spouse(s)</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Colleagues</h4>
+                                        <span>Old colleagues, with which you have solid friendship</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Childhood friend</h4>
+                                        <span>A friend since childhood who you hold dear</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Clan</h4>
+                                        <span>Your characters clan is spread throughout the land</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Elder</h4>
+                                        <span>An elder your character has fond history with</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Ward</h4>
+                                        <span>A person you try to keep out of trouble</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Caretaker</h4>
+                                        <span>A person trying to keep you out of trouble</span>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                        <box class="no-border">
+                            <h3>Grudges</h3>
+                            <p>A person which triggers your characters fear, despair, anger, thirst for vengeance, or resentment. A grudge is an individual, creature, or a group of the former either actively opposes, hunts, or schemes against your character, who has wronged your character in the past, or been wronged by your character. The character will either attempt to avoid contact with the grudge, or actively plans to move against their grudge.</p>
+                            <info-list class="separator-pipes" style="counter-set: list 0;">
+                                <info-row>
+                                    <inner>
+                                        <h4>Settlement</h4>
+                                        <span>You were terribly wronged when visiting this place, and you loathe it and its inhabitants</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Brigand</h4>
+                                        <span>You know who robbed you and left you for dead while travelling. They must pay.</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Murderer</h4>
+                                        <span>A person you held dear was murdered by someone. You dont know who they are, but you have a clue on how to find out.</span>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                    </row>
+                </box>
+            </row>
+            
+            <row>
+                <box class="x3 backgrounds-container">
+                    <h2>Optional tactical actions</h2>
+                    <row class="internal">
+                        <box class="no-border">
+                            <h4>Skills</h4>
+                            <info-list class="separator-pipes" style="counter-set: list 0;">
+                                <info-row>
+                                    <inner>
+                                        <h4>Hunker down</h4>
+                                        <span>The combatant hunkers down, and cannot move during the round. During the round, the combatant takes no splash damage, and ranged attacks against them has no damage die.</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Knockback</h4>
+                                        <span>The combatant pushes one melee target backwards one tile</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Rage</h4>
+                                        <span>This round, the combatants melee attacks deal 1d4 extra damage</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Pierce</h4>
+                                        <span>For each attack this round, if any or more attack dice are blocked by armor, choose one die to ignore armor</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Dash</h4>
+                                        <span>Move a single tile</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Dual wield</h4>
+                                        <span>The combatant may add the off-hand weapons damage dice to attacks. Will not work with larger weapons.</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Inspire</h4>
+                                        <span>The combatant inpires a companion, who may use their unique TA</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Careful usage</h4>
+                                        <span>Reduces chance of armor and weapon breakage</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Relentless</h4>
+                                        <span>This round, an attack of the combatants choice gets advantage. Can be used after rolling.</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Hide</h4>
+                                        <span>The combatant becomes untargetable until in melee with an enemy, moving, taking tactical, or regular action, except for the boost, and catch breath TA's. An enemy may spend their TA to scout for the character, and will reveal them on a successful WIL, cancelling the effect of hide.</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Action man</h4>
+                                        <span>The combatant takes two tactical actions this round. Usable once each combat.</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Heavy smash</h4>
+                                        <span>When action is melee attack, the combatant will save all their attacks during the round for the final turn.</span>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                        
+                        <box class="no-border">
+                            <h4>Gambits</h4>
+                            <info-list class="separator-pipes" style="counter-set: list 0;">
+                                <info-row>
+                                    <inner>
+                                        <h4>Grapple</h4>
+                                        <span>This round, the combatant forces a melee target to use the stand ground movement on a failed STR</span>
+                                    </inner>
+                                </info-row>    
+                                <info-row>
+                                    <inner>
+                                        <h4>Steal</h4>
+                                        <span>The combatant may steal a belt, or pack item from a melee target on a failed DEX</span>
+                                    </inner>
+                                </info-row>    
+                                <info-row>
+                                    <inner>
+                                        <h4>Goad</h4>
+                                        <span>The combatant goads an opponent. On a failed WIL, this round when the target does not attack the combatant, all their die results are reduced by 1</span>
+                                    </inner>
+                                </info-row>    
+                                <info-row>
+                                    <inner>
+                                        <h4>Break</h4>
+                                        <span>The combatant may target an enemy allowed by their current weaponry. On a successful STR, the target must choose an equipped armor or weapon which loses 1 durability</span>
+                                    </inner>
+                                </info-row>    
+                                <info-row>
+                                    <inner>
+                                        <h4>Feign death</h4>
+                                        <span>On a successful DEX the combatant appears dead, and will appear so until moving, taking tactical, or regular action</span>
+                                    </inner>
+                                </info-row>    
+                                <info-row>
+                                    <inner>
+                                        <h4>Intimidate</h4>
+                                        <span>The combatant intimidates any target. This round, each turn on a failed WIL, the target cannot move towards the combatant. If they fail all the WIL checks during the round, their next TA will automatically be to try and escape.</span>
+                                    </inner>
+                                </info-row>    
+                                <info-row>
+                                    <inner>
+                                        <h4>Disarm</h4>
+                                        <span>The combatant targets a melee opponent. On a failed STR, the combatant chooses an item held by the target that they drop.</span>
+                                    </inner>
+                                </info-row>    
+                                <info-row>
+                                    <inner>
+                                        <h4>Suppression</h4>
+                                        <span>If the combatant is using the ranged attack action. This round, each turn, the ranged attack target loses their movement on a failed DEX</span>
+                                    </inner>
+                                </info-row>    
+                                <info-row>
+                                    <inner>
+                                        <h4>Threaten</h4>
+                                        <span>The combatant chooses any target to threaten. The targets armor is reduced by 1 on a failed WIL</span>
+                                    </inner>
+                                </info-row>
+                                <info-row>
+                                    <inner>
+                                        <h4>Protect</h4>
+                                        <span>On successful DEX, the combatant stands in the way of an ally on the same tile, taking all damage directed at the ally.</span>
+                                    </inner>
+                                </info-row>
+                            </info-list>
+                        </box>
+                    </row>
+                </box>
+            </row>
+    
+            <row>
+                <box>
+                    <h2>Advancement</h2>
+                    <p>While travelling the wastes, characters gain <i>experience</i>, as a measure of lessons learned and knowledge gained in their adventures. Experience can be spent on two things;</p>
+                    <ul>
+                        <li>Between game sessions, spending experience equal to their characters level * 6 to increase their <i>level</i></li>
+                        <li>Between game sessions, the skill in a weapon may be increased if spending the experience equal to the current skill level + 1</li>
+                    </ul>
+                    <h4>Leveling up</h4>
+                    <p>As a character levels up, they become stronger and learn new tricks. They will carry themselves with more poise, and be treated by their surroundings as such.</p>
+                    <p>When leveling up, your character will gain;</p>
+                    <ul>
+                        <li>An attribute point for you to increase one of your attributes by 1</li>
+                        <li>An additional 10 endurance, as per the calculation for max endurance</li>
+                        <li>A tactical action of your choice</li>
+                    </ul>
+                    <h4>Aquiring experience</h4>
+                    <p>Experience is gotten in the following ways;</p>
+                    <ul>
+                        <li>1 Per game session, regardless of the session.</li>
+                        <li>Making in-game player character plans prior to a session, communicating player agenda them to the GM.</li>
+                        <li>Acting table secretary, taking notes on NPC's, locations, etc.</li>
+                        <li>Keeping track of rounds passed, turn order, hazards, and damage dealt to enemies during combat.</li>
+                        <li>Taking an active part in irl game scheduling.</li>
+                        <li>Bringing snacks to the table.</li>
+                    </ul>
+                </box>
+            </row>
+            <row>
+                <box>
+                    <h2>Mutations</h2>
+                    
+                    <info-list class="separator-pipes" style="counter-set: list 0;">
+                        <info-row>
+                            <inner>
+                                <h4>Horns</h4>
+                                <span>Grows each session</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Wings</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Gills</h4>
+                                <span>Breathe underwater</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Claws</h4>
+                                <span>Grows each session</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Filter Sac</h4>
+                                <span>Filters out aerosols and toxic fumes</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Venom Gland</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Fangs</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Scaly Skin</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Chameleon Skin</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Reflective Skin</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Tail</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Beak</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Hooves</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Spines</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Big Brain</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Hollow Bones</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Odor Control</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Corrosive Breath</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Esper</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Thick Fur</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Extra Heart</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Telepathic Conduit</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Slime Gland</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Quills</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Extra Arm</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Adrenal Control</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Belly Sack</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Extra Legs</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Cyclopean</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Extra Eyes</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Vocal Control</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Hair Control</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Grotesque Regeneration</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Suction Cups</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Toad Tounge</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Headless</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Corrosive Blood</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Irradiated Blood</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Adhesive Blood</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Fungal Spores</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Backup Brain</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Teeth Rows</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Heat Vision</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Whiskers</h4>
+                                <span>They sense air currents and vibrations</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Powerful Legs</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Fins</h4>
+                                <span>You move naturally in water</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Spherical</h4>
+                                <span>All protrusions may retract. Can extend legs and arms, but can also roll.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Antlers</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Mane</h4>
+                                <span>You have a majestic horse, or lion mane</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Venom Spines</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Venom Quills</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Ink Spray</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Moist</h4>
+                                <span>You are constantly slimy and slippery.</span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Mole Claws</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Facial Exoskeleton</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Elastic</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Hardened Eyes</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Luminescent Tendril</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Darkvision</h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4></h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4></h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4></h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                        <info-row>
+                            <inner>
+                                <h4></h4>
+                                <span></span>
+                            </inner>
+                        </info-row>
+                    </info-list>
+                </box>
+            </row>
+            
+        </container>
+        <script>
+    
+            function rng(max){
+                return Math.floor(Math.random()*max)+1
+            }
+    
+            function diceTest(amount, dice){
+                sets = [];
+                for(i in [...Array(amount).keys()]){
+                    set = [];
+                    for(die in dice){
+                        set.push(rng(dice[die]));
+                    }
+                    sets.push(set);
+                }
+                return sets;
+            }
+    
+            function checkSetsForResult(sets, matches){
+                matchAmount = 0;
+                for(i in sets){
+                    if(sets[i].find(element => matches.includes(element))){
+                        matchAmount++;
+                    }
+                }
+                return matchAmount;
+            }
+        </script>
+    </body>
+    </html>
+
+</template>

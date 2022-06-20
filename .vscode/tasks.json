@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "./../backend/scripts/build.ps1"
+    },
+    {
+      "label": "run-be",
+      "type": "shell",
+      "command": "./../backend/scripts/run.ps1",
+      "problemMatcher": []
+    },
+    {
+      "label": "run-fe",
+      "type": "shell",
+      "command": "./../frontend/scripts/run.ps1",
+      "problemMatcher": []
+    },
+    {
+      "label": "start-all",
+      "dependsOn": ["run-be", "run-fe"],
+      "problemMatcher": []
+    }
+  ]
+}

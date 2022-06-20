@@ -1,0 +1,27 @@
+<template>
+  <require from="../character/character"></require>
+  <require from="../all-items/all-items"></require>
+  <require from="../die-roller/die-roller"></require>
+  <require from="../rulebook/rulebook"></require>
+  <require from="../profile/profile"></require>
+  <nav>
+    <button click.delegate="onNav('user-profile')" class="active-${activeTab == 'user-profile'}"><label>Profile</label></button>
+    <button click.delegate="onNav('rulebook')" class="active-${activeTab == 'rulebook'}"><label>Rulebook</label></button>
+    <button click.delegate="onNav('play-container')" class="active-${activeTab == 'play-container'}"><label>Play</label></button>
+  </nav>
+  <content>
+    <user-profile if.bind="activeTab == 'user-profile'">
+      <profile></profile>
+    </user-profile>
+    <rules if.bind="activeTab == 'rulebook'">
+      <rulebook></rulebook>
+    </rules>
+    <play-container if.bind="activeTab == 'play-container'">
+      <grid-box><die-roller></die-roller></grid-box>
+      <grid-box><all-items></all-items></grid-box>
+      <grid-box class="character">
+        <character></character>
+      </grid-box>
+    </play-container>
+  </content>
+</template>

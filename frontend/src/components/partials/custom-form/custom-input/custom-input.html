@@ -1,0 +1,4 @@
+<template>
+  <label if.bind="settings.hasLabel != false" for="${settings.key}" class="form-label">${settings.label}</label>
+  <input type="${settings.type}" class="form-control" id="${settings.key}" placeholder="${settings.placeholder || ''}" value.bind="value" />
+</template>

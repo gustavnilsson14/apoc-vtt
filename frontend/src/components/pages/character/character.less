@@ -1,0 +1,97 @@
+character-form {
+  font-family: "source";
+  stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+    base-info {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+    endurance {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background-image: url(../../../assets/img/icons/endurance.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      align-items: center;
+      custom-input {
+        display: contents;
+        input.form-control {
+          background-color: transparent;
+          display: block;
+          text-align: center;
+          padding: 0;
+          border: 0px;
+          width: 50%;
+          height: 50%;
+          justify-self: left;
+          &:focus {
+            background-color: transparent;
+            border: 0px;
+            box-shadow: 0 0 0;
+            outline: 0 none;
+          }
+        }
+        &:first-child {
+          input.form-control {
+            justify-self: right;
+          }
+        }
+      }
+    }
+    custom-input {
+      display: flex;
+      flex-direction: row;
+      border: 1px solid black;
+      label.form-label {
+        text-transform: uppercase;
+        display: flex;
+        flex-direction: column;
+        justify-self: center;
+        align-self: center;
+        margin-bottom: 0;
+        background-color: #ccc;
+        padding: 3px 8px;
+        flex: 0.75;
+        border-right: 1px solid black;
+      }
+      input.form-control {
+        display: flex;
+        padding: 0px 8px;
+        background-color: #eee;
+        flex: 1;
+      }
+      &:focus {
+        border: 0px;
+        box-shadow: 0 0 0;
+        outline: 0 none;
+      }
+    }
+  }
+  traits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2px;
+    multiple-select {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  inventory {
+    display: flex;
+    flex-direction: row;
+    row-gap: 10px;
+    justify-content: space-between;
+    > * {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+    }
+    readied-inventory {
+    }
+    pack-inventory {
+    }
+  }
+}

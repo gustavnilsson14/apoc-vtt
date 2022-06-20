@@ -1,0 +1,26 @@
+<template>
+  <controls>
+    <button class="btn btn-secondary" click.delegate="addDie('D4')">+d4</button>
+    <button class="btn btn-secondary" click.delegate="addDie('D6')">+d6</button>
+    <button class="btn btn-secondary" click.delegate="addDie('D8')">+d8</button>
+    <button class="btn btn-secondary" click.delegate="addDie('D10')">+d10</button>
+    <button class="btn btn-secondary" click.delegate="addDie('D12')">+d12</button>
+    <button class="btn btn-secondary" click.delegate="addDie('D20')">+d20</button>
+    <button class="btn btn-secondary" click.delegate="clear()">Clear</button>
+    <button class="btn btn-primary" click.delegate="rollAll()">Roll All!</button>
+  </controls>
+  <roll-container>
+    <dice repeat.for="die of dice" style="background-image: url(${getDieImage(die)})">
+      <result>${results[$index]}</result>
+    </dice>
+  </roll-container>
+  <total-result>${totalResult}</total-result>
+  <other-results>
+    <other-result repeat.for="roll of othersResults">
+      <message
+        >${roll.userName} rolled <dice repeat.for="dice of roll.diceRolled">${dice}, </dice> with results
+        <result repeat.for="result of roll.results">${result}, </result> for a total of ${roll.totalResult}</message
+      >
+    </other-result>
+  </other-results>
+</template>
