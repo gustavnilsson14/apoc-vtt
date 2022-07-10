@@ -11,3 +11,8 @@ export interface IError extends IBase {
 export interface IRequestResponse extends IBase {
   collection: IBase[];
 }
+export interface IIcon{
+  iconType: string;
+  iconImage: string;
+  iconColor?: string;
+}

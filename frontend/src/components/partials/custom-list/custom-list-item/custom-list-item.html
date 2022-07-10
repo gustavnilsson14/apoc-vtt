@@ -1,4 +1,24 @@
 <template>
+  <require from="../../custom-form/custom-form"></require>
+  <require from="../../tooltip/tooltip"></require>
   <require from="./custom-list-cell/custom-list-cell"></require>
-  <custom-list-cell repeat.for="index of settings.indexes" value.bind="getCellValue(index)" click.delegate="onClick()"></custom-list-cell>
+  <custom-list-cell
+    repeat.for="index of settings.indexes"
+    mouseover.delegate="setTooltipVisibility(true)"
+    mouseout.delegate="setTooltipVisibility(false)"
+    value.bind="getCellValue(index)"
+    click.delegate="onClick()"
+  ></custom-list-cell>
+  <custom-form
+    class="list-expansion horizontal-fields expanded-${expanded}"
+    if.bind="settings.expandable"
+    settings.bind="settings.expansionFormSettings"
+    data.bind="item"
+  ></custom-form>
+  <tooltip
+    if.bind="!!settings.tooltipSource"
+    tooltip.bind="settings"
+    visible.bind="tooltipVisible"
+    data.bind="item"
+  ></tooltip>
 </template>

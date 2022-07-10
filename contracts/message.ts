@@ -2,6 +2,7 @@ import { Guid } from "../shared/guid";
 import { IBase, IError } from "./base";
 import { ILoaderModule, LoaderModuleType } from "./loader";
 
+
 export enum MessageType {
   NONE = "NONE",
   ADD = "ADD",
@@ -16,6 +17,10 @@ export enum MessageType {
   ERROR = "ERROR",
   REQUEST = "REQUEST",
   BROADCAST = "BROADCAST",
+  BATTLE = "BATTLE",
+}
+export interface IBatchRequest extends IBase{
+  ids: string[];
 }
 export interface IMessage {
   timestamp: Date;
@@ -56,6 +61,7 @@ export class MessageFactory {
   public static request(handlerName: string, data: IBase): IMessage {
     return MessageFactory.clientMessage(MessageType.REQUEST, LoaderModuleType.CONTROLLER, handlerName, data);
   }
+  
   public static subscribe(handlerName: string): IMessage {
     return MessageFactory.clientMessage(MessageType.SUBSCRIBE, LoaderModuleType.PROVIDER, handlerName, { id: "" });
   }

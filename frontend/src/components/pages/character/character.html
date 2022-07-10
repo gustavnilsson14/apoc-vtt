@@ -1,17 +1,36 @@
 <template>
   <require from="../../partials/custom-list/custom-list"></require>
   <require from="../../partials/custom-form/custom-form"></require>
-  <require from="../../partials/custom-form/multiple-select/multiple-select"></require>
-  <require from="../../partials/custom-form/custom-input/custom-input"></require>
+  <require
+    from="../../partials/custom-form/multiple-select/multiple-select"
+  ></require>
+  <require
+    from="../../partials/custom-form/custom-input/custom-input"
+  ></require>
   <require from="../../partials/custom-form/item-slot/item-slot"></require>
-  <button class="btn btn-primary" if.bind="modelViewState == 'list'" click.delegate="onNew()">NEW CHARACTER</button>
-  <button class="btn btn-primary" if.bind="modelViewState == 'list'" click.delegate="onRandom()">RANDOM CHARACTER</button>
-  <custom-list if.bind="modelViewState == 'list'" settings.bind="characterListSettings"></custom-list>
+  <button
+    class="btn btn-primary"
+    if.bind="modelViewState == 'list'"
+    click.delegate="onNew()"
+  >
+    NEW CHARACTER
+  </button>
+  <button
+    class="btn btn-primary"
+    if.bind="modelViewState == 'list'"
+    click.delegate="onRandom()"
+  >
+    RANDOM CHARACTER
+  </button>
+  <custom-list
+    if.bind="modelViewState == 'list'"
+    settings.bind="characterListSettings"
+  ></custom-list>
   <character-form if.bind="modelViewState == 'form'">
     <stats>
       <base-info>
         <custom-input
-          repeat.for="input of characterSettings.getInputsByGroup('base-info')"
+          repeat.for="input of characterFormSettings.getInputsByGroup('base-info')"
           settings.bind="input"
           result.two-way="characterFormResult"
           value.bind="input.getInputValue(selectedCharacter)"
@@ -20,16 +39,17 @@
       </base-info>
       <attributes>
         <custom-input
-          repeat.for="input of characterSettings.getInputsByGroup('attributes')"
+          repeat.for="input of characterFormSettings.getInputsByGroup('attributes')"
           settings.bind="input"
           result.two-way="characterFormResult"
           value.bind="input.getInputValue(selectedCharacter)"
           data.bind="selectedCharacter"
+          on-label-click.call="onLabelClick($event.settings, $event.value)"
         ></custom-input>
       </attributes>
       <endurance>
         <custom-input
-          repeat.for="input of characterSettings.getInputsByGroup('endurance')"
+          repeat.for="input of characterFormSettings.getInputsByGroup('endurance')"
           settings.bind="input"
           result.two-way="characterFormResult"
           value.bind="input.getInputValue(selectedCharacter)"
@@ -39,7 +59,7 @@
     </stats>
     <traits>
       <multiple-select
-        repeat.for="input of characterSettings.getInputsByGroup('traits')"
+        repeat.for="input of characterFormSettings.getInputsByGroup('traits')"
         settings.bind="input"
         result.two-way="characterFormResult"
         value.bind="input.getInputValue(selectedCharacter)"
@@ -47,40 +67,36 @@
       ></multiple-select>
     </traits>
     <inventory>
-      <readied-inventory>
-        <item-slot
-          repeat.for="input of characterSettings.getInputsByGroup('hands')"
-          settings.bind="input"
-          result.two-way="characterFormResult"
-          value.bind="input.getInputValue(selectedCharacter)"
-          data.bind="selectedCharacter"
-        ></item-slot>
-        <item-slot
-          repeat.for="input of characterSettings.getInputsByGroup('body')"
-          settings.bind="input"
-          result.two-way="characterFormResult"
-          value.bind="input.getInputValue(selectedCharacter)"
-          data.bind="selectedCharacter"
-        ></item-slot>
-        <item-slot
-          repeat.for="input of characterSettings.getInputsByGroup('belt')"
-          settings.bind="input"
-          result.two-way="characterFormResult"
-          value.bind="input.getInputValue(selectedCharacter)"
-          data.bind="selectedCharacter"
-        ></item-slot>
-      </readied-inventory>
-      <pack-inventory>
-        <item-slot
-          repeat.for="input of characterSettings.getInputsByGroup('pack')"
-          settings.bind="input"
-          result.two-way="characterFormResult"
-          value.bind="input.getInputValue(selectedCharacter)"
-          data.bind="selectedCharacter"
-        ></item-slot>
-      </pack-inventory>
+      <header>Inventory</header>
+      <custom-input
+        repeat.for="input of characterFormSettings.getInputsByGroup('itemSlots')"
+        settings.bind="input"
+        result.two-way="characterFormResult"
+        value.bind="input.getInputValue(selectedCharacter)"
+        data.bind="selectedCharacter"
+        on-click-callback.call="onItemSlotClick($event.rollable)"
+      ></custom-input>
     </inventory>
-    <button class="btn btn-secondary" click.delegate="onCancel()">CANCEL</button>
-    <button if.bind="operation == 'ADD'" class="btn btn-primary" click.delegate="onSave()">SAVE</button>
+    <button class="btn btn-secondary" click.delegate="onCancel()">
+      CANCEL
+    </button>
+    <button
+      if.bind="operation == 'ADD'"
+      class="btn btn-primary"
+      click.delegate="onSave()"
+    >
+      SAVE
+    </button>
   </character-form>
+  <div if.bind="selectedCharacter">
+    <custom-form
+      on-submit.call="onVehicleCreation()"
+      settings.bind="createVehicleFormSettings"
+      result.two-way="createVehicleFormResult"
+    ></custom-form>
+    <custom-list
+      ids.bind="selectedCharacterAssetIds"
+      settings.bind="selectedCharacterAssetsListSettings"
+    ></custom-list>
+  </div>
 </template>

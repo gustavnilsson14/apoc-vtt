@@ -12,7 +12,7 @@
   "include": [
     "test",
     "src"
-  ],
+, "../shared/object-parser.ts"  ],
   "files": [
     "src/resource.d.ts"
   ]

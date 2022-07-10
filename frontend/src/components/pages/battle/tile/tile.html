@@ -1,0 +1,9 @@
+<template>
+    <inner id="tile-${id}" click.delegate="onClick()" class="selected-${isSelected}">
+        <utility-tag repeat.for="tag of tile.utilityTags" class="${tag.toLowerCase()}"></utility-tag>
+        <combatant if.bind="tile.combatant">
+            <label>${tile.combatant.name}</label>
+            <background style="-webkit-mask: url(${getIconImage()});mask: url(${getIconImage()});background: ${getIconColor()}"></background>
+        </combatant>
+    </inner>
+</template>

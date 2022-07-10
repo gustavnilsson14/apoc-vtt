@@ -19,6 +19,9 @@ export class CharacterController extends MyController {
     if (!UserController.verifyOwnerShip(session as IUserSession, character)) {
       return MessageFactory.error("Character does not belong to you", message, this);
     }
+    const submittedCharacter = message.data as ICharacter;
+    this.clampEndurance(submittedCharacter, parseInt(character.maxEndurance.toString()));
+    message.data = submittedCharacter;
     return super.edit(session, message);
   }
   public override remove(session: ISession, message: IMessage): IMessage {
@@ -30,5 +33,10 @@ export class CharacterController extends MyController {
       return MessageFactory.error("Character does not belong to you", message, this);
     }
     return super.remove(session, message);
+  }
+  public clampEndurance(character: ICharacter, maxEndurance: number){
+    if(!character.endurance) return;
+    const endurance = parseInt(character.endurance.toString());
+    character.endurance = (endurance <= maxEndurance || !endurance) ? endurance : maxEndurance;
   }
 }

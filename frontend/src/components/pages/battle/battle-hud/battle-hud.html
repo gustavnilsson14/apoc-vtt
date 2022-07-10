@@ -1,0 +1,46 @@
+<template>
+  <require from="./control-icon/control-icon"></require>
+  <require from="./info-container/info-container"></require>
+  <require from="./battle-state-control/battle-state-control"></require>
+
+  <gm-controls if.bind="client.userSession.user.userType == 'GM'">
+    <battle-state-control
+      battle.bind="battle"
+      message.two-way="message"
+    ></battle-state-control>
+    <control-group if.bind="battle.battleState == 'GM_SETUP'">
+      <creature-icons>
+        <control-icon
+          repeat.for="creature of creaturesList"
+          icon-image.bind="creature.name"
+          icon-type.bind="'creature'"
+          data.bind="creature"
+        ></control-icon>
+      </creature-icons>
+    </control-group>
+    <control-group if.bind="battle.battleState == 'GM_SETUP'">
+      <tile-utility-tags>
+        <control-icon
+          repeat.for="tag of tileUtilityTags"
+          icon-image.bind="tag"
+          icon-type.bind="'utilityTag'"
+          data.bind="tag"
+        ></control-icon>
+      </tile-utility-tags>
+    </control-group>
+  </gm-controls>
+  <player-controls if.bind="client.userSession.user.userType == 'PLAYER'">
+    <p if.bind="battle.battleState == 'PLAYER_POSITIONING'">Place your character</p>    
+    <player-round-controls if.bind="battle.battleState == 'LOOP'">
+      <control-group if.bind="battle.roundState == 'MOVEMENT_CHOICE'">
+        <control-icon
+          repeat.for="movement of movementTypes"
+          icon-image.bind="movement"
+          icon-type.bind="'movementType'"
+          data.bind="movement"
+        ></control-icon>
+      </control-group>
+    </player-round-controls>
+  </player-controls>
+  <info-container battle.bind="battle"></info-container>
+</template>

@@ -17,4 +17,13 @@ custom-list-item {
       border-bottom: 1px solid #aaa;
     }
   }
+  .list-expansion{
+    height: 0;
+    transform: scaleY(0);
+    transition: all 0.2s;
+    &.expanded-true{
+      height: auto;
+      transform: scaleY(1);
+    }
+  }
 }

@@ -80,9 +80,27 @@ item {
     grid-column-end: 3;
     grid-template-columns: repeat(5, 1fr);
     box {
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       height: 10px;
       border-top: 1px solid black;
       border-right: 1px solid black;
+      &.filled-true::before,
+      &.filled-true::after{
+        content: "";
+        display: flex;
+        position: absolute;
+        border: 1px solid black;
+        height: 1px;
+        width: 100%;
+        transform: rotate(10deg) translateY(-50%);
+      }
+      &.filled-true::after{
+        transform: rotate(350deg) translateY(-50%);
+      }
       &:last-child {
         border-right: 0px solid black;
       }

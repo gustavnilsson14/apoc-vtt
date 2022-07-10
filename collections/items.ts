@@ -1,4 +1,7 @@
+import { IRollable, RollableHandler } from "./../shared/random";
 import { ISelectable } from "../frontend/src/infrastructure/selection";
+import { DiceType } from "../contracts/models/dice";
+import { IHasStats } from "../contracts/stats";
 
 export enum ItemType {
   MELEE = "MELEE",
@@ -13,6 +16,7 @@ export enum ItemType {
   ARMOR = "ARMOR",
   SHIELD = "SHIELD",
   CYBERNETICS = "CYBERNETICS",
+  ANY = "ANY",
 }
 export enum ItemSize {
   SMALL = "SMALL",
@@ -34,9 +38,57 @@ export interface IItem {
   filledSlots?: number[];
   damageTypes?: string[];
   hasSkill?: boolean;
+  skill?: number;
   size: ItemSize;
   horizontal: boolean;
   image: string;
+}
+export class OwnedItem implements IItem, ISelectable, IRollable {
+  name: string;
+  type: ItemType;
+  stats: StatType[];
+  filledSlots?: number[];
+  damageTypes?: string[];
+  hasSkill?: boolean;
+  skill?: number;
+  size: ItemSize;
+  horizontal: boolean;
+  image: string;
+  isSelected: boolean;
+  selectionGroup: string;
+  owner: IHasStats | undefined;
+  constructor(item: IItem | undefined, owner: IHasStats | undefined = undefined) {
+    if(item == undefined) return;
+    Object.assign(this, item);
+    this.owner = owner;
+  }
+  getBaseDice(rollableHandler: RollableHandler | null): DiceType[] {
+    const result: DiceType[] = [];
+    if(!rollableHandler) return result;
+    if (this.hasSkill && this.skill) {
+      result.push(rollableHandler.numberToDieType(this.skill));
+    }
+    if (this.owner) {
+      result.push(rollableHandler.numberToDieType(this.owner.level));
+    }
+    let diceType: DiceType = DiceType.NONE;
+    
+    this.stats.forEach((statType, index) => {
+      if (statType == StatType.DURABILITY) return;
+      if (statType == StatType.EFFECT){
+        diceType = rollableHandler.advanceDiceType(diceType);
+        return;
+      }
+      if (!this.filledSlots) {
+        diceType = rollableHandler.advanceDiceType(diceType);
+        return;
+      }
+      if(this.filledSlots.indexOf(index) != -1) return;
+      diceType = rollableHandler.advanceDiceType(diceType);
+    });
+    result.push(diceType);
+    return result;
+  }
 }
 export interface ISelectableItem extends IItem, ISelectable {}
 export const itemList: IItem[] = [
@@ -73,7 +125,12 @@ export const itemList: IItem[] = [
   {
     name: "HARPOON",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["STAB", "PAIN"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -113,7 +170,13 @@ export const itemList: IItem[] = [
   {
     name: "MACHETE",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.QUALITY, StatType.DURABILITY, StatType.QUALITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.QUALITY,
+    ],
     damageTypes: ["CUT", "STAB"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -133,7 +196,12 @@ export const itemList: IItem[] = [
   {
     name: "LUMBER AXE",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["CUT", "SMASH"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -143,7 +211,12 @@ export const itemList: IItem[] = [
   {
     name: "SHOVEL",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["CUT", "SMASH"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -171,7 +244,15 @@ export const itemList: IItem[] = [
   {
     name: "SWORD",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.QUALITY, StatType.DURABILITY, StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["CUT", "STAB"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -201,7 +282,12 @@ export const itemList: IItem[] = [
   {
     name: "GIANT CRUCIFIX",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.QUALITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["LIGHT", "SMASH"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -211,7 +297,12 @@ export const itemList: IItem[] = [
   {
     name: "BOLT STUNNER",
     type: ItemType.MELEE,
-    stats: [StatType.EFFECT, StatType.DURABILITY, StatType.QUALITY, StatType.QUALITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.DURABILITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+    ],
     damageTypes: ["GUN"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -221,7 +312,12 @@ export const itemList: IItem[] = [
   {
     name: "MEAT CLEAVER",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["CUT"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -231,7 +327,12 @@ export const itemList: IItem[] = [
   {
     name: "SCREWDRIVER",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["STAB"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -259,7 +360,14 @@ export const itemList: IItem[] = [
   {
     name: "TIRE IRON",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["SMASH"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -269,7 +377,13 @@ export const itemList: IItem[] = [
   {
     name: "CLIMBING PICK",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["STAB"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -279,7 +393,13 @@ export const itemList: IItem[] = [
   {
     name: "BASEBALL BAT",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["SMASH"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -289,7 +409,12 @@ export const itemList: IItem[] = [
   {
     name: "HOCKEY CLUB",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["SMASH"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -299,7 +424,14 @@ export const itemList: IItem[] = [
   {
     name: "CHAINSAW",
     type: ItemType.MELEE,
-    stats: [StatType.EFFECT, StatType.EFFECT, StatType.DURABILITY, StatType.DURABILITY, StatType.QUALITY, StatType.QUALITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.EFFECT,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+    ],
     damageTypes: ["CUT", "PAIN"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -309,7 +441,15 @@ export const itemList: IItem[] = [
   {
     name: "CHAINSWORD",
     type: ItemType.MELEE,
-    stats: [StatType.EFFECT, StatType.EFFECT, StatType.DURABILITY, StatType.DURABILITY, StatType.QUALITY, StatType.QUALITY, StatType.QUALITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.EFFECT,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+    ],
     damageTypes: ["CUT", "PAIN"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -340,7 +480,12 @@ export const itemList: IItem[] = [
   {
     name: "NECRO CLEAVER",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY, StatType.QUALITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.QUALITY,
+    ],
     damageTypes: ["CUT", "PAIN"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -350,7 +495,12 @@ export const itemList: IItem[] = [
   {
     name: "NECRO BLEEDER",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["STAB", "PAIN"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -360,7 +510,13 @@ export const itemList: IItem[] = [
   {
     name: "GATOR BLADE",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY, StatType.QUALITY, StatType.QUALITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+    ],
     damageTypes: ["CUT", "STAB"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -370,7 +526,12 @@ export const itemList: IItem[] = [
   {
     name: "POTS AND PANS",
     type: ItemType.MELEE,
-    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["SMASH"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -400,7 +561,13 @@ export const itemList: IItem[] = [
   {
     name: "CHAIN",
     type: ItemType.MELEE,
-    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["SMASH", "PAIN"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -440,7 +607,13 @@ export const itemList: IItem[] = [
   {
     name: "EXTINGUISHER",
     type: ItemType.MELEE,
-    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["SMASH"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -460,7 +633,13 @@ export const itemList: IItem[] = [
   {
     name: "BOLT CUTTER",
     type: ItemType.MELEE,
-    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["SMASH"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -519,7 +698,12 @@ export const itemList: IItem[] = [
   {
     name: "CROSSBOW",
     type: ItemType.RANGED,
-    stats: [StatType.EFFECT, StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["STAB"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -529,7 +713,12 @@ export const itemList: IItem[] = [
   {
     name: "GATOR BOWGUN",
     type: ItemType.RANGED,
-    stats: [StatType.EFFECT, StatType.DURABILITY, StatType.QUALITY, StatType.DURABILITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.DURABILITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["STAB", "SMASH"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -549,7 +738,12 @@ export const itemList: IItem[] = [
   {
     name: "THROWING KNIVES",
     type: ItemType.RANGED,
-    stats: [StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["STAB"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -599,7 +793,12 @@ export const itemList: IItem[] = [
   {
     name: "MAGNUM",
     type: ItemType.RANGED,
-    stats: [StatType.EFFECT, StatType.QUALITY, StatType.DURABILITY, StatType.QUALITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.QUALITY,
+    ],
     damageTypes: ["GUN"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -609,7 +808,12 @@ export const itemList: IItem[] = [
   {
     name: "HAND CANNON",
     type: ItemType.RANGED,
-    stats: [StatType.EFFECT, StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["GUN"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -619,7 +823,12 @@ export const itemList: IItem[] = [
   {
     name: "SHOTGUN",
     type: ItemType.RANGED,
-    stats: [StatType.EFFECT, StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["GUN", "BLAST"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -629,7 +838,13 @@ export const itemList: IItem[] = [
   {
     name: "WINCHESTER",
     type: ItemType.RANGED,
-    stats: [StatType.EFFECT, StatType.EFFECT, StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.EFFECT,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["GUN"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -639,7 +854,13 @@ export const itemList: IItem[] = [
   {
     name: "TEC 9",
     type: ItemType.RANGED,
-    stats: [StatType.EFFECT, StatType.EFFECT, StatType.EFFECT, StatType.QUALITY, StatType.DURABILITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.EFFECT,
+      StatType.EFFECT,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["GUN", "BURST"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -649,7 +870,13 @@ export const itemList: IItem[] = [
   {
     name: "SCORPION",
     type: ItemType.RANGED,
-    stats: [StatType.EFFECT, StatType.EFFECT, StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.EFFECT,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["GUN", "BURST"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -659,7 +886,13 @@ export const itemList: IItem[] = [
   {
     name: "M-16",
     type: ItemType.RANGED,
-    stats: [StatType.EFFECT, StatType.QUALITY, StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["GUN", "BURST"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -669,7 +902,14 @@ export const itemList: IItem[] = [
   {
     name: "AK47",
     type: ItemType.RANGED,
-    stats: [StatType.QUALITY, StatType.QUALITY, StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["GUN", "BURST"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -737,17 +977,28 @@ export const itemList: IItem[] = [
   {
     name: "NAILGUN",
     type: ItemType.RANGED,
-    stats: [StatType.EFFECT, StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["PAIN", "STAB"],
     hasSkill: true,
     size: ItemSize.SMALL,
     horizontal: true,
-    image: "img/items/nailgun_01.png14672430-033D-4D2C-858B-E5B447482AF8Large-removebg-preview.png",
+    image:
+      "img/items/nailgun_01.png14672430-033D-4D2C-858B-E5B447482AF8Large-removebg-preview.png",
   },
   {
     name: "NECRO RIFLE",
     type: ItemType.RANGED,
-    stats: [StatType.EFFECT, StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["GUN", "STAB"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -757,7 +1008,13 @@ export const itemList: IItem[] = [
   {
     name: "NECRO REPEATER",
     type: ItemType.RANGED,
-    stats: [StatType.EFFECT, StatType.QUALITY, StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["GUN", "STAB", "BURST"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -767,7 +1024,12 @@ export const itemList: IItem[] = [
   {
     name: "BEAR ARBALEST",
     type: ItemType.RANGED,
-    stats: [StatType.EFFECT, StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.EFFECT,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["PAIN", "STAB"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -1262,7 +1524,13 @@ export const itemList: IItem[] = [
   {
     name: "CHEMICALS",
     type: ItemType.STUFF,
-    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -1282,7 +1550,13 @@ export const itemList: IItem[] = [
   {
     name: "OFFICE SUPPLIES",
     type: ItemType.STUFF,
-    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -1292,7 +1566,13 @@ export const itemList: IItem[] = [
   {
     name: "CHEWING GUM",
     type: ItemType.STUFF,
-    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -1322,7 +1602,13 @@ export const itemList: IItem[] = [
   {
     name: "WATER DISPENSER",
     type: ItemType.CONSUMABLE,
-    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -1352,7 +1638,13 @@ export const itemList: IItem[] = [
   {
     name: "AMPHETAMINES",
     type: ItemType.TOOL,
-    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -1362,7 +1654,13 @@ export const itemList: IItem[] = [
   {
     name: "HALLUCINOGENS",
     type: ItemType.TOOL,
-    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -1372,7 +1670,13 @@ export const itemList: IItem[] = [
   {
     name: "OPIOIDS",
     type: ItemType.TOOL,
-    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -1382,7 +1686,13 @@ export const itemList: IItem[] = [
   {
     name: "BOOZE",
     type: ItemType.CONSUMABLE,
-    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -1392,7 +1702,13 @@ export const itemList: IItem[] = [
   {
     name: "AMMO",
     type: ItemType.STUFF,
-    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -1432,7 +1748,13 @@ export const itemList: IItem[] = [
   {
     name: "BURNER GENERATOR",
     type: ItemType.TOOL,
-    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -1592,7 +1914,13 @@ export const itemList: IItem[] = [
   {
     name: "MARINE ARMOR",
     type: ItemType.ARMOR,
-    stats: [StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["BURST", "BLAST"],
     hasSkill: false,
     size: ItemSize.LARGE,
@@ -1602,7 +1930,13 @@ export const itemList: IItem[] = [
   {
     name: "COMBAT ARMOR",
     type: ItemType.ARMOR,
-    stats: [StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["NUKE", "LIGHT"],
     hasSkill: false,
     size: ItemSize.LARGE,
@@ -1612,7 +1946,13 @@ export const itemList: IItem[] = [
   {
     name: "BULL ARMOR",
     type: ItemType.ARMOR,
-    stats: [StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["OOZE", "NEURAL"],
     hasSkill: false,
     size: ItemSize.LARGE,
@@ -1622,7 +1962,13 @@ export const itemList: IItem[] = [
   {
     name: "SHELL ARMOR",
     type: ItemType.ARMOR,
-    stats: [StatType.QUALITY, StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["GUN", "LIGHT"],
     hasSkill: false,
     size: ItemSize.LARGE,
@@ -1647,12 +1993,19 @@ export const itemList: IItem[] = [
     hasSkill: false,
     size: ItemSize.LARGE,
     horizontal: false,
-    image: "img/items/kamouflage-och-maskering-ghillie-suit-woodland-44574-f1-removebg-preview.png",
+    image:
+      "img/items/kamouflage-och-maskering-ghillie-suit-woodland-44574-f1-removebg-preview.png",
   },
   {
     name: "ARCTIC GEAR",
     type: ItemType.ARMOR,
-    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["*", "CUT", "SMASH"],
     hasSkill: false,
     size: ItemSize.LARGE,
@@ -1662,7 +2015,13 @@ export const itemList: IItem[] = [
   {
     name: "GRAPPLER",
     type: ItemType.CYBERNETICS,
-    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["CUT", "PAIN", "SMASH"],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -1672,7 +2031,13 @@ export const itemList: IItem[] = [
   {
     name: "BIONIC ARM",
     type: ItemType.CYBERNETICS,
-    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: ["PAIN", "SMASH"],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -1682,7 +2047,13 @@ export const itemList: IItem[] = [
   {
     name: "BIONIC LEG",
     type: ItemType.CYBERNETICS,
-    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -1692,7 +2063,13 @@ export const itemList: IItem[] = [
   {
     name: "BIONIC EYE",
     type: ItemType.CYBERNETICS,
-    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -1872,7 +2249,13 @@ export const itemList: IItem[] = [
   {
     name: "LIFEFORM SENSOR",
     type: ItemType.ARTIFACT,
-    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,

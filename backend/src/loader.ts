@@ -51,7 +51,7 @@ export class MyLoader {
     Object.keys(modules).forEach((key) => {
       const moduleType = this.getLoaderModuleType((modules as any)[key]);
       if (moduleType == undefined) return;
-      const module = new (modules as any)[key]();
+      const module = new (modules as any)[key](this);
       module.loaderModuleType = moduleType;
       result.push(module);
     });

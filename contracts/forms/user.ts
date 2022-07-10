@@ -1,7 +1,7 @@
 import { ILoaderModule } from "../../contracts/loader";
 import { UserController } from "../controllers/user";
 import { BaseForm, IFormSettings } from "../form";
-import { IInputSettings, InputFactory, InputType } from "../input";
+import { IInputSettings, InputFactory, InputSubType, InputType } from "../input";
 import { IMessage, MessageType } from "../message";
 
 const fields: IInputSettings[] = [
@@ -9,7 +9,8 @@ const fields: IInputSettings[] = [
     label: "Email",
     placeholder: "name@example.com",
     key: "email",
-    type: InputType.EMAIL,
+    type: InputType.INPUT,
+    subType: InputSubType.TEXT,
     validation: (value: any) => {
       if (value == null) return "Please provide your email";
       if (value.length == 0) return "Please provide your email";
@@ -19,7 +20,8 @@ const fields: IInputSettings[] = [
   InputFactory.createDefaultInput({
     label: "Password",
     key: "password",
-    type: InputType.PASSWORD,
+    type: InputType.INPUT,
+    subType: InputSubType.PASSWORD,
     validation: (value: any) => {
       if (value == null) return "Passwords should have a length of 3 or longer";
       if (value.length < 1) return "Passwords should have a length of 3 or longer";
@@ -52,7 +54,8 @@ export class RegisterForm extends BaseForm implements ILoaderModule, IFormSettin
     const inviteInput = InputFactory.createDefaultInput({
       label: "Invite Code",
       key: "invite",
-      type: InputType.TEXT,
+      type: InputType.INPUT,
+subType: InputSubType.TEXT,
       validation: (value: any) => {
         if (value != "p" && value != "g") return "Bad invite code";
         return null;
@@ -72,13 +75,15 @@ const profileFields: IInputSettings[] = [
     key: "id",
     dataField: true,
     hasLabel: false,
-    type: InputType.TEXT,
+    type: InputType.INPUT,
+subType: InputSubType.TEXT,
   }),
   InputFactory.createDefaultInput({
     label: "Name",
     placeholder: "Your name please :)",
     key: "name",
-    type: InputType.TEXT,
+    type: InputType.INPUT,
+subType: InputSubType.TEXT,
   }),
 ];
 export class ProfileForm extends BaseForm implements ILoaderModule, IFormSettings {

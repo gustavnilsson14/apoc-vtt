@@ -1,8 +1,14 @@
-export interface ICustomListSettings {
+import { IFormSettings } from './form';
+import { IHasToolTip } from './../frontend/src/infrastructure/tooltip';
+export interface ICustomListSettings extends IHasToolTip {
   indexes: ICustomListIndex[];
   headers?: boolean;
   controller?: string;
   onClick?: Function;
+  ignoreLoadOnAttached?: boolean;
+  expandable?: boolean;
+  expansionFormSettings?: IFormSettings;
+  noProvision?: boolean;
 }
 export interface ICustomListIndex {
   label: string;

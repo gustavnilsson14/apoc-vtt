@@ -1,67 +1,80 @@
-import { IBase } from "../contracts/base";
-
-export interface IDamageType extends IBase {
+export enum DamageType{
+  SMASH = "SMASH",
+  CUT = "CUT",
+  STAB = "STAB",
+  PAIN = "PAIN",
+  GUN = "GUN",
+  BURST = "BURST",
+  BLAST = "BLAST",
+  OOZE = "OOZE",
+  NUKE = "NUKE",
+  LIGHT = "LIGHT",
+  NEURAL = "NEURAL",
+  VOLT = "VOLT",
+}
+export interface IDamageType {
+  damageType: DamageType,
   name: string;
   description: string;
 }
 export const damageTypes: IDamageType[] = [
   {
-    id: "Smash",
+    damageType: DamageType.SMASH,
     name: "Smash",
     description: "Blunt force trauma",
   },
   {
-    id: "Cut",
+    damageType: DamageType.CUT,
     name: "Cut",
     description: "Sharp edge lacerations",
   },
   {
-    id: "Stab",
+    damageType: DamageType.STAB,
     name: "Stab",
     description: "Pierce and puncture wounds",
   },
   {
-    id: "Pain",
+    damageType: DamageType.PAIN,
     name: "Pain",
     description: "Skin ripping, bites and gores",
   },
   {
-    id: "Gun",
+    damageType: DamageType.GUN,
     name: "Gun",
     description: "Bullet shock damage",
   },
   {
-    id: "Burst",
+    damageType: DamageType.BURST,
     name: "Burst",
     description: "Multiple rapid bullet shocks",
   },
   {
-    id: "Blast",
+    damageType: DamageType.BLAST,
     name: "Blast",
     description: "Wide area or explosive",
   },
   {
-    id: "Ooze",
+    damageType: DamageType.OOZE,
     name: "Ooze",
     description: "Putrid, infectious or fungal",
   },
   {
-    id: "Nuke",
+    damageType: DamageType.NUKE,
     name: "Nuke",
     description: "Radiation or decay damage",
   },
   {
-    id: "Light",
+    damageType: DamageType.LIGHT,
     name: "Light",
     description: "Purifying, or heat damage",
   },
   {
-    id: "Neural",
+    damageType: DamageType.NEURAL,
     name: "Neural",
     description: "Emotional, or brain damage",
   },
   {
-    id: "Volt",
+    damageType: DamageType.VOLT,
     name: "Volt",
     description: "Shock, or circuit damage",
   },

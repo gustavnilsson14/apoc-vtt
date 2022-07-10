@@ -1,0 +1,50 @@
+roll-result{
+  display: flex;
+  flex-direction: column;
+  font-family: "source";
+  label{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    text-transform: uppercase;
+    font-family: 'source';
+  }
+  results{
+    display: flex;
+    flex-direction: row;
+    die-results{
+      display: flex;
+      flex-direction: row;
+      die-result{
+        display: flex;
+        position: relative;
+        font-size: 24px;
+        width: 44px;
+        height: 44px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-right: 0px;
+        justify-content: center;
+        align-items: center;
+        color: white;
+      }
+    }
+    total-result, 
+    check-result{
+      color: black;
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      &::before{
+        content: "=";
+        margin: 0 4px;
+      }
+    }
+    check-result{
+      &::before{
+        content: "<";
+      }
+    }
+  } 
+}

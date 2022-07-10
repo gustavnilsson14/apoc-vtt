@@ -8,21 +8,30 @@ import { Client } from "../../../infrastructure/client";
 @inject(Client, EventAggregator)
 export class CustomForm {
   @bindable settings: IFormSettings;
-  @bindable result: any;
+  @bindable result: any = {};
   @bindable data: any;
   @bindable errorText: string;
   @bindable successText: string;
+  @bindable onSubmit: any;
+  ignoreChanges: boolean = false;
   constructor(private client: Client, private eventAggregator: EventAggregator) {}
-  dataChanged() {
+  binding(){
+    this.ignoreChanges = true;
     this.result = { ...this.data };
+    this.ignoreChanges = false;
   }
-  submit(event): void {
-    event.preventDefault();
+  resultChanged() {
+    if (this.ignoreChanges) return;
+    if(this.settings.autoSave != true) return;
+    this.submit();
+  }
+  submit(event: any = null): void {
+    if(event) event.preventDefault();
     this.errorText = null;
-    this.eventAggregator.subscribeOnce(`${MessageType.ERROR}_UserController`, (message: IMessage) => {
+    this.eventAggregator.subscribeOnce(`${MessageType.ERROR}_${this.settings.controller}`, (message: IMessage) => {
       this.errorText = (message.data as IError).error;
     });
-    this.eventAggregator.subscribeOnce(`${MessageType.RESPONSE}_UserController`, (message: IMessage) => {
+    this.eventAggregator.subscribeOnce(`${MessageType.RESPONSE}_${this.settings.controller}`, (message: IMessage) => {
       this.successText = this.settings.successText;
     });
     const message: IMessage = MessageFactory.clientMessage(
@@ -31,7 +40,8 @@ export class CustomForm {
       this.settings.controller,
       this.result
     );
-    message.validatorName = (this.settings as BaseForm).constructor.name;
+    if(this.onSubmit) this.onSubmit();
+    message.validatorName = (this.settings as BaseForm).constructor.name;    
     this.client.send(message);
   }
 }

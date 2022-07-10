@@ -13,7 +13,20 @@ export enum LoaderModuleType {
 export interface ILoaderModule {
   name: string;
   loaderModuleType: LoaderModuleType;
+  loaderObject: any;
   handleMessage(message: IMessage, session: ISession): IMessage;
+}
+export class BaseLoaderModule implements ILoaderModule{
+  name: string;
+  loaderModuleType: LoaderModuleType;
+  loaderObject: any;
+  constructor(loaderObject: any = null){
+    this.loaderObject = loaderObject;
+  }
+  handleMessage(message: IMessage, session: ISession): IMessage {
+    throw new Error("Method not implemented.");
+  }
+
 }
 export interface IController extends ILoaderModule {
   collection: IModel[];

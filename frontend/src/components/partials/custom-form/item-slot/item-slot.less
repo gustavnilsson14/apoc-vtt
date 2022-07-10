@@ -4,8 +4,35 @@ item-slot {
     width: 140px;
     height: 140px;
     border: 1px solid black;
+    position: relative;
     &.selected-true {
       background-color: #e5ffe5;
+    }
+    &::before,
+    &::after{
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 5px;
+      top: 70px;
+      left: 70px;
+      transform: rotate(0deg);
+      transition: all 0.5s;
+      border: 0px solid black;
+    }
+    &.broken-true{
+      &::before,
+      &::after{
+        left: 0px;
+        display: flex;
+        border: 5px solid black;
+        height: 5px;
+        width: 100%;
+        transform: rotate(45deg);
+      }
+      &::after{
+        transform: rotate(-45deg);
+      }
     }
   }
 }

@@ -1,3 +1,4 @@
+import { BaseLoaderModule } from './loader';
 import { IInputSettings, ILabeledKey } from "./input";
 import { ILoaderModule, LoaderModuleType } from "../contracts/loader";
 import { IMessage, MessageType } from "./message";
@@ -8,22 +9,24 @@ export interface IFormSettings extends ILabeledKey {
   submitTitle: string;
   clearOnSuccess?: boolean;
   successText?: string;
+  displayLabel?: boolean;
+  ignoreChange?: boolean;
   inputs: IInputSettings[];
+  autoSave?: boolean;
   getInputsByGroup(group: string): IInputSettings[];
   validate(message: IMessage): string[];
 }
 
-export class BaseForm implements ILoaderModule, IFormSettings {
+export class BaseForm extends BaseLoaderModule implements ILoaderModule, IFormSettings {
   public static iLoaderModuleType: LoaderModuleType = LoaderModuleType.FORM;
-  public name: string;
-  public loaderModuleType: LoaderModuleType;
   public messageType: MessageType;
   public controller: string;
   public submitTitle: string;
   public inputs: IInputSettings[];
   public label: string;
   public key: string;
-  constructor() {
+  constructor(loaderObject: any = null) {
+    super(loaderObject);
     this.name = this.constructor.name;
   }
   handleMessage(message: IMessage): IMessage {

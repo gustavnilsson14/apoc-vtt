@@ -1,0 +1,17 @@
+<template>
+  <label>
+    <name if.bind="rollResult.rollable.owner != undefined">${rollResult.rollable.owner.name}</name>
+    <reason>${rollResult.rollable.name}</reason>
+  </label>
+  <results>
+    <die-results>
+      <die-result repeat.for="dieResult of rollResult.dieResults" if.bind="dieResult.diceType != 'NONE'" style="background-image: url(${getDieImage(dieResult.diceType)})">
+        ${dieResult.result}
+      </die-result>
+    </die-results>
+    <total-result if.bind="!rollResult.rollable.difficulty">${rollResult.totalResult}</total-result>
+    <check-result if.bind="rollResult.rollable.difficulty">
+      ${rollResult.rollable.difficulty} ${success ? "SUCCESS" : "FAILURE"}
+    </check-result>
+  </results>
+</template>

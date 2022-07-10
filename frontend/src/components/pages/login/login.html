@@ -1,7 +1,12 @@
 <template>
   <require from="../../partials/custom-form/custom-form"></require>
   <content>
-    <custom-form settings.bind="loginSettings" result.two-way="loginFormResult"> </custom-form>
-    <custom-form settings.bind="registerSettings" result.two-way="registerFormResult"> </custom-form>
+    <custom-form settings.bind="loginSettings" result.two-way="loginFormResult">
+    </custom-form>
+    <custom-form
+      settings.bind="registerSettings"
+      result.two-way="registerFormResult"
+    >
+    </custom-form>
   </content>
 </template>

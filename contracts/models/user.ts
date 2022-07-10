@@ -1,3 +1,4 @@
+import { ICharacter } from './character';
 import { IModel } from "../model";
 
 export enum UserType {
@@ -17,6 +18,7 @@ export class User implements IUser {
   password: string;
   email: string;
   userType: UserType;
+  selectedCharacterId?: string;
   id: string;
   lastChanged?: Date;
 }

@@ -1,14 +1,15 @@
 <form action="">
   <require from="./custom-input/custom-input"></require>
-  <h2>${settings.label}</h2>
+  <require from="./custom-select/custom-select"></require>
+  <h2 if.bind="settings.displayLabel != false">${settings.label}</h2>
   <custom-input
-    repeat.for="input of settings.inputs"
     if.bind="input.dataField != true"
+    repeat.for="input of settings.inputs"
     settings.bind="input"
     result.two-way="result"
     data.bind="data"
   ></custom-input>
   <error if.bind="errorText">${errorText}</error>
   <response if.bind="successText">${successText}</response>
-  <button class="btn btn-primary" click.delegate="submit($event)">${settings.submitTitle}</button>
+  <button if.bind="settings.autoSave != true" class="btn btn-primary" click.delegate="submit($event)">${settings.submitTitle}</button>
 </form>

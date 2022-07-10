@@ -1,0 +1,14 @@
+<template>
+    <require from="./tile/tile"></require>
+    <require from="./battle-hud/battle-hud"></require>
+    <button if.bind="!currentBattle" click.delegate="createBattle()">Create battle</button>
+    <current-battle if.bind="!!currentBattle">
+        <grid-container if.bind="!!currentBattle.grid">
+            <grid>
+                <tile repeat.for="tile of currentBattle.grid.tiles" tile.bind="tile" battle.bind="currentBattle" message.two-way="currentMessage" style="${getTilePosition(tile)}"></tile>
+            </grid>
+        </grid-container>
+        
+        <battle-hud battle.bind="currentBattle" message.two-way="currentMessage"></battle-hud>
+    </current-battle>
+</template>

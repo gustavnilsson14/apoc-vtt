@@ -1,16 +1,15 @@
 import { EventPipeline } from "../shared/event";
 import { ISession } from "../shared/session";
-import { ILoaderModule, IProvider, ISubscription, LoaderModuleType, SubscriptionFactory } from "./loader";
+import { BaseLoaderModule, ILoaderModule, IProvider, ISubscription, LoaderModuleType, SubscriptionFactory } from "./loader";
 import { IMessage, MessageFactory, MessageType } from "./message";
 import { Guid } from "../shared/guid";
 
-export class BaseProvider implements ILoaderModule, IProvider {
-  public name: string;
+export class BaseProvider extends BaseLoaderModule implements ILoaderModule, IProvider {
   public subscribers: ISubscription[] = [];
-  public loaderModuleType: LoaderModuleType;
   public static iLoaderModuleType: LoaderModuleType = LoaderModuleType.PROVIDER;
 
-  constructor() {
+  constructor(loaderObject: any = null) {
+    super(loaderObject);
     this.name = this.constructor.name;
   }
   handleMessage(message: IMessage, session: ISession): IMessage {
@@ -31,11 +30,9 @@ export class BaseProvider implements ILoaderModule, IProvider {
     });
   }
   unSubsribe(subscription: ISubscription, originalMessage: IMessage): IMessage {
-    console.log("subscription", subscription);
     const subToRemove: ISubscription | undefined = this.subscribers.find((subscriber) => {
       return subscriber.key == subscription.key && subscriber.session.id == subscription.session.id;
     });
-    console.log("subToRemove", subToRemove);
 
     if (subToRemove == undefined) return MessageFactory.error("No such subscription", originalMessage, this);
     this.subscribers = this.subscribers.filter((s) => s.id != subToRemove.id);

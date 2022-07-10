@@ -1,3 +1,10 @@
+import { bodies, BodySize, IBodyTemplate } from './../../collections/body';
+import { IAsset } from './asset';
+import { IHasStats } from './../stats';
+import { RollableHandler } from './../../shared/random';
+import { Character } from './../../frontend/src/components/pages/character/character';
+import { OwnedItem } from './../../collections/items';
+import { IIcon } from './../base';
 import { IModel } from "../model";
 import { IOwnedItem } from "./user";
 import { IItem, itemList } from "../../collections/items";
@@ -14,31 +21,14 @@ export enum BackgroundType {
   SYNTHETIC = 6,
 }
 
-export interface ICharacter extends IModel, IOwnedItem {
+export interface ICharacter extends IModel, IHasStats, IOwnedItem, IBodyTemplate {
   name: string;
-  background: BackgroundType;
-  level: number;
-  experience: number;
-  strength: number;
-  dexterity: number;
-  will: number;
-  endurance: number;
   maxEndurance: number;
+  background: BackgroundType;
   weaknesses: IDamageType[];
   skills: ITacticalAction[];
   gambits: ITacticalAction[];
-  mainHand: IItem | undefined;
-  offHand: IItem | undefined;
-  upperBody: IItem | undefined;
-  lowerBody: IItem | undefined;
-  belt: IItem | undefined;
-  legs: IItem | undefined;
-  pack1: IItem | undefined;
-  pack2: IItem | undefined;
-  pack3: IItem | undefined;
-  pack4: IItem | undefined;
-  pack5: IItem | undefined;
-  pack6: IItem | undefined;
+  assetIds: string[];
 }
 export class CharacterFactory {
   public static random(): ICharacter {
@@ -46,7 +36,7 @@ export class CharacterFactory {
     const dexterity = this.getRandomStat();
     const will = this.getRandomStat();
     const endurance = strength + dexterity + will + 10;
-    const character = {
+    let character: ICharacter = {
       id: "",
       name: getRandomName(),
       background: BackgroundType.ANDROID,
@@ -60,19 +50,12 @@ export class CharacterFactory {
       weaknesses: getRandomWeaknesses(),
       skills: [],
       gambits: [],
-      mainHand: itemList.find((item) => item.name == "CROWBAR"),
-      offHand: undefined,
-      upperBody: undefined,
-      lowerBody: undefined,
-      belt: undefined,
-      legs: undefined,
-      pack1: undefined,
-      pack2: undefined,
-      pack3: undefined,
-      pack4: undefined,
-      pack5: undefined,
-      pack6: undefined,
+      assetIds: [],
+      bodyName: '',
+      size: BodySize.TINY,
+      itemSlots: []
     };
+    character = Object.assign(character, bodies.find(x => x.bodyName == "Human"));
     return character;
   }
   public static getRandomStat(): number {

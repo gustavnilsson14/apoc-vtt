@@ -1,6 +1,6 @@
 character-form {
   font-family: "source";
-  stats {
+  >stats {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 5px;
@@ -24,8 +24,9 @@ character-form {
           text-align: center;
           padding: 0;
           border: 0px;
-          width: 50%;
+          width: 50px;
           height: 50%;
+          font-size: 22px;
           justify-self: left;
           &:focus {
             background-color: transparent;
@@ -80,18 +81,17 @@ character-form {
     }
   }
   inventory {
-    display: flex;
-    flex-direction: row;
-    row-gap: 10px;
-    justify-content: space-between;
-    > * {
+    custom-input{
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 140px 140px 140px 140px;
       grid-template-rows: 1fr 1fr 1fr;
-    }
-    readied-inventory {
-    }
-    pack-inventory {
+      grid-auto-flow: column;
+      justify-content: center;
+      item-slot{
+        
+  align-self: center;
+  justify-self: center;
+      }
     }
   }
 }

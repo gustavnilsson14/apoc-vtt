@@ -1,18 +1,14 @@
 <template>
   <require from="./item-stat/item-stat"></require>
-  <background style="background-image: url(${getImage()})"></background>
-  <header><icon style="background-image: url(${getIcon()})"></icon> <label class="${getHeaderFontSize()}">${value.name}</label></header>
-  <damage-types if.bind="value.damageTypes != null">
-    <type repeat.for="damageType of value.damageTypes">${damageType}</type>
+  <background style="background-image: url(${image})"></background>
+  <header><icon style="background-image: url(${icon})"></icon> <label class="${getHeaderFontSize()}">${getItem().name}</label></header>
+  <damage-types if.bind="getItem().damageTypes != null">
+    <type repeat.for="damageType of getItem().damageTypes">${damageType}</type>
   </damage-types>
   <stats>
-    <item-stat repeat.for="stat of value.stats" index.bind="$index" stat-type.bind="stat" item.two-way="value" editable.bind="editable"></item-stat>
+    <item-stat repeat.for="stat of getItem().stats" is-item-slot.bind="isItemSlot" item-index.bind="index" index.bind="$index" stat-type.bind="stat" value.two-way="value" editable.bind="editable"></item-stat>
   </stats>
   <skill>
-    <box></box>
-    <box></box>
-    <box></box>
-    <box></box>
-    <box></box>
+    <box repeat.for="skillSlot of skillSlots" click.delegate="setSkill($event, $index)" class="filled-${skillSlot}"></box>
   </skill>
 </template>

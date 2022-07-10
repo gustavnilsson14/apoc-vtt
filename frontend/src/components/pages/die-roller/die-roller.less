@@ -1,57 +1,9 @@
 die-roller {
   position: relative;
-  controls {
-    display: flex;
-    justify-content: space-between;
-  }
-  roll-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 50px);
-    grid-template-rows: repeat(auto-fit, 50px);
-    grid-column-gap: 5px;
-    grid-row-gap: 5px;
-    justify-content: center;
-    height: calc(100% - 98px);
-    align-content: center;
-    dice {
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      result {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        font-size: 24px;
-        font-weight: bold;
-        color: black;
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: white;
-        height: 100%;
-      }
-    }
-  }
-  total-result {
-    display: block;
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-    font-family: "source";
-    font-size: 48px;
-  }
-
   other-results {
     position: absolute;
-    bottom: 0px;
-    right: 0px;
     display: flex;
     flex-direction: column-reverse;
-    other-result {
-      display: block;
-      text-align: right;
-      width: 180px;
-      padding: 5px;
-      font-size: 11px;
-    }
+    bottom:0px;
   }
 }

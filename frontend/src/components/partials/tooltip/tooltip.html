@@ -1,0 +1,6 @@
+<template>
+  <inner ref="innerNode" style="top:${pos.y + pos.height}px;left:${pos.x}px;" class="tooltipVisible-${visible}">
+    <text if.bind="tooltip.tooltipSource == 'TEXT'">${tooltip.tooltipText}</text>
+    <text if.bind="tooltip.tooltipSource == 'PATH'">${tooltipTextFromPath}</text>
+  </inner> 
+</template>
