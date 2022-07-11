@@ -22,7 +22,7 @@ import { ControlIcon } from "../battle-hud/control-icon/control-icon";
 import { Client } from "../../../../infrastructure/client";
 import { UserType } from "../../../../../../contracts/models/user";
 
-@inject(Client, EventAggregator, SelectionHandler)
+@inject(Client, EventAggregator, SelectionHandler, Element)
 export class Tile implements ISelectable {
   id: string = Guid.newGuid();
   isSelected: boolean;
@@ -33,7 +33,8 @@ export class Tile implements ISelectable {
   constructor(
     private client: Client,
     private eventAggregator: EventAggregator,
-    private selectionHandler: SelectionHandler
+    private selectionHandler: SelectionHandler,
+    public element: Element
   ) {}
   onClick(): void {
     if (this.handlePlayerPositioning()) return;

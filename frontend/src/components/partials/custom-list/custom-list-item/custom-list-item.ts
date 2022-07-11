@@ -6,7 +6,11 @@ export class CustomListItem {
   @bindable item: any;
   @bindable settings: ICustomListSettings;
   @bindable tooltipVisible = false;
-  @bindable expanded: boolean;
+  @bindable expandedIds: string[] = [];
+  isExpanded: boolean;
+  attached() {
+    this.setExpanded();
+  }
   getCellValue(index: ICustomListIndex) {
     return getValueFromPath(this.item, index.path);
   }
@@ -17,7 +21,25 @@ export class CustomListItem {
   }
   handleExpand() {
     if (!this.settings.expandable) return;
-    this.expanded = !this.expanded;
+    this.toggleExpandedIds();
+    this.expandedIds = [...this.expandedIds];
+    this.setExpanded();
+  }
+  toggleExpandedIds() {
+    if (!this.settings.expandable) return;
+    if (this.expandedIds.find(expandedId => expandedId == this.item.id)) {
+      this.expandedIds = this.expandedIds.filter(id => id != this.item.id)
+      return;
+    }
+    this.expandedIds.push(this.item.id);
+  }
+  setExpanded(): void{
+    if (!this.settings.expandable) return;
+    if (this.expandedIds.find(expandedId => expandedId == this.item.id)) {
+      this.isExpanded = true;
+      return;
+    }
+    this.isExpanded = false;
   }
   setTooltipVisibility(value: boolean):void{
     this.tooltipVisible = value;

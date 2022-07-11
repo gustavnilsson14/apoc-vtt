@@ -1,108 +1,110 @@
 item {
-  font-family: "medula";
-  width: 140px;
-  height: 140px;
-  display: grid;
-  position: relative;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr auto;
-  &.selected-true {
-    background-color: #e5ffe5;
-  }
-  * {
-    z-index: 5;
-  }
-  background {
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: absolute;
-    width: 90px;
-    height: 90px;
-    top: 35px;
-    right: 25px;
-  }
-  header {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: row;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    border-bottom: 1px solid black;
-    height: 30px;
-    label {
-      font-size: 24px;
-      flex-grow: 1;
-      &.small {
-        font-size: 22px;
-      }
-      &.smaller {
-        font-size: 20px;
-      }
-      &.smallest {
-        font-size: 18px;
-      }
-    }
-    icon {
-      margin: 0 5px;
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      background-repeat: no-repeat;
-    }
-  }
-  stats {
-    display: flex;
-    height: 100px;
-    justify-content: end;
-    align-items: flex-end;
-    align-content: baseline;
-    flex-wrap: wrap-reverse;
-    flex-direction: column-reverse;
-    grid-column-gap: 2px;
-    grid-row-gap: 2px;
-    margin-right: 2px;
-  }
-  damage-types {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    font-size: 24px;
-    margin-left: 2px;
-    type {
-      line-height: 22px;
-    }
-  }
-  skill {
+  inner {
+    font-family: "medula";
+    width: 140px;
+    height: 140px;
     display: grid;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-template-columns: repeat(5, 1fr);
-    box {
+    position: relative;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    &.selected-true {
+      background-color: #e5ffe5;
+    }
+    * {
+      z-index: 5;
+    }
+    background {
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      top: 35px;
+      right: 25px;
+    }
+    header {
       display: flex;
-      position: relative;
-      flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      height: 10px;
-      border-top: 1px solid black;
-      border-right: 1px solid black;
-      &.filled-true::before,
-      &.filled-true::after{
-        content: "";
+      flex-direction: row;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      border-bottom: 1px solid black;
+      height: 30px;
+      label {
+        font-size: 24px;
+        flex-grow: 1;
+        &.small {
+          font-size: 22px;
+        }
+        &.smaller {
+          font-size: 20px;
+        }
+        &.smallest {
+          font-size: 18px;
+        }
+      }
+      icon {
+        margin: 0 5px;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background-repeat: no-repeat;
+      }
+    }
+    stats {
+      display: flex;
+      height: 100px;
+      justify-content: end;
+      align-items: flex-end;
+      align-content: baseline;
+      flex-wrap: wrap-reverse;
+      flex-direction: column-reverse;
+      grid-column-gap: 2px;
+      grid-row-gap: 2px;
+      margin-right: 2px;
+    }
+    damage-types {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      font-size: 24px;
+      margin-left: 2px;
+      type {
+        line-height: 22px;
+      }
+    }
+    skill {
+      display: grid;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      grid-template-columns: repeat(5, 1fr);
+      box {
         display: flex;
-        position: absolute;
-        border: 1px solid black;
-        height: 1px;
-        width: 100%;
-        transform: rotate(10deg) translateY(-50%);
-      }
-      &.filled-true::after{
-        transform: rotate(350deg) translateY(-50%);
-      }
-      &:last-child {
-        border-right: 0px solid black;
+        position: relative;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 10px;
+        border-top: 1px solid black;
+        border-right: 1px solid black;
+        &.filled-true::before,
+        &.filled-true::after {
+          content: "";
+          display: flex;
+          position: absolute;
+          border: 1px solid black;
+          height: 1px;
+          width: 100%;
+          transform: rotate(10deg) translateY(-50%);
+        }
+        &.filled-true::after {
+          transform: rotate(350deg) translateY(-50%);
+        }
+        &:last-child {
+          border-right: 0px solid black;
+        }
       }
     }
   }

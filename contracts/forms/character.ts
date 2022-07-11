@@ -20,6 +20,10 @@ const fields: IInputSettings[] = [
     type: InputType.INPUT,
     subType: InputSubType.TEXT,
     group: "base-info",
+    validation: (value: any) => {
+      if (value == null) return "You need a name for this new character!";
+      return null;
+    },
   }),
   InputFactory.createDefaultInput({
     label: "background",

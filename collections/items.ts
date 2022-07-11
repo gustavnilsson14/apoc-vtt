@@ -1,7 +1,4 @@
-import { IRollable, RollableHandler } from "./../shared/random";
-import { ISelectable } from "../frontend/src/infrastructure/selection";
-import { DiceType } from "../contracts/models/dice";
-import { IHasStats } from "../contracts/stats";
+
 
 export enum ItemType {
   MELEE = "MELEE",
@@ -43,54 +40,6 @@ export interface IItem {
   horizontal: boolean;
   image: string;
 }
-export class OwnedItem implements IItem, ISelectable, IRollable {
-  name: string;
-  type: ItemType;
-  stats: StatType[];
-  filledSlots?: number[];
-  damageTypes?: string[];
-  hasSkill?: boolean;
-  skill?: number;
-  size: ItemSize;
-  horizontal: boolean;
-  image: string;
-  isSelected: boolean;
-  selectionGroup: string;
-  owner: IHasStats | undefined;
-  constructor(item: IItem | undefined, owner: IHasStats | undefined = undefined) {
-    if(item == undefined) return;
-    Object.assign(this, item);
-    this.owner = owner;
-  }
-  getBaseDice(rollableHandler: RollableHandler | null): DiceType[] {
-    const result: DiceType[] = [];
-    if(!rollableHandler) return result;
-    if (this.hasSkill && this.skill) {
-      result.push(rollableHandler.numberToDieType(this.skill));
-    }
-    if (this.owner) {
-      result.push(rollableHandler.numberToDieType(this.owner.level));
-    }
-    let diceType: DiceType = DiceType.NONE;
-    
-    this.stats.forEach((statType, index) => {
-      if (statType == StatType.DURABILITY) return;
-      if (statType == StatType.EFFECT){
-        diceType = rollableHandler.advanceDiceType(diceType);
-        return;
-      }
-      if (!this.filledSlots) {
-        diceType = rollableHandler.advanceDiceType(diceType);
-        return;
-      }
-      if(this.filledSlots.indexOf(index) != -1) return;
-      diceType = rollableHandler.advanceDiceType(diceType);
-    });
-    result.push(diceType);
-    return result;
-  }
-}
-export interface ISelectableItem extends IItem, ISelectable {}
 export const itemList: IItem[] = [
   {
     name: "KNIFE",

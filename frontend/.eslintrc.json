@@ -9,6 +9,18 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
+  "rules": {
+    "no-debugger":"off",
+    "no-console":"off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-explicit-any": "off",
+    "@typescript-eslint/no-inferrable-types": [
+      "off",
+      {
+        "ignoreParameters": true
+      }
+    ]
+  },
   "parserOptions": {
     "ecmaVersion": 2019,
     "sourceType": "module"

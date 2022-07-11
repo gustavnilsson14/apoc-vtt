@@ -1,8 +1,9 @@
+import { BasePage } from './../../../../infrastructure/view';
 import { bindable } from "aurelia";
 import { IItem } from "../../../../../../collections/items";
 import { IItemSlot } from "../../../../../../contracts/input";
 
-export class ItemSlotsSetter {
+export class ItemSlotsSetter extends BasePage {
   @bindable public value: IItemSlot[];
   @bindable index: number;
 

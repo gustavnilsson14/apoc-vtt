@@ -88,7 +88,7 @@
       SAVE
     </button>
   </character-form>
-  <div if.bind="selectedCharacter">
+  <div if.bind="selectedCharacter && operation == 'EDIT'">
     <custom-form
       on-submit.call="onVehicleCreation()"
       settings.bind="createVehicleFormSettings"
@@ -97,6 +97,7 @@
     <custom-list
       ids.bind="selectedCharacterAssetIds"
       settings.bind="selectedCharacterAssetsListSettings"
+      expanded-ids.two-way="selectedCharacterAssetsListExpanded"
     ></custom-list>
   </div>
 </template>

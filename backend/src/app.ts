@@ -47,6 +47,7 @@ export class App {
       throw new Error(`iLoaderModule == null, ${JSON.stringify(message)}`);
     }
     const validationResult: IMessage | null = this.validate(message, iLoaderModule);
+    
     if (validationResult != null) {
       this.send(session, validationResult);
       return;

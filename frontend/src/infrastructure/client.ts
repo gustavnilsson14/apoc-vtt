@@ -28,8 +28,6 @@ export class Client {
   }
 
   public send(message: IMessage) {
-    console.log(message);
-    
     this.webSocket.send(JSON.stringify(message));
   }
 }

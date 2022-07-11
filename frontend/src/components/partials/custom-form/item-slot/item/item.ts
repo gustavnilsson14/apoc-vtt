@@ -1,9 +1,14 @@
-import { bindable } from "aurelia";
+import { bindable, EventAggregator, inject } from "aurelia";
 import { IItem } from "../../../../../../../collections/items";
+import { Client } from "../../../../../infrastructure/client";
+import { ISelectable, SelectionHandler } from "../../../../../infrastructure/selection";
 import { ItemSlotsSetter } from "../itemSlotsSetter";
 
-
-export class Item extends ItemSlotsSetter {
+@inject(Client, Element)
+export class Item extends ItemSlotsSetter implements ISelectable {
+  public selectionGroup: string = "AllItems";
+  isSelected: boolean;
+  @bindable clickable: boolean = true;
   @bindable editable: boolean = false;
   @bindable icon: string;
   @bindable image: string;
@@ -11,7 +16,14 @@ export class Item extends ItemSlotsSetter {
   @bindable value: any;
   @bindable index: number;
   @bindable isItemSlot: boolean = false;
+  constructor(public client: Client, public element: Element, private selectionHandler: SelectionHandler, private eventAggregator: EventAggregator){
+    super(client);
+  }
   binding(){
+    this.isSelected = this.selectionHandler.isSelected(this);
+    this.subscribeLocal(this.eventAggregator.subscribe("SELECTION_CHANGED", () => {
+      this.isSelected = this.selectionHandler.isSelected(this);
+    }));
     this.setSkillSlots();
     this.image = this.getImage();
     this.icon = this.getIcon();
@@ -51,5 +63,9 @@ export class Item extends ItemSlotsSetter {
   public getItem(): IItem {
     if(!this.isItemSlot) return this.value as any as IItem;
     return this.value[this.index].item;
+  }
+  onClick() {
+    if(!this.clickable) return;
+    this.selectionHandler.select(this);
   }
 }

@@ -10,8 +10,8 @@
     click.delegate="onClick()"
   ></custom-list-cell>
   <custom-form
-    class="list-expansion horizontal-fields expanded-${expanded}"
-    if.bind="settings.expandable"
+    class="list-expansion horizontal-fields expanded-${isExpanded}"
+    if.bind="isExpanded"
     settings.bind="settings.expansionFormSettings"
     data.bind="item"
   ></custom-form>

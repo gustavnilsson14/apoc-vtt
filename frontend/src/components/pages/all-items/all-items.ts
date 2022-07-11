@@ -1,14 +1,13 @@
-import { RollableHandler } from './../../../../../shared/random';
+import { IItem } from './../../../../../collections/items';
 import { bindable, EventAggregator, inject } from "aurelia";
-import { ISelectableItem, itemList } from "../../../../../collections/items";
-import { SelectionHandler } from "../../../infrastructure/selection";
+import { itemList } from "../../../../../collections/items";
 
-@inject(EventAggregator, SelectionHandler, RollableHandler)
+@inject(EventAggregator)
 export class AllItems {
-  @bindable allItems: ISelectableItem[];
-  @bindable visibleItems: ISelectableItem[];
+  @bindable allItems: IItem[];
+  @bindable visibleItems: IItem[];
   @bindable searchText: string;
-  constructor(private eventAggregator: EventAggregator, private selectionHandler: SelectionHandler) {
+  constructor(private eventAggregator: EventAggregator) {
     this.allItems = itemList.map((item) => {
       return {
         ...item,
@@ -30,8 +29,5 @@ export class AllItems {
       }
       return results.filter(x => x == true).length > 0;
     });
-  }
-  itemClicked(item: ISelectableItem) {
-    this.selectionHandler.select(item);
   }
 }

@@ -1,13 +1,7 @@
 import { bodies, BodySize, IBodyTemplate } from './../../collections/body';
-import { IAsset } from './asset';
 import { IHasStats } from './../stats';
-import { RollableHandler } from './../../shared/random';
-import { Character } from './../../frontend/src/components/pages/character/character';
-import { OwnedItem } from './../../collections/items';
-import { IIcon } from './../base';
 import { IModel } from "../model";
 import { IOwnedItem } from "./user";
-import { IItem, itemList } from "../../collections/items";
 import { damageTypes, IDamageType } from "../../collections/damageType";
 import { maleFirstNames, femaleFirstNames, lastNames } from "../../collections/names";
 import { getRandomInt, getRandomFrom } from "../../shared/random";

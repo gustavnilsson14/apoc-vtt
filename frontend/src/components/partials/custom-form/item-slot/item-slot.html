@@ -1,8 +1,8 @@
 <template>
   <require from="./item/item-stat/item-stat"></require>
   <require from="./item/item"></require>
-  <item-inner class="selected-${isSelected} broken-${broken}" click.delegate="onClick()">
+  <item-inner class="selected-${isSelected} broken-${broken}" click.delegate="onClick()" contextmenu.delegate="onRightClick($event)">
     <header if.bind="!value[index].item">${value[index].name}</header>
-    <item if.bind="value[index].item" item.bind="value[index].item" value.two-way="value" is-item-slot.bind="true" index.bind="index" editable.bind="true"> </item>
+    <item if.bind="value[index].item" item.bind="value[index].item" value.two-way="value" is-item-slot.bind="true" index.bind="index" editable.bind="true" clickable.bind="false"> </item>
   </item-inner>
 </template>

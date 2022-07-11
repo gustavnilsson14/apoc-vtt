@@ -1,14 +1,15 @@
+import { Item } from './item/item';
 import { IHasStats } from './../../../../../../contracts/stats';
-import { ICharacter } from './../../../../../../contracts/models/character';
 import { IItemSlot, IItemSlotsInputSettings } from './../../../../../../contracts/input';
 import { IItem, ItemType, StatType } from './../../../../../../collections/items';
-import { RollableHandler, IRollable } from './../../../../../../shared/random';
+import { RollableHandler } from './../../../../../../shared/random';
 import { bindable, EventAggregator, inject } from "aurelia";
 import { ISelectable, SelectionHandler } from "../../../../infrastructure/selection";
 import { ItemSlotsSetter } from './itemSlotsSetter';
 import { DiceType } from '../../../../../../contracts/models/dice';
+import { Client } from '../../../../infrastructure/client';
 
-@inject(EventAggregator, SelectionHandler)
+@inject(EventAggregator, SelectionHandler, Element, Client)
 export class ItemSlot extends ItemSlotsSetter implements ISelectable {
   @bindable public settings: IItemSlotsInputSettings;
   @bindable isSelected: boolean;
@@ -18,19 +19,27 @@ export class ItemSlot extends ItemSlotsSetter implements ISelectable {
   @bindable broken: boolean = false;
   @bindable onClickCallback;
   name: string;
-  constructor(private eventAggregator: EventAggregator, private selectionHandler: SelectionHandler) {
-    super();
+  constructor(private eventAggregator: EventAggregator, private selectionHandler: SelectionHandler, public element: Element, public client: Client) {
+    super(client);
   }
+  
   binding(){
     this.handleBreakage();
+    this.isSelected = this.selectionHandler.isSelected(this);
+    this.subscribeLocal(this.eventAggregator.subscribe("SELECTION_CHANGED", () => {
+      this.isSelected = this.selectionHandler.isSelected(this);
+    }));
     if(!this.getItem()) return;
     this.name = this.getItem().name;
   }
   public onClick(): void {
-    this.handleRollable();
-    if (this.selectionHandler.selected?.selectionGroup == "ItemSlot") this.handleMoveItem();
-    if (this.selectionHandler.selected?.selectionGroup == "AllItems") this.handleNewItem();
+    if (this.selectionHandler.getSelected()?.selectionGroup == "ItemSlot") this.handleMoveItem();
+    if (this.selectionHandler.getSelected()?.selectionGroup == "AllItems") this.handleNewItem();
     if (this.getItem()) this.selectionHandler.select(this);
+  }
+  public onRightClick(e): void {
+    e.preventDefault();
+    this.handleRollable();
   }
   handleRollable() {
     if (this.value[this.index].rollable != true) 
@@ -44,8 +53,8 @@ export class ItemSlot extends ItemSlotsSetter implements ISelectable {
     return true;
   }
   handleMoveItem() {
-    const selectedItemSlot: ItemSlot = this.selectionHandler.selected as ItemSlot;
-    if (this.equals(selectedItemSlot as ItemSlot)) return;
+    const selectedItemSlot: ItemSlot = this.selectionHandler.getSelected() as ItemSlot;
+    if (this.selectionHandler.getCssPath(selectedItemSlot) == this.selectionHandler.getCssPath(this)) return;
     if (selectedItemSlot.getItem() == undefined) return;
     
     const myItem: IItem = this.getItem();
@@ -58,8 +67,9 @@ export class ItemSlot extends ItemSlotsSetter implements ISelectable {
     this.setItem(otherItem);
   }
   handleNewItem() {
-    if(!this.validateItemType({...this.selectionHandler.selected} as any)) return;
-    this.setItem({...this.selectionHandler.selected} as any);
+    const item: IItem = (this.selectionHandler.getSelected() as Item).getItem();
+    if(!this.validateItemType(item)) return;
+    this.setItem({...item} as IItem);
   }
   public validateItemType(item: IItem): boolean {
     if (item == null) return true;
