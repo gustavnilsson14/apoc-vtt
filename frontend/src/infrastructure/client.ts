@@ -12,6 +12,7 @@ export class Client {
     });
   }
   connect() {
+    //this.webSocket = new WebSocket("ws://185.229.225.204:8080");
     this.webSocket = new WebSocket("ws://localhost:8080");
     this.webSocket.onmessage = (event) => {
       const message: IMessage = JSON.parse(event.data);
