@@ -20,7 +20,8 @@ export class CharacterController extends MyController {
       return MessageFactory.error("Character does not belong to you", message, this);
     }
     const submittedCharacter = message.data as ICharacter;
-    this.clampEndurance(submittedCharacter, parseInt(character.maxEndurance.toString()));
+    if (character.maxEndurance)
+      this.clampEndurance(submittedCharacter, parseInt(character.maxEndurance.toString()));
     message.data = submittedCharacter;
     return super.edit(session, message);
   }
