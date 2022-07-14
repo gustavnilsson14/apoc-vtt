@@ -21,6 +21,7 @@ import { Client } from "../../../infrastructure/client";
 import { ModelViewState } from "../../../infrastructure/view";
 import { ICustomListSettings } from "../../../../../contracts/list";
 import { bodies } from '../../../../../collections/body';
+import { IItem, ItemType } from '../../../../../collections/items';
 
 @inject(Client, EventAggregator, RollableHandler, HasStatsHandler)
 export class Character extends BasePage {
@@ -32,7 +33,7 @@ export class Character extends BasePage {
   @bindable characterListSettings: ICustomListSettings = {
     indexes: [
       { label: "name", path: "name" },
-      { label: "background", path: "background" },
+      { label: "background", path: "background.occupation" },
       { label: "level", path: "level" },
     ],
     controller: CharacterController.name,
@@ -136,6 +137,7 @@ export class Character extends BasePage {
     this.client.send(MessageFactory.request(AssetController.name, { id: "", ids: this.selectedCharacter.assetIds } as IBatchRequest));
   }
   @bindable onItemSlotClick(itemSlot: ItemSlot): void{
+    if(!itemSlot.getItem()) return;
     const newRollable: IRollable = {
       name: `${this.selectedCharacter.name} ${itemSlot.name}`,
       getBaseDice: () : DiceType[]=>{

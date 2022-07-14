@@ -1,3 +1,4 @@
+import { IHasToolTip } from './../frontend/src/infrastructure/tooltip';
 import { IItem, ItemType } from "../collections/items";
 import { ICustomListSettings } from "./list";
 
@@ -31,11 +32,13 @@ export interface IInputSettings extends ILabeledKey {
 export interface IDefaultInputSettings extends IInputSettings {
   placeholder?: string;
 }
-export interface ISelectInputSettings extends IInputSettings {
+export interface ISelectInputSettings extends IInputSettings, IHasToolTip {
+  labelIndex: string;
   options: any[];
   isTemplate: boolean;
 }
 export interface IMultipleSelectInputSettings extends IInputSettings {
+  labelIndex: string;
   options: any[];
   listSettings: ICustomListSettings;
 }
@@ -73,10 +76,18 @@ export class DefaultInput extends BaseInput implements IDefaultInputSettings {
   public placeholder?: string;
 }
 export class SelectInput extends BaseInput implements ISelectInputSettings {
+  labelIndex: string;
   options: any[];
   isTemplate: boolean;
+  public getInputValue(data: any): any {
+    if (!data) return null;
+    if (!data.hasOwnProperty(this.key)) return null;
+    const item: any = this.options.find(x => JSON.stringify(data[this.key]) == JSON.stringify(x));
+    return item;
+  }
 }
 export class MultipleSelectInput extends BaseInput implements IMultipleSelectInputSettings {
+  labelIndex: string;
   options: any[];
   listSettings: ICustomListSettings;
 }

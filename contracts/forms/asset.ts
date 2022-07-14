@@ -12,6 +12,7 @@ import {
 const addVehicleFields: IInputSettings[] = [
   InputFactory.createSelectInput({
     label: "Vehicle",
+    labelIndex: "name",
     key: "vehicle",
     options: vehicleList,
     type: InputType.SELECT,
@@ -34,6 +35,14 @@ const editVehicleFields: IInputSettings[] = [
     readonly: true,
     type: InputType.INPUT,
     subType: InputSubType.TEXT,
+    group: "",
+  }),
+  InputFactory.createDefaultInput({
+    label: "Seats",
+    key: "seats",
+    readonly: true,
+    type: InputType.INPUT,
+    subType: InputSubType.NUMBER,
     group: "",
   }),
   InputFactory.createDefaultInput({

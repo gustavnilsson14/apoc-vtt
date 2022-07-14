@@ -1,8 +1,0 @@
-<template>
-  <require from="../../custom-list/custom-list"></require>
-  <label if.bind="settings.hasLabel != false" for="${settings.key}" class="form-label">${settings.label}</label>
-  <select value.bind="selected">
-    <option>${settings.label}</option>
-    <option repeat.for="item of settings.options" value="${$index}">${item.name}</option>
-  </select>
-</template>

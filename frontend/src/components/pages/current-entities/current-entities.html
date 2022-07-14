@@ -1,0 +1,33 @@
+<template>
+  <require
+    from="../../partials/custom-form/custom-input/custom-input"
+  ></require>
+  <require from="../../partials/custom-list/custom-list"></require>
+  <require from="../../partials/custom-form/custom-form"></require>
+  <custom-input
+    if.bind="enemySelectSettings.dataField != true"
+    settings.bind="enemySelectSettings"
+    result.two-way="enemyResult"
+    data.bind="enemyData"
+  ></custom-input>
+  <button class="btn btn-primary" click.delegate="addSelected()">ADD</button>
+  <entities>
+    <entity repeat.for="entity of entities">
+      <button click.delegate="removeEntity($index)">X</button>
+      <custom-form
+        settings.bind="enemyFormSettings"
+        result.bind="{}"
+        data.bind="entity"
+      >
+      </custom-form>
+      <custom-list
+        data.bind="entity.attacks"
+        settings.bind="attackListSettings"
+      ></custom-list>
+      <custom-list
+        data.bind="entity.actions"
+        settings.bind="actionListSettings"
+      ></custom-list>
+    </entity>
+  </entities>
+</template>

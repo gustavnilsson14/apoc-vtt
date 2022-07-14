@@ -43,6 +43,8 @@ export class UserController extends BaseController {
     session.view = {
       name: "main",
     };
+    console.log(MessageFactory.message(MessageType.SESSION, this, { ...session }));
+    
     return MessageFactory.message(MessageType.SESSION, this, { ...session });
   }
   public static verifyOwnerShip(session: IUserSession, item: IOwnedItem): boolean {

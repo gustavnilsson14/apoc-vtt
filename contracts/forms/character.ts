@@ -1,3 +1,4 @@
+import { allBackgroundsList } from './../../collections/backgrounds';
 import { ILoaderModule } from "../../contracts/loader";
 import { CharacterController } from "../controllers/character";
 import { BaseForm, IFormSettings } from "../form";
@@ -25,13 +26,16 @@ const fields: IInputSettings[] = [
       return null;
     },
   }),
-  InputFactory.createDefaultInput({
+  InputFactory.createSelectInput({
     label: "background",
-    placeholder: "",
+    labelIndex: "occupation",
     key: "background",
-    type: InputType.INPUT,
-    subType: InputSubType.TEXT,
+    options: allBackgroundsList,
+    type: InputType.SELECT,
     group: "base-info",
+    isTemplate: false,
+    tooltipSource: TooltipSourceType.PATH,
+    tooltipPaths: ["tribe", "occupationDescription"]
   }),
   InputFactory.createDefaultInput({
     label: "level",
@@ -100,6 +104,7 @@ const fields: IInputSettings[] = [
   }),
   InputFactory.createMultipleSelectInput({
     label: "Select weaknesses",
+    labelIndex: "name",
     key: "weaknesses",
     options: damageTypes,
     type: InputType.MULTIPLESELECT,
@@ -107,12 +112,13 @@ const fields: IInputSettings[] = [
     listSettings: {
       headers: false,
       indexes: [{ label: "weakness", path: "name" }],
-      tooltipPath: "description",
+      tooltipPaths: ["description"],
       tooltipSource: TooltipSourceType.PATH,
     },
   }),
   InputFactory.createMultipleSelectInput({
     label: "Select skills",
+    labelIndex: "name",
     key: "skills",
     options: skillActions,
     type: InputType.MULTIPLESELECT,
@@ -120,12 +126,13 @@ const fields: IInputSettings[] = [
     listSettings: {
       headers: false,
       indexes: [{ label: "skill", path: "name" }],
-      tooltipPath: "description",
+      tooltipPaths: ["description"],
       tooltipSource: TooltipSourceType.PATH,
     },
   }),
   InputFactory.createMultipleSelectInput({
     label: "Select gambits",
+    labelIndex: "name",
     key: "gambit",
     options: gambitActions,
     type: InputType.MULTIPLESELECT,
@@ -133,7 +140,7 @@ const fields: IInputSettings[] = [
     listSettings: {
       headers: false,
       indexes: [{ label: "gambit", path: "name" }],
-      tooltipPath: "description",
+      tooltipPaths: ["description"],
       tooltipSource: TooltipSourceType.PATH,
     },
   }),

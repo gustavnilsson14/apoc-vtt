@@ -1,0 +1,51 @@
+current-entities {
+  entities {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    row-gap: 5px;
+    column-gap: 5px;
+    margin-bottom: 200px;
+    entity {
+      display: block;
+      padding: 8px;
+      border: 1px solid black;
+      custom-form {
+        display: block;
+        margin-top: 10px;
+        form {
+          display: grid;
+          row-gap: 4px;
+          column-gap: 4px;
+          grid-template-columns: repeat(2, 1fr);
+          h2 {
+            display: contents;
+          }
+          custom-input {
+            display: flex;
+            flex-direction: row;
+            &:first-of-type {
+              grid-column-start: 1;
+              grid-column-end: 3;
+              inner {
+                width: 100%;
+                input {
+                  text-align: center;
+                  text-transform: uppercase;
+                }
+              }
+            }
+            label.form-label {
+              line-height: 28px;
+              margin: 0;
+              margin-right: 12px;
+              text-transform: uppercase;
+            }
+            input {
+              height: 28px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

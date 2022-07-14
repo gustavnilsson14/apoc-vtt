@@ -1,7 +1,12 @@
 import { ILoaderModule } from "../../contracts/loader";
 import { UserController } from "../controllers/user";
 import { BaseForm, IFormSettings } from "../form";
-import { IInputSettings, InputFactory, InputSubType, InputType } from "../input";
+import {
+  IInputSettings,
+  InputFactory,
+  InputSubType,
+  InputType,
+} from "../input";
 import { IMessage, MessageType } from "../message";
 
 const fields: IInputSettings[] = [
@@ -24,13 +29,17 @@ const fields: IInputSettings[] = [
     subType: InputSubType.PASSWORD,
     validation: (value: any) => {
       if (value == null) return "Passwords should have a length of 3 or longer";
-      if (value.length < 1) return "Passwords should have a length of 3 or longer";
+      if (value.length < 1)
+        return "Passwords should have a length of 3 or longer";
       return null;
     },
   }),
 ];
 
-export class LoginForm extends BaseForm implements ILoaderModule, IFormSettings {
+export class LoginForm
+  extends BaseForm
+  implements ILoaderModule, IFormSettings
+{
   messageType: MessageType = MessageType.LOGIN;
   controller: string = UserController.name;
   submitTitle: string = "Login";
@@ -41,7 +50,10 @@ export class LoginForm extends BaseForm implements ILoaderModule, IFormSettings 
     throw new Error("Method not implemented.");
   }
 }
-export class RegisterForm extends BaseForm implements ILoaderModule, IFormSettings {
+export class RegisterForm
+  extends BaseForm
+  implements ILoaderModule, IFormSettings
+{
   messageType: MessageType = MessageType.ADD;
   controller: string = UserController.name;
   submitTitle: string = "Register";
@@ -55,7 +67,7 @@ export class RegisterForm extends BaseForm implements ILoaderModule, IFormSettin
       label: "Invite Code",
       key: "invite",
       type: InputType.INPUT,
-subType: InputSubType.TEXT,
+      subType: InputSubType.TEXT,
       validation: (value: any) => {
         if (value != "p" && value != "g") return "Bad invite code";
         return null;
@@ -70,26 +82,20 @@ subType: InputSubType.TEXT,
 
 const profileFields: IInputSettings[] = [
   InputFactory.createDefaultInput({
-    label: "ID",
-    placeholder: "Your name please :)",
-    key: "id",
-    dataField: true,
-    hasLabel: false,
-    type: InputType.INPUT,
-subType: InputSubType.TEXT,
-  }),
-  InputFactory.createDefaultInput({
     label: "Name",
     placeholder: "Your name please :)",
     key: "name",
     type: InputType.INPUT,
-subType: InputSubType.TEXT,
+    subType: InputSubType.TEXT,
   }),
 ];
-export class ProfileForm extends BaseForm implements ILoaderModule, IFormSettings {
+export class ProfileForm
+  extends BaseForm
+  implements ILoaderModule, IFormSettings
+{
   messageType: MessageType = MessageType.EDIT;
   controller: string = UserController.name;
-  submitTitle: string = "Profile";
+  submitTitle: string = "Update Profile";
   inputs: IInputSettings[] = [...profileFields];
   label: string = "Profile";
   key: string = "profileForm";

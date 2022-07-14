@@ -6,6 +6,6 @@ export enum TooltipSourceType{
 export interface IHasToolTip{
     tooltipSource?: TooltipSourceType;
     tooltipText?: string;
-    tooltipPath?: string;
+    tooltipPaths?: string[];
     tooltipVisible?: boolean;
 }

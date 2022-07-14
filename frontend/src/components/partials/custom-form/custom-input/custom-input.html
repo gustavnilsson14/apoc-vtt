@@ -1,5 +1,6 @@
 <template>
   <require from="../item-slot/item-slot"></require>
+  <require from="../../tooltip/tooltip"></require>
   <label
     if.bind="settings.hasLabel != false"
     for="${settings.key}"
@@ -7,27 +8,40 @@
     click.delegate="onLabelClick({settings: settings, value: value})"
     >${settings.label}</label
   >
-  <input
-    if.bind="settings.type == 'INPUT'"
-    disabled.bind="settings.readonly"
-    type="${settings.subType}"
-    class="form-control"
-    id="${settings.key}"
-    placeholder="${settings.placeholder || ''}"
-    value.bind="value"
-  />
-  <select if.bind="settings.type == 'SELECT'" value.bind="value">
-    <option>${settings.label}</option>
-    <option repeat.for="item of settings.options" value="${$index}">
-      ${item.name}
-    </option>
-  </select>
-  <item-slot
-    if.bind="settings.type == 'ITEMSLOTS'"
-    repeat.for="itemSlot of data[settings.key]"
-    settings.bind="settings"
-    value.two-way="value"
-    index.bind="$index"
-    on-click-callback.call="onClickCallback($event)"
-  ></item-slot>
+  <inner class="${settings.type.toLowerCase()}">
+    <input
+      if.bind="settings.type == 'INPUT'"
+      disabled.bind="settings.readonly"
+      type="${settings.subType}"
+      class="form-control"
+      id="${settings.key}"
+      placeholder="${settings.placeholder || ''}"
+      value.bind="value" />
+    <select
+      if.bind="settings.type == 'SELECT'"
+      value.bind="value"
+      mouseover.delegate="setTooltipVisibility(true)"
+      mouseout.delegate="setTooltipVisibility(false)"
+    >
+      <option disabled model.bind="null">${settings.label}</option>
+      <option repeat.for="item of settings.options" model.bind="item">
+        ${item[settings.labelIndex]}
+      </option>
+    </select>
+    <item-slot
+      if.bind="settings.type == 'ITEMSLOTS'"
+      repeat.for="itemSlot of data[settings.key]"
+      settings.bind="settings"
+      value.two-way="value"
+      index.bind="$index"
+      on-click-callback.call="onClickCallback($event)"
+    ></item-slot>
+
+    <tooltip
+      if.bind="!!settings.tooltipSource"
+      tooltip.bind="settings"
+      visible.bind="tooltipVisible"
+      data.bind="data[settings.key]"
+    ></tooltip
+  ></inner>
 </template>

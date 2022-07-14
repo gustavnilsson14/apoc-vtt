@@ -1,4 +1,4 @@
-import { IBackground, tribes, ITribe } from './../../collections/backgrounds';
+import { IBackground, tribesList, ITribe, allBackgroundsList } from './../../collections/backgrounds';
 import { bodies, BodySize, IBodyTemplate } from './../../collections/body';
 import { IHasStats } from './../stats';
 import { IModel } from "../model";
@@ -19,7 +19,7 @@ export enum BackgroundType {
 export interface ICharacter extends IModel, IHasStats, IOwnedItem, IBodyTemplate {
   name: string;
   maxEndurance: number;
-  background: string;
+  background: IBackground;
   weaknesses: IDamageType[];
   skills: ITacticalAction[];
   gambits: ITacticalAction[];
@@ -34,7 +34,7 @@ export class CharacterFactory {
     let character: ICharacter = {
       id: "",
       name: getRandomName(),
-      background: "",
+      background: getRandomFrom(allBackgroundsList),
       level: 1,
       experience: 0,
       strength: strength,
@@ -77,14 +77,5 @@ function getRandomName(): string {
     firstNames = femaleFirstNames;
   }
   return `${getRandomFrom(firstNames)} ${getRandomFrom(lastNames)}`;
-}
-function getRandomBackground(): IBackground {
-  const tribe: ITribe = getRandomFrom(tribes);
-  const occupation = getRandomFrom(tribe.occupations);
-  return {
-    tribe: tribe.name,
-    tribeDescription: tribe.description,
-    occupation: occupation
-  };
 }
 

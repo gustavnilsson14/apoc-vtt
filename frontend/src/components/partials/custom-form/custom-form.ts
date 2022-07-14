@@ -27,6 +27,7 @@ export class CustomForm {
   }
   submit(event: any = null): void {
     if(event) event.preventDefault();
+    if (this.settings.noSave) return;
     this.errorText = null;
     this.eventAggregator.subscribeOnce(`${MessageType.ERROR}_${this.settings.controller}`, (message: IMessage) => {
       this.errorText = (message.data as IError).error;

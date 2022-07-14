@@ -1,8 +1,0 @@
-<template>
-    <require from="./combatant-info/combatant-info"></require>
-    <require from="./combatant-controls/combatant-controls"></require>
-    <inner if.bind="tile != null">
-        <combatant-info tile.bind="tile"></combatant-info>
-        <combatant-controls if.bind="client.userSession.user.userType == 'GM' && tile.combatant != null" combatant.bind="tile.combatant" battle.bind="battle"></combatant-controls>
-    </inner>
-</template>

@@ -20,6 +20,7 @@ export class Client {
       if (message.type == MessageType.ERROR) {
         console.error(message);
       }
+      
       this.eventAggregator.publish(`${message.type}_${message.handlerName}`, message);
     };
 

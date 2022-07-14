@@ -4,12 +4,11 @@
   <require from="../die-roller/die-roller"></require>
   <require from="../rulebook/rulebook"></require>
   <require from="../profile/profile"></require>
-  <require from="../battle/battle"></require>
+  <require from="../current-entities/current-entities"></require>
   <nav>
     <button click.delegate="onNav('user-profile')" class="active-${activeTab == 'user-profile'}"><label>Profile</label></button>
     <button click.delegate="onNav('rulebook')" class="active-${activeTab == 'rulebook'}"><label>Rulebook</label></button>
     <button click.delegate="onNav('play-container')" class="active-${activeTab == 'play-container'}"><label>Play</label></button>
-    <button click.delegate="onNav('battle')" class="active-${activeTab == 'battle'}"><label>Battle</label></button>
   </nav>
   <content>
     <user-profile if.bind="activeTab == 'user-profile'">
@@ -24,9 +23,9 @@
       <grid-box class="character">
         <character></character>
       </grid-box>
+      <grid-box class="current-entities">
+        <current-entities if.bind="client.userSession.user.userType == 'GM'"></current-entities>
+      </grid-box>
     </play-container>
-    <battle-container if.bind="activeTab == 'battle'">
-      <battle></battle>
-    </battle-container>
   </content>
 </template>

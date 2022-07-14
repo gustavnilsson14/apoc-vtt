@@ -2,7 +2,7 @@
   <require from="../../custom-list/custom-list"></require>
   <select value.bind="selected">
     <option>${settings.label}</option>
-    <option repeat.for="item of settings.options">${item.name}</option>
+    <option repeat.for="item of settings.options">${item[settings.labelIndex]}</option>
   </select>
   <custom-list data.bind="value" settings.bind="settings.listSettings"></custom-list>
 </template>

@@ -1,12 +1,11 @@
 import { IHasToolTip, TooltipSourceType } from './../../../infrastructure/tooltip';
 import { bindable } from "aurelia";
 import { getValueFromPath } from '../../../../../shared/object-parser';
-import { IHydratedController, LifecycleFlags } from '@aurelia/runtime-html';
 
 export class Tooltip {
   @bindable tooltip: IHasToolTip;
   @bindable data;
-  @bindable tooltipTextFromPath: string;
+  @bindable tooltipTextsFromPath: string[] = [];
   @bindable visible: boolean = false;
   @bindable innerNode: HTMLElement;
   @bindable pos: any;
@@ -16,8 +15,11 @@ export class Tooltip {
   }
   setTooltipText():void{
     if (this.tooltip.tooltipSource != TooltipSourceType.PATH) return;
-    if (!this.tooltip.tooltipPath) return;
-    this.tooltipTextFromPath = getValueFromPath(this.data, this.tooltip.tooltipPath);
+    if (!this.tooltip.tooltipPaths) return;
+    this.tooltipTextsFromPath = [];
+    this.tooltip.tooltipPaths.forEach(tooltipPath=>{
+      this.tooltipTextsFromPath.push(getValueFromPath(this.data, tooltipPath));
+    });
   }
   getBounds(): DOMRect{
     let current = this.innerNode.parentElement;

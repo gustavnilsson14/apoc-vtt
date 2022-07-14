@@ -40,8 +40,8 @@ main {
   }
   play-container {
     display: grid;
-    grid-template-columns: 440px 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 440px 600px 1fr;
+    grid-template-rows: 2fr 1fr;
     grid-column-gap: 1px;
     grid-row-gap: 1px;
     height: 100%;
@@ -53,6 +53,12 @@ main {
     &.character {
       grid-column-start: 2;
       grid-column-end: 3;
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+    &.current-entities{
+      grid-column-start: 3;
+      grid-column-end: 4;
       grid-row-start: 1;
       grid-row-end: 3;
     }

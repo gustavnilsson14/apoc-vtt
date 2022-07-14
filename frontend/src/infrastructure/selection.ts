@@ -16,18 +16,17 @@ export class SelectionHandler {
   public select(selectable: ISelectable): void {
     const newSelectedPath = this.getCssPath(selectable);
     if(this.selectedPath != newSelectedPath){
-      console.log(this.selectedPath, newSelectedPath, this.selectedPath == newSelectedPath);
-      
       this.setSelected(selectable);
       return;
     }
     this.deselect();
   }
   public getSelected(): ISelectable{
+    if (!this.selectedPath) return null;
     const base: any = document.querySelector(this.selectedPath)
-    if(!base) return null;
+    if (!base) return null;
     const au: any = base["$au"];
-    if(!au) return null;
+    if (!au) return null;
     const selected = au["au:resource:custom-element"].viewModel as ISelectable;
     return selected;
   }
@@ -39,8 +38,6 @@ export class SelectionHandler {
   public deselect() {
     this.selectedPath = "";
     this.selected = null;
-    console.log("this.selectedPath", this.selectedPath);
-    
     this.eventAggregator.publish("SELECTION_CHANGED", null);
   }
   getCssPath(selectable: ISelectable): string{

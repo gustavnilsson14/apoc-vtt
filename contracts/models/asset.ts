@@ -16,6 +16,7 @@ export interface IVehicle extends IAsset {
     integrity: number;
     maxFuel: number;
     fuel?: number;
+    seats: number;
 }
 export interface IEstate extends IAsset {
 

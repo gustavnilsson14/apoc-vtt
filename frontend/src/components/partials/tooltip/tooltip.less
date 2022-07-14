@@ -8,7 +8,7 @@ tooltip{
     position: absolute;
     z-index: 99;
     left: 0px;
-    width: 200px;
+    width: 300px;
     background-color: #eee;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -16,6 +16,9 @@ tooltip{
     display: none;
     &.tooltipVisible-true{
       display: block;
+    }
+    &.tooltipVisible-false{
+      display: none;
     }
     text{
       position: relative;

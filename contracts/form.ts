@@ -13,6 +13,7 @@ export interface IFormSettings extends ILabeledKey {
   ignoreChange?: boolean;
   inputs: IInputSettings[];
   autoSave?: boolean;
+  noSave?: boolean;
   getInputsByGroup(group: string): IInputSettings[];
   validate(message: IMessage): string[];
 }

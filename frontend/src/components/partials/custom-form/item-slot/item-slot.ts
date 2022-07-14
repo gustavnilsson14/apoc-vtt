@@ -85,11 +85,18 @@ export class ItemSlot extends ItemSlotsSetter implements ISelectable {
   }
   
   public getBaseDice(rollableHandler: RollableHandler | null, owner: IHasStats): DiceType[] {
+    if(!rollableHandler) return [];
+    const item = this.getItem();
+    if(!item) return [];
+    if(item.type == ItemType.MAGIC)
+      return this.getMagicBaseDice(item, owner, rollableHandler);
+    return this.getRegularBaseDice(item, owner, rollableHandler);
+    
+  }
+  getRegularBaseDice(item: IItem, owner: IHasStats, rollableHandler: RollableHandler): DiceType[] {
     const result: DiceType[] = [];
-    if(!this.getItem()) return result;
-    if(!rollableHandler) return result;
-    if (this.getItem().hasSkill && this.getItem().skill) {
-      result.push(rollableHandler.numberToDieType(this.getItem().skill));
+    if (item.hasSkill && item.skill) {
+      result.push(rollableHandler.numberToDieType(item.skill));
     }
     result.push(rollableHandler.numberToDieType(owner.level));
     let diceType: DiceType = DiceType.NONE;
@@ -100,14 +107,20 @@ export class ItemSlot extends ItemSlotsSetter implements ISelectable {
         diceType = rollableHandler.advanceDiceType(diceType);
         return;
       }
-      if (!this.getItem().filledSlots) {
+      if (!item.filledSlots) {
         diceType = rollableHandler.advanceDiceType(diceType);
         return;
       }
-      if(this.getItem().filledSlots.indexOf(index) != -1) return;
+      if(item.filledSlots.indexOf(index) != -1) return;
       diceType = rollableHandler.advanceDiceType(diceType);
     });
     result.push(diceType);
     return result;
   }
+  getMagicBaseDice(item: IItem, owner: IHasStats, rollableHandler: RollableHandler): DiceType[] {
+    item.filledSlots.push(item.stats.length- item.filledSlots.length - 1);
+    this.setItem({...item} as IItem);
+    return [DiceType.D8,DiceType.D8];
+  }
+  
 }

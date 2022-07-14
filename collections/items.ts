@@ -15,6 +15,19 @@ export enum ItemType {
   CYBERNETICS = "CYBERNETICS",
   ANY = "ANY",
 }
+export const physicalItemTypes: ItemType[] = [
+  ItemType.MELEE,
+  ItemType.RANGED,
+  ItemType.EXPLOSIVE,
+  ItemType.CONSUMABLE,
+  ItemType.TOOL,
+  ItemType.STUFF,
+  ItemType.ARTIFACT,
+  ItemType.HEADGEAR,
+  ItemType.ARMOR,
+  ItemType.SHIELD,
+  ItemType.CYBERNETICS,
+];
 export enum ItemSize {
   SMALL = "SMALL",
   LARGE = "LARGE",
@@ -1093,7 +1106,7 @@ export const itemList: IItem[] = [
   {
     name: "BOLT",
     type: ItemType.MAGIC,
-    stats: [],
+    stats: [StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY],
     damageTypes: ["VOLT"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -1103,7 +1116,7 @@ export const itemList: IItem[] = [
   {
     name: "SHOCKWAVE",
     type: ItemType.MAGIC,
-    stats: [],
+    stats: [StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY],
     damageTypes: ["VOLT"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -1113,7 +1126,7 @@ export const itemList: IItem[] = [
   {
     name: "ANEURYSM",
     type: ItemType.MAGIC,
-    stats: [],
+    stats: [StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY],
     damageTypes: ["NEURAL"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -1123,7 +1136,7 @@ export const itemList: IItem[] = [
   {
     name: "VOICES",
     type: ItemType.MAGIC,
-    stats: [],
+    stats: [StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY],
     damageTypes: ["NEURAL"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -1131,9 +1144,9 @@ export const itemList: IItem[] = [
     image: "img/items/voices.png",
   },
   {
-    name: "AUTISM",
+    name: "CONFUSION",
     type: ItemType.MAGIC,
-    stats: [],
+    stats: [StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY],
     damageTypes: ["NEURAL"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -1143,7 +1156,7 @@ export const itemList: IItem[] = [
   {
     name: "VILE MUTAGEN",
     type: ItemType.MAGIC,
-    stats: [],
+    stats: [StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY],
     damageTypes: ["OOZE"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -1153,7 +1166,7 @@ export const itemList: IItem[] = [
   {
     name: "FUNGAL GROWTH",
     type: ItemType.MAGIC,
-    stats: [],
+    stats: [StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY],
     damageTypes: ["OOZE"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -1163,7 +1176,7 @@ export const itemList: IItem[] = [
   {
     name: "ENFLAME",
     type: ItemType.MAGIC,
-    stats: [],
+    stats: [StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY],
     damageTypes: ["LIGHT"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -1173,7 +1186,7 @@ export const itemList: IItem[] = [
   {
     name: "EXPLOSION",
     type: ItemType.MAGIC,
-    stats: [],
+    stats: [StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY],
     damageTypes: ["LIGHT"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -1183,7 +1196,7 @@ export const itemList: IItem[] = [
   {
     name: "IRRADIATE",
     type: ItemType.MAGIC,
-    stats: [],
+    stats: [StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY],
     damageTypes: ["NUKE"],
     hasSkill: true,
     size: ItemSize.SMALL,
@@ -1193,7 +1206,7 @@ export const itemList: IItem[] = [
   {
     name: "MELT",
     type: ItemType.MAGIC,
-    stats: [],
+    stats: [StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY,StatType.DURABILITY],
     damageTypes: ["NUKE"],
     hasSkill: true,
     size: ItemSize.SMALL,
