@@ -3,6 +3,6 @@
   <require from="./custom-list-item/custom-list-item"></require>
   <custom-list-inner style="grid-template-columns: repeat(${settings.indexes.length}, 1fr)">
     <custom-list-header if.bind="settings.headers != false" settings.bind="settings"></custom-list-header>
-    <custom-list-item repeat.for="item of data" data-id="${item.id}" item.bind="item" settings.bind="settings" expanded-ids.two-way="expandedIds"></custom-list-item>
+    <custom-list-item repeat.for="item of data" data-id="${item.id}" item.bind="item" settings.bind="settings" index.bind="$index" expanded-ids.two-way="expandedIds"></custom-list-item>
   </custom-list-inner>
 </template>

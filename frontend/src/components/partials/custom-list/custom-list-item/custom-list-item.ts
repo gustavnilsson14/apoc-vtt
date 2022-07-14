@@ -4,6 +4,7 @@ import { getValueFromPath } from "../../../../../../shared/object-parser"
 
 export class CustomListItem {
   @bindable item: any;
+  @bindable index: number;
   @bindable settings: ICustomListSettings;
   @bindable tooltipVisible = false;
   @bindable expandedIds: string[] = [];
@@ -18,6 +19,11 @@ export class CustomListItem {
     this.handleExpand();
     if (this.settings.onClick == null) return;
     this.settings.onClick(this.item.id);
+  }
+  onContext(e): void {
+    if (this.settings.onContext == null) return;
+    e.preventDefault();
+    this.settings.onContext(this.item, this.index);
   }
   handleExpand() {
     if (!this.settings.expandable) return;

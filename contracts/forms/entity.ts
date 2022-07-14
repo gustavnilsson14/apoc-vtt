@@ -1,3 +1,4 @@
+import { Tooltip } from './../../frontend/src/components/partials/tooltip/tooltip';
 import { ILoaderModule } from "../../contracts/loader";
 import { UserController } from "../controllers/user";
 import { BaseForm, IFormSettings } from "../form";
@@ -8,6 +9,7 @@ import {
   InputType,
 } from "../input";
 import { IMessage, MessageType } from "../message";
+import { TooltipSourceType } from '../../frontend/src/infrastructure/tooltip';
 
 const fields: IInputSettings[] = [
   InputFactory.createDefaultInput({
@@ -17,6 +19,8 @@ const fields: IInputSettings[] = [
     readonly: true,
     type: InputType.INPUT,
     subType: InputSubType.TEXT,
+    tooltipPaths: ["description"],
+    tooltipSource: TooltipSourceType.PATH
   }),
   InputFactory.createDefaultInput({
     label: "strength",

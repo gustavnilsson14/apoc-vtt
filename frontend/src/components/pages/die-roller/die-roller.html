@@ -1,7 +1,7 @@
 <template>
   <require from="./roll-result/roll-result"></require>
+  <roll-result if.bind="myResult" roll-result.bind="myResult"></roll-result>
   <other-results>
     <roll-result repeat.for="otherResult of otherResults" roll-result.bind="otherResult"></roll-result>
   </other-results>
-  <roll-result if.bind="myResult" roll-result.bind="myResult"></roll-result>
 </template>

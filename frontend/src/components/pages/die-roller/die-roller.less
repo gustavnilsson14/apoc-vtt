@@ -1,8 +1,18 @@
 die-roller {
   position: relative;
+  >roll-result{
+    position: fixed;
+    background: white;
+    border-bottom: 1px solid black;
+    z-index: 999;
+  }
+  roll-result{
+    width: 420px;
+  }
   other-results {
-    position: absolute;
     display: flex;
+    margin-top: 60px;
+    height: calc(100% - 60px);
     flex-direction: column-reverse;
     bottom:0px;
   }

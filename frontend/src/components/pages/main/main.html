@@ -5,6 +5,7 @@
   <require from="../rulebook/rulebook"></require>
   <require from="../profile/profile"></require>
   <require from="../current-entities/current-entities"></require>
+  <require from="../notes/notes"></require>
   <nav>
     <button click.delegate="onNav('user-profile')" class="active-${activeTab == 'user-profile'}"><label>Profile</label></button>
     <button click.delegate="onNav('rulebook')" class="active-${activeTab == 'rulebook'}"><label>Rulebook</label></button>
@@ -25,6 +26,10 @@
       </grid-box>
       <grid-box class="current-entities">
         <current-entities if.bind="client.userSession.user.userType == 'GM'"></current-entities>
+        <notes if.bind="client.userSession.user.userType == 'PLAYER'"></notes>
+      </grid-box>
+      <grid-box>
+        <notes if.bind="client.userSession.user.userType == 'GM'"></notes>
       </grid-box>
     </play-container>
   </content>

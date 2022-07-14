@@ -1,10 +1,11 @@
+import { DiceType } from './../contracts/models/dice';
 import { ICombatant } from "./../contracts/models/battle";
 import { IItem } from "./items";
 import { DamageType, IDamageType } from "./damageType";
 
 export interface IAttack {
   name: string;
-  damage: string;
+  damage: string | DiceType[];
   damageTypes: DamageType[];
 }
 export interface ICreatureAction {
@@ -1019,12 +1020,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Sawblade",
-        damage: "3-1-1",
+        damage: [DiceType.D8,DiceType.D4,DiceType.D4],
         damageTypes: [DamageType.CUT, DamageType.PAIN],
       },
       {
         name: "Throw stuff",
-        damage: "1-1-1",
+        damage: [DiceType.D4,DiceType.D4,DiceType.D4],
         damageTypes: [DamageType.SMASH],
       },
     ],
@@ -1349,4 +1350,86 @@ export const creaturesList: ICreature[] = [
       },
     ],
   },
+  {
+    id: "Albino drinker",
+    name: "Albino drinker",
+    description:
+      "Large, white, snake-like creatures dwelling on the great salt flats. Sucks moisture straight from living creatures.",
+    image: "",
+    level: 1,
+    strength: 6,
+    dexterity: 12,
+    will: 7,
+    endurance: 34,
+    av: 0,
+    weaknesses: [
+      DamageType.CUT,
+      DamageType.NEURAL,
+      DamageType.VOLT,
+      DamageType.LIGHT,
+    ],
+    attacks: [
+      {
+        name: "Bite",
+        damage: [DiceType.D4,DiceType.D6,DiceType.D6],
+        damageTypes: [DamageType.OOZE, DamageType.PAIN],
+      },
+    ],
+    actions: [
+      {
+        name: "Bond",
+        effect:
+          "Target rolls DEX save or the drinker bonds with them. While bonded, the victim can shake the drinker off with a successful STR. If bitten when bonded, the drinker sucks 1 unit of liquid from the victim, which must be replenished.",
+      },
+      {
+        name: "Burrow",
+        effect:
+          "When in salt, the drinker may burrow, and emerge within 5 tiles at the start of the rounds last turn",
+      },
+    ],
+  },
+  {
+    id: "Pilgrim hadad",
+    name: "Pilgrim hadad",
+    description:
+      "Salt waste dwelling nomads. Pilgrims are usually bandits, and welcome strangers with bullets more often than not",
+    image: "",
+    level: 1,
+    strength: 7,
+    dexterity: 7,
+    will: 7,
+    endurance: 51,
+    av: 1,
+    weaknesses: [
+      DamageType.CUT,
+      DamageType.GUN,
+      DamageType.BURST,
+      DamageType.VOLT,
+      DamageType.LIGHT,
+    ],
+    attacks: [
+      {
+        name: "Makeshift pistol",
+        damage: [DiceType.D4,DiceType.D8,DiceType.D6],
+        damageTypes: [DamageType.GUN],
+      },
+      {
+        name: "Pipe gun",
+        damage: [DiceType.D4,DiceType.D6,DiceType.D4],
+        damageTypes: [DamageType.GUN],
+      },
+      {
+        name: "Knife",
+        damage: [DiceType.D4,DiceType.D6,DiceType.D6],
+        damageTypes: [DamageType.CUT, DamageType.STAB],
+      },
+    ],
+    actions: [
+      {
+        name: "Vanish in the winds",
+        effect:
+          "Target rolls DEX save or the drinker bonds with them. While bonded, the victim can shake the drinker off with a successful STR. If bitten when bonded, the drinker sucks 1 unit of liquid from the victim, which must be replenished.",
+      },
+    ],
+  }
 ];

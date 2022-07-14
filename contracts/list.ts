@@ -5,6 +5,7 @@ export interface ICustomListSettings extends IHasToolTip {
   headers?: boolean;
   controller?: string;
   onClick?: Function;
+  onContext?: Function;
   ignoreLoadOnAttached?: boolean;
   expandable?: boolean;
   expansionFormSettings?: IFormSettings;

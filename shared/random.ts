@@ -77,6 +77,8 @@ export class RollableHandler {
     if (!rollable) return null;
     if(rollable.getBaseDice == null) return null;
     const dice: DiceType[] = rollable.getBaseDice(this);
+    console.log("dice",dice);
+    
     const dieResults = this.rollAll(dice);
     return {
       rollable: rollable,

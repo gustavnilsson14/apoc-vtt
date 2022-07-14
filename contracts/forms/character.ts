@@ -35,7 +35,7 @@ const fields: IInputSettings[] = [
     group: "base-info",
     isTemplate: false,
     tooltipSource: TooltipSourceType.PATH,
-    tooltipPaths: ["tribe", "occupationDescription"]
+    tooltipPaths: ["background.tribe", "background.occupationDescription"]
   }),
   InputFactory.createDefaultInput({
     label: "level",

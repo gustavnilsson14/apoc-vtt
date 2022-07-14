@@ -8,6 +8,7 @@
     mouseout.delegate="setTooltipVisibility(false)"
     value.bind="getCellValue(index)"
     click.delegate="onClick()"
+    contextmenu.delegate="onContext($event)"
   ></custom-list-cell>
   <custom-form
     class="list-expansion horizontal-fields expanded-${isExpanded}"

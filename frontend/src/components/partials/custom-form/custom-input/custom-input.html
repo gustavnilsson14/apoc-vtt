@@ -16,7 +16,9 @@
       class="form-control"
       id="${settings.key}"
       placeholder="${settings.placeholder || ''}"
-      value.bind="value" />
+      value.bind="value"
+      mouseover.delegate="setTooltipVisibility(true)"
+      mouseout.delegate="setTooltipVisibility(false)" />
     <select
       if.bind="settings.type == 'SELECT'"
       value.bind="value"
@@ -35,13 +37,15 @@
       value.two-way="value"
       index.bind="$index"
       on-click-callback.call="onClickCallback($event)"
+      mouseover.delegate="setTooltipVisibility(true)"
+      mouseout.delegate="setTooltipVisibility(false)"
     ></item-slot>
 
     <tooltip
       if.bind="!!settings.tooltipSource"
       tooltip.bind="settings"
       visible.bind="tooltipVisible"
-      data.bind="data[settings.key]"
+      data.bind="data"
     ></tooltip
   ></inner>
 </template>

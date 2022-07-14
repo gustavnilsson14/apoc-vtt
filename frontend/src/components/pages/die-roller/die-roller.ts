@@ -21,7 +21,7 @@ export class DieRoller extends BasePage {
     this.subscribeRemote(DiceController.name);
     this.subscribeLocal(this.eventAggregator.subscribe(`${MessageType.PROVISION}_${DiceController.name}`, (message: IMessage) => {
       this.otherResults.unshift(message.data as IRollableResultData);
-      this.otherResults = this.otherResults.slice(0, 10);
+      this.otherResults = this.otherResults.slice(0, 25);
     }));
 
     this.subscribeLocal(this.eventAggregator.subscribe("DIE_ROLL", (rollResult: IRollableResult) => {

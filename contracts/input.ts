@@ -19,7 +19,7 @@ export enum InputSubType {
   PASSWORD = "password",
 }
 type Validator = (value: any) => string | null;
-export interface IInputSettings extends ILabeledKey {
+export interface IInputSettings extends ILabeledKey, IHasToolTip {
   type: InputType;
   subType?: InputSubType;
   readonly?: boolean;
@@ -32,7 +32,7 @@ export interface IInputSettings extends ILabeledKey {
 export interface IDefaultInputSettings extends IInputSettings {
   placeholder?: string;
 }
-export interface ISelectInputSettings extends IInputSettings, IHasToolTip {
+export interface ISelectInputSettings extends IInputSettings {
   labelIndex: string;
   options: any[];
   isTemplate: boolean;

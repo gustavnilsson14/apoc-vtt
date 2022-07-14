@@ -45,22 +45,21 @@ main {
     grid-column-gap: 1px;
     grid-row-gap: 1px;
     height: 100%;
-  }
-  grid-box {
-    background-color: white;
-    display: grid;
-    overflow-y: scroll;
-    &.character {
-      grid-column-start: 2;
-      grid-column-end: 3;
-      grid-row-start: 1;
-      grid-row-end: 3;
-    }
-    &.current-entities{
-      grid-column-start: 3;
-      grid-column-end: 4;
-      grid-row-start: 1;
-      grid-row-end: 3;
+    grid-auto-flow: column;
+    grid-box {
+      background-color: white;
+      display: grid;
+      overflow-y: scroll;
+      &.character {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 3;
+      }
+      &.current-entities{
+        grid-column-start: 3;
+        grid-column-end: 4;
+      }
     }
   }
 }

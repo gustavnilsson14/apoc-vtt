@@ -33,6 +33,7 @@ export class CustomInput {
     this.result = { ...this.result };
   }
   setTooltipVisibility(value: boolean):void{
+    if (!this.settings.tooltipPaths && !this.settings.tooltipText) return;
     this.tooltipVisible = value;
   }
 }
