@@ -4,14 +4,18 @@
   <require from="../die-roller/die-roller"></require>
   <require from="../rulebook/rulebook"></require>
   <require from="../profile/profile"></require>
+  <require from="../entity-picker/entity-picker"></require>
   <require from="../current-entities/current-entities"></require>
   <require from="../notes/notes"></require>
+  <require from="../../partials/context-menu/context-menu"></require>
   <nav>
-    <button click.delegate="onNav('user-profile')" class="active-${activeTab == 'user-profile'}"><label>Profile</label></button>
-    <button click.delegate="onNav('rulebook')" class="active-${activeTab == 'rulebook'}"><label>Rulebook</label></button>
     <button click.delegate="onNav('play-container')" class="active-${activeTab == 'play-container'}"><label>Play</label></button>
+    <button click.delegate="onNav('rulebook')" class="active-${activeTab == 'rulebook'}"><label>Rulebook</label></button>
+    <button click.delegate="onNav('user-profile')" class="active-${activeTab == 'user-profile'}"><label>Profile</label></button>
+    <button click.delegate="onLogout()" class="active-false"><label>Logout</label></button>
   </nav>
   <content>
+    <context-menu></context-menu>
     <user-profile if.bind="activeTab == 'user-profile'">
       <profile></profile>
     </user-profile>
@@ -23,13 +27,13 @@
       <grid-box><all-items></all-items></grid-box>
       <grid-box class="character">
         <character></character>
+        <entity-picker if.bind="client.user.userType == 'GM'"></entity-picker>
       </grid-box>
       <grid-box class="current-entities">
-        <current-entities if.bind="client.userSession.user.userType == 'GM'"></current-entities>
-        <notes if.bind="client.userSession.user.userType == 'PLAYER'"></notes>
+        <current-entities></current-entities>
       </grid-box>
-      <grid-box>
-        <notes if.bind="client.userSession.user.userType == 'GM'"></notes>
+      <grid-box class="notes">
+        <notes></notes>
       </grid-box>
     </play-container>
   </content>

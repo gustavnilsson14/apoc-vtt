@@ -17,6 +17,7 @@ export enum InputSubType {
   TEXT = "text",
   NUMBER = "number",
   PASSWORD = "password",
+  TEXTAREA = "TEXTAREA"
 }
 type Validator = (value: any) => string | null;
 export interface IInputSettings extends ILabeledKey, IHasToolTip {

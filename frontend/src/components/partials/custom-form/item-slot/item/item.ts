@@ -1,5 +1,5 @@
 import { bindable, EventAggregator, inject } from "aurelia";
-import { IItem } from "../../../../../../../collections/items";
+import { IItem, ItemType, StatType } from "../../../../../../../collections/items";
 import { Client } from "../../../../../infrastructure/client";
 import { ISelectable, SelectionHandler } from "../../../../../infrastructure/selection";
 import { ItemSlotsSetter } from "../itemSlotsSetter";
@@ -8,6 +8,7 @@ import { ItemSlotsSetter } from "../itemSlotsSetter";
 export class Item extends ItemSlotsSetter implements ISelectable {
   public selectionGroup: string = "AllItems";
   isSelected: boolean;
+  statsValue: number;
   @bindable clickable: boolean = true;
   @bindable editable: boolean = false;
   @bindable icon: string;
@@ -25,8 +26,13 @@ export class Item extends ItemSlotsSetter implements ISelectable {
       this.isSelected = this.selectionHandler.isSelected(this);
     }));
     this.setSkillSlots();
+    this.statsValue = this.getItemStatsValue(this.getItem());
     this.image = this.getImage();
     this.icon = this.getIcon();
+  }
+  valueChanged(){
+    if(!this.getItem()) return;
+    this.setSkillSlots();
   }
   setSkillSlots() {
     if(!this.getItem().hasSkill) return;
@@ -67,5 +73,32 @@ export class Item extends ItemSlotsSetter implements ISelectable {
   onClick() {
     if(!this.clickable) return;
     this.selectionHandler.select(this);
+  }
+  getItemStatsValue(item: IItem): number {
+    let baseValue = 0;
+    item.stats.forEach(stat => {
+      baseValue += this.getStatValue(stat);
+    });
+    return this.getValueOnItemType(item, baseValue);
+  }
+  getValueOnItemType(item: IItem, baseValue: number): number {
+    const val = item.damageTypes.length;
+    if(this.getItem().type == ItemType.STUFF) return 2;
+    if(this.getItem().type == ItemType.TOOL) return 2;
+    if(this.getItem().type == ItemType.EXPLOSIVE) return baseValue + (val * 2);
+    if(this.getItem().type == ItemType.CONSUMABLE) return Math.floor(baseValue / 2);
+    if(this.getItem().type == ItemType.MELEE) return baseValue + val;
+    if(this.getItem().type == ItemType.RANGED) return baseValue + val;
+    if(this.getItem().type == ItemType.MAGIC) return 10 + (val * 3);
+    if(this.getItem().type == ItemType.ARMOR) return baseValue + (val * 2);
+    if(this.getItem().type == ItemType.HEADGEAR) return baseValue + (val * 2);
+    if(this.getItem().type == ItemType.SHIELD) return baseValue + (val * 1);
+    if(this.getItem().type == ItemType.CYBERNETICS) return 10 + (baseValue * 3) + (val * 2);
+    if(this.getItem().type == ItemType.ARTIFACT) return 20 + (baseValue * 5);
+  }
+  getStatValue(stat: StatType): number {
+    if(stat == StatType.DURABILITY) return 1;
+    if(stat == StatType.EFFECT) return 3;
+    if(stat == StatType.QUALITY) return 4;
   }
 }

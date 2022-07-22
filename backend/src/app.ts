@@ -1,16 +1,16 @@
+const { Worker, isMainThread } = require('node:worker_threads');
 import * as WebSocket from "ws";
 import { ILoaderModule, LoaderModuleType } from "../../contracts/loader";
 import { IMessage, MessageFactory, MessageType } from "../../contracts/message";
 import { MyLoader } from "./loader";
 import { ISession } from "../../shared/session";
 import { Guid } from "../../shared/guid";
-import { BaseProvider } from "../../contracts/provider";
 import { IFormSettings } from "../../contracts/form";
 
 export class App {
   public clients: ISession[] = [];
   public sessionHandler: ILoaderModule;
-
+  public user: any;
   constructor() {
     const sessionHandler = MyLoader.I.getModule(LoaderModuleType.CONTROLLER, "UserController");
     if (sessionHandler == null) return;
@@ -29,22 +29,25 @@ export class App {
     const message: IMessage = MessageFactory.message(MessageType.SESSION, this.sessionHandler, { ...session });
     this.send(session, message);
 
-    ws.on("message", (data, isBinary: boolean) => {
+    ws.on("message", async (data, isBinary: boolean) => {
       const message: any = JSON.parse(data.toString());
       const session: ISession | undefined = this.clients.find((s) => s.socket == ws);
       if (session == undefined) return;
-      this.messageRecieved(session, message as IMessage);
+      await this.messageRecieved(session, message as IMessage);
     });
     ws.on("close", (event) => {
       const session: ISession | undefined = this.clients.find((s) => s.socket == ws);
       if (session == undefined) return;
       this.connectionClosed(session);
+      this.clients = this.clients.filter((s) => s != session);
     });
   }
-  private messageRecieved(session: ISession, message: IMessage) {
-    const iLoaderModule: ILoaderModule | null = MyLoader.I.getModule(message.handler, message.handlerName);
+  private async messageRecieved(session: ISession, message: IMessage) {
+    const iLoaderModule: ILoaderModule | null = MyLoader.I.getModule(LoaderModuleType.CONTROLLER, message.handlerName);
+    
     if (iLoaderModule == null) {
-      throw new Error(`iLoaderModule == null, ${JSON.stringify(message)}`);
+      console.log(`iLoaderModule == null, ${JSON.stringify(message)}`);
+      return;
     }
     const validationResult: IMessage | null = this.validate(message, iLoaderModule);
     
@@ -52,7 +55,8 @@ export class App {
       this.send(session, validationResult);
       return;
     }
-    this.send(session, iLoaderModule.handleMessage(message, session));
+    const response: IMessage = iLoaderModule.handleMessage(message, session)
+    await this.send(session, response);
     MyLoader.I.saveAll();
   }
   validate(message: IMessage, iLoaderModule: ILoaderModule): IMessage | null {
@@ -64,11 +68,8 @@ export class App {
     return MessageFactory.error(errors.join(", "), message, iLoaderModule);
   }
   private connectionClosed(session: ISession): void {
-    MyLoader.I.getAllModulesOfType(LoaderModuleType.PROVIDER).forEach((module) => {
-      (module as BaseProvider).unSubsribeAll(session);
-    });
+    
   }
-
   private send(session: ISession, message: IMessage | null): void {
     if (message == null) return;
     if ((message.data as ISession).socket != null) {

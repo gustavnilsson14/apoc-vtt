@@ -10,6 +10,7 @@ export interface ICustomListSettings extends IHasToolTip {
   expandable?: boolean;
   expansionFormSettings?: IFormSettings;
   noProvision?: boolean;
+  valueConverter?: Function;
 }
 export interface ICustomListIndex {
   label: string;

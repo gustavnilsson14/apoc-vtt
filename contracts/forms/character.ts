@@ -1,3 +1,5 @@
+import { WoundState } from './../stats';
+import { DamageType, IDamageType } from './../../collections/damageType';
 import { allBackgroundsList } from './../../collections/backgrounds';
 import { ILoaderModule } from "../../contracts/loader";
 import { CharacterController } from "../controllers/character";
@@ -90,10 +92,21 @@ const fields: IInputSettings[] = [
     label: "maxEndurance",
     placeholder: "",
     key: "maxEndurance",
+    readonly: true,
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
     hasLabel: false,
     group: "endurance",
+  }),
+  InputFactory.createSelectInput({
+    label: "Health",
+    hasLabel: false,
+    labelIndex: ".",
+    key: "health",
+    options: Object.values(WoundState),
+    type: InputType.SELECT,
+    group: "health",
+    isTemplate: false,
   }),
   InputFactory.createDefaultInput({
     label: "optionalTacticalActions",
@@ -104,9 +117,9 @@ const fields: IInputSettings[] = [
   }),
   InputFactory.createMultipleSelectInput({
     label: "Select weaknesses",
-    labelIndex: "name",
+    labelIndex: ".",
     key: "weaknesses",
-    options: damageTypes,
+    options: Object.values(DamageType),
     type: InputType.MULTIPLESELECT,
     group: "traits",
     listSettings: {
@@ -114,6 +127,9 @@ const fields: IInputSettings[] = [
       indexes: [{ label: "weakness", path: "name" }],
       tooltipPaths: ["description"],
       tooltipSource: TooltipSourceType.PATH,
+      valueConverter: (damageTypeIdentifiers: DamageType[]): IDamageType[] => {
+        return damageTypes.filter(x => damageTypeIdentifiers.indexOf(x.damageType) != -1); 
+      }
     },
   }),
   InputFactory.createMultipleSelectInput({

@@ -1,14 +1,17 @@
 import { bindable } from "aurelia";
 import { IInputSettings, InputType, ISelectInputSettings } from "../../../../../../contracts/input";
+import { getValueFromPath } from "../../../../../../shared/object-parser";
 
 export class CustomInput {
   @bindable settings: IInputSettings;
   @bindable result: any;
   @bindable value: any;
   @bindable data: any;
-  @bindable onClickCallback;
-  @bindable onLabelClick;
   @bindable tooltipVisible = false;
+  @bindable onLabelClickCallback;
+  @bindable onInputClickCallback;
+  @bindable onLabelContextCallback;
+  @bindable onInputContextCallback;
   ignoreChange: boolean;
   binding(): void {
     this.setValue();
@@ -35,5 +38,18 @@ export class CustomInput {
   setTooltipVisibility(value: boolean):void{
     if (!this.settings.tooltipPaths && !this.settings.tooltipText) return;
     this.tooltipVisible = value;
+  }
+  
+  getSelectOptionValue(option: any) {
+    const selectInputSettings: ISelectInputSettings = (this.settings as ISelectInputSettings);
+    return getValueFromPath(option, selectInputSettings.labelIndex);
+  }
+  private onLabelClick(e):void{
+    e.preventDefault();
+    if(this.onLabelClickCallback) this.onLabelClickCallback({settings: this.settings});
+  }
+  private onLabelContext(e):void{
+    e.preventDefault();
+    if(this.onLabelContextCallback) this.onLabelContextCallback({settings: this.settings});
   }
 }

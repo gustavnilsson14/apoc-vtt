@@ -3,6 +3,8 @@ import { IBase, IError } from "./base";
 import { ILoaderModule, LoaderModuleType } from "./loader";
 
 
+
+
 export enum MessageType {
   NONE = "NONE",
   ADD = "ADD",
@@ -16,8 +18,8 @@ export enum MessageType {
   PROVISION = "PROVISION",
   ERROR = "ERROR",
   REQUEST = "REQUEST",
-  BROADCAST = "BROADCAST",
   BATTLE = "BATTLE",
+  SUCCESS = "SUCCESS"
 }
 export interface IBatchRequest extends IBase{
   ids: string[];
@@ -25,29 +27,51 @@ export interface IBatchRequest extends IBase{
 export interface IMessage {
   timestamp: Date;
   type: MessageType;
-  handler: LoaderModuleType;
   handlerName: string;
   validatorName?: string;
   data: IBase;
 }
 export class MessageFactory {
-  public static clientMessage(messageType: MessageType, loaderModuleType: LoaderModuleType, handlerName: string, data: IBase): IMessage {
+  public static clientMessage(messageType: MessageType, handlerName: string, data: IBase): IMessage {
     return {
       timestamp: new Date(),
       type: messageType,
-      handler: loaderModuleType,
       handlerName: handlerName,
       data: data,
     };
   }
+  public static add(handlerName: string, data: IBase): IMessage {
+    return this.clientMessage(
+      MessageType.ADD,
+      handlerName,
+      data,
+    );
+  }
+  public static edit(handlerName: string, data: IBase): IMessage {
+    return this.clientMessage(
+      MessageType.EDIT,
+      handlerName,
+      data,
+    );
+  }
+  public static remove(handlerName: string, data: IBase): IMessage {
+    return this.clientMessage(
+      MessageType.REMOVE,
+      handlerName,
+      data,
+    );
+  }
   public static message(messageType: MessageType, loaderModule: ILoaderModule, data: IBase): IMessage {
-    return MessageFactory.clientMessage(messageType, loaderModule.loaderModuleType, loaderModule.name, data);
+    return MessageFactory.clientMessage(messageType, loaderModule.name, data);
   }
   public static response(loaderModule: ILoaderModule, data: IBase): IMessage {
     return MessageFactory.message(MessageType.RESPONSE, loaderModule, data);
   }
+  public static success(loaderModule: ILoaderModule): IMessage {
+    return MessageFactory.message(MessageType.SUCCESS, loaderModule, {id:""});
+  }
   public static provide(handlerName: string, data: IBase): IMessage {
-    return MessageFactory.clientMessage(MessageType.PROVISION, LoaderModuleType.PROVIDER, handlerName, data);
+    return MessageFactory.clientMessage(MessageType.PROVISION, handlerName, data);
   }
   public static error(text: string, originalMessage: IMessage, loaderModule: ILoaderModule): IMessage {
     const error: IError = {
@@ -59,16 +83,13 @@ export class MessageFactory {
   }
 
   public static request(handlerName: string, data: IBase): IMessage {
-    return MessageFactory.clientMessage(MessageType.REQUEST, LoaderModuleType.CONTROLLER, handlerName, data);
+    return MessageFactory.clientMessage(MessageType.REQUEST, handlerName, data);
   }
   
-  public static subscribe(handlerName: string): IMessage {
-    return MessageFactory.clientMessage(MessageType.SUBSCRIBE, LoaderModuleType.PROVIDER, handlerName, { id: "" });
+  public static subscribe(handlerName: string, id: string = ""): IMessage {
+    return MessageFactory.clientMessage(MessageType.SUBSCRIBE, handlerName, { id: id });
   }
-  public static unsubscribe(handlerName: string): IMessage {
-    return MessageFactory.clientMessage(MessageType.UNSUBSCRIBE, LoaderModuleType.PROVIDER, handlerName, { id: "" });
-  }
-  public static broadcast(handlerName: string, data: IBase): IMessage {
-    return MessageFactory.clientMessage(MessageType.BROADCAST, LoaderModuleType.PROVIDER, handlerName, data);
+  public static unsubscribe(handlerName: string, id: string = ""): IMessage {
+    return MessageFactory.clientMessage(MessageType.UNSUBSCRIBE,  handlerName, { id: id });
   }
 }

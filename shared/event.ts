@@ -1,9 +1,7 @@
 import { Guid } from "./guid";
 
 interface EventSubscription {
-  id: string;
   key: string;
-  group: string;
   callback: Function;
 }
 export class EventPipeline {
@@ -12,22 +10,11 @@ export class EventPipeline {
   constructor() {
     EventPipeline.I = this;
   }
-  public subscribe(key: string, group: string, callback: Function): string {
-    const existing = this.subscriptions.find((sub) => sub.key == key && sub.group == group);
-    if (existing != null) {
-      return existing.id;
-    }
-    const id = Guid.newGuid();
+  public subscribe(key: string, callback: Function): void {
     this.subscriptions.push({
-      id: id,
       key: key,
-      group: group,
       callback: callback,
     });
-    return id;
-  }
-  public unSubscribe(id: string) {
-    this.subscriptions = this.subscriptions.filter((s) => s.id != id);
   }
   public publish(key: string, data: any): void {
     this.subscriptions

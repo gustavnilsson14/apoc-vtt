@@ -9,10 +9,14 @@ export enum ModelViewState {
   EDIT = "edit",
 }
 
-@inject(Client)
+export interface IRemoteSubscription{
+  handlerName:string;
+id?:string;
+}
+
 export class BasePage{
   localSubscriptions: any[] = [];
-  remoteSubscriptions: any[] = [];
+  remoteSubscriptions: IRemoteSubscription[] = [];
 
   constructor(public client: Client){}
   public detaching(){
@@ -22,9 +26,9 @@ export class BasePage{
   public subscribeLocal(subscription: any){
     this.localSubscriptions.push(subscription);
   }
-  public subscribeRemote(key: string){
-    this.client.send(MessageFactory.subscribe(key));
-    this.remoteSubscriptions.push(key);
+  public subscribeRemote(handlerName: string, id: string = null){
+    this.client.send(MessageFactory.subscribe(handlerName, id));
+    this.remoteSubscriptions.push({handlerName:handlerName, id: id});
   }
   public unSubscribeLocal() {
     this.localSubscriptions.forEach(subscription=>{
@@ -33,8 +37,8 @@ export class BasePage{
     this.localSubscriptions = [];
   }
   public unSubscribeRemote() {
-    this.remoteSubscriptions.forEach(remoteSubscription => {
-      this.client.send(MessageFactory.unsubscribe(remoteSubscription));
+    this.remoteSubscriptions.forEach(sub => {
+      this.client.send(MessageFactory.unsubscribe(sub.handlerName, sub.id));
     });
   }
 }

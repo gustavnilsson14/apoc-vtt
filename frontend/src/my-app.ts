@@ -13,6 +13,10 @@ export class MyApp {
       this.session = session;
       this.view = session.view;
     });
+    
+    /*window.onbeforeunload = function () {
+      return 'Are you really want to perform the action?';
+    }*/
     client.connect();
   }
 }

@@ -1,3 +1,4 @@
+import { CharacterFactory } from './../models/character';
 import { MyController } from "./mycontroller";
 import { IMessage, MessageFactory } from "../message";
 import { ICharacter } from "../../contracts/models/character";
@@ -20,8 +21,8 @@ export class CharacterController extends MyController {
       return MessageFactory.error("Character does not belong to you", message, this);
     }
     const submittedCharacter = message.data as ICharacter;
-    if (character.maxEndurance)
-      this.clampEndurance(submittedCharacter, parseInt(character.maxEndurance.toString()));
+    submittedCharacter.maxEndurance = CharacterFactory.calculateMaxEndurance(submittedCharacter);
+    CharacterController.clampEndurance(submittedCharacter, parseInt(character.maxEndurance.toString()));
     message.data = submittedCharacter;
     return super.edit(session, message);
   }
@@ -35,7 +36,7 @@ export class CharacterController extends MyController {
     }
     return super.remove(session, message);
   }
-  public clampEndurance(character: ICharacter, maxEndurance: number){
+  public static clampEndurance(character: ICharacter, maxEndurance: number){
     if(!character.endurance) return;
     const endurance = parseInt(character.endurance.toString());
     character.endurance = (endurance <= maxEndurance || !endurance) ? endurance : maxEndurance;

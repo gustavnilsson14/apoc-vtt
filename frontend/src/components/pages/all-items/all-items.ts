@@ -13,6 +13,7 @@ export class AllItems {
         ...item,
         isSelected: false,
         selectionGroup: "AllItems",
+        filledSlots: 0
       };
     });
     this.visibleItems = this.allItems;

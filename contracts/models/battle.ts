@@ -88,15 +88,7 @@ export class BaseBattle implements IBattle{
 }
 
 export interface ICombatant extends IBase, IHasStats, IOwnedItem{
-  name: string;
-  weaknesses: DamageType[];
-  av: number;
-  image?: string;
-  side?: CombatantSide;
-  currentWeapon?: IItem;
-  activeTacticalAction?: ITacticalAction;
-  activeAction?: IAction;
-  activeMovement?: IMovement;
+  
 }
 export class BattleFactory{
     public static createDefaultBattle(): BaseBattle{
@@ -107,21 +99,5 @@ export class BattleFactory{
         battle.turnState = TurnState.NONE;
         battle.grid = GridFactory.createSquareGrid({x:10,y:10});
         return battle;
-    }
-    public static createCombatantFromCharacter(character: ICharacter, session: IUserSession): ICombatant{
-        const combatant: ICombatant = {
-            id: character.id,
-            name: character.name,
-            level: character.level,
-            strength: character.strength,
-            dexterity: character.dexterity,
-            will: character.will,
-            endurance: character.endurance,
-            weaknesses: character.weaknesses.map(x=>x.damageType),
-            av: 1,
-            side: CombatantSide.PLAYER,
-            userId: session.user.id
-        };
-        return combatant;
     }
 }

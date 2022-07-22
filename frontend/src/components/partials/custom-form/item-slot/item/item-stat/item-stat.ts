@@ -1,4 +1,3 @@
-import { IItemSlot } from './../../../../../../../../contracts/input';
 import { bindable } from "aurelia";
 import { IItem, IItemStat } from "../../../../../../../../collections/items";
 import { ItemSlotsSetter } from '../../itemSlotsSetter';
@@ -11,25 +10,30 @@ export class ItemStat extends ItemSlotsSetter {
   @bindable itemIndex: number;
   @bindable editable: boolean;
   @bindable isItemSlot: boolean = false;
-  binding() {
-    if (this.getItem().filledSlots == null) this.getItem().filledSlots = [];
-    if (this.getItem().filledSlots.indexOf(this.index) == -1) return;
-    this.checked = true;
+  @bindable position: number;
+  binding(){
+    this.setPosition()
+  }
+  valueChanged(){
+    this.setPosition()
+  }
+  setPosition() {
+    if (!this.getItem()) return;
+    this.position = this.getItem().stats.length - this.index - 1;
+    this.checked = (this.getItem().filledSlots > this.position);
   }
   onClick(e): void {
     if (!this.editable) return;
     e.stopPropagation();
     this.toggle();
-    this.getItem().filledSlots = [...this.getItem().filledSlots];
     this.setItem(this.getItem());
   }
   toggle() {
-    this.checked = !this.checked;
-    if (!this.checked) {
-      this.getItem().filledSlots = this.getItem().filledSlots.filter((x) => x != this.index);
+    if(this.getItem().filledSlots > this.position){
+      this.getItem().filledSlots = this.position;
       return;
     }
-    this.getItem().filledSlots.push(this.index);
+    this.getItem().filledSlots = this.position + 1;
   }
   public getItem(): IItem {
     if(!this.isItemSlot) return this.value as any as IItem;

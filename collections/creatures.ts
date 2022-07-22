@@ -1,7 +1,9 @@
-import { DiceType } from './../contracts/models/dice';
-import { ICombatant } from "./../contracts/models/battle";
-import { IItem } from "./items";
-import { DamageType, IDamageType } from "./damageType";
+import { INamedObject } from './../contracts/stats';
+import { GameEntityType, IGameEntity } from "./../contracts/models/entity";
+import { DiceType } from "./../contracts/models/dice";
+import { DamageType } from "./damageType";
+import { IHasStats } from "../contracts/stats";
+import { IBase } from "../contracts/base";
 
 export interface IAttack {
   name: string;
@@ -12,11 +14,12 @@ export interface ICreatureAction {
   name: string;
   effect: string;
 }
-export interface ICreature extends ICombatant {
+export interface ICreature extends IHasStats, INamedObject, IBase, IGameEntity {
   description: string;
   attacks: IAttack[];
   actions: ICreatureAction[];
 }
+
 export const creaturesList: ICreature[] = [
   {
     id: "straker",
@@ -28,8 +31,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 9,
     will: 14,
     endurance: 90,
+    maxEndurance: 90,
     av: 0,
-
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.LIGHT,
       DamageType.CUT,
@@ -39,12 +43,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "smack",
-        damage: "2-2-2",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D6],
         damageTypes: [DamageType.SMASH],
       },
       {
         name: "surge",
-        damage: "3-3-2",
+        damage: [DiceType.D6, DiceType.D8, DiceType.D6],
         damageTypes: [DamageType.NEURAL, DamageType.PAIN],
       },
     ],
@@ -66,7 +70,7 @@ export const creaturesList: ICreature[] = [
       {
         name: "screech",
         effect:
-          "All enemies. On failed WIL, they may not charge, and the straker may remove a dice from any attack they make.",
+          "All enemies. On failed WIL, they may not charge, and the straker may remove a dice from any attack they make. Reloads on 4",
       },
     ],
   },
@@ -80,7 +84,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 8,
     will: 4,
     endurance: 40,
+    maxEndurance: 40,
     av: 0,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.LIGHT,
       DamageType.SMASH,
@@ -127,7 +133,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 14,
     will: 9,
     endurance: 42,
+    maxEndurance: 42,
     av: 1,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.SMASH,
       DamageType.BLAST,
@@ -177,7 +185,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 3,
     will: 99,
     endurance: 30,
+    maxEndurance: 30,
     av: 0,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.CUT,
       DamageType.PAIN,
@@ -219,7 +229,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 7,
     will: 5,
     endurance: 60,
+    maxEndurance: 60,
     av: 1,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.STAB,
       DamageType.GUN,
@@ -271,7 +283,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 16,
     will: 5,
     endurance: 34,
+    maxEndurance: 34,
     av: 0,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [DamageType.SMASH, DamageType.BLAST, DamageType.LIGHT],
     attacks: [
       {
@@ -311,7 +325,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 5,
     will: 16,
     endurance: 142,
+    maxEndurance: 142,
     av: 2,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.LIGHT,
       DamageType.SMASH,
@@ -367,7 +383,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 10,
     will: 5,
     endurance: 48,
+    maxEndurance: 48,
     av: 1,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.LIGHT,
       DamageType.SMASH,
@@ -421,7 +439,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 16,
     will: 12,
     endurance: 32,
+    maxEndurance: 32,
     av: 0,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.NUKE,
       DamageType.GUN,
@@ -472,7 +492,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 12,
     will: 5,
     endurance: 50,
+    maxEndurance: 50,
     av: 1,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.STAB,
       DamageType.SMASH,
@@ -514,7 +536,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 5,
     will: 5,
     endurance: 45,
+    maxEndurance: 45,
     av: 0,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.PAIN,
       DamageType.SMASH,
@@ -559,7 +583,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 15,
     will: 4,
     endurance: 120,
+    maxEndurance: 120,
     av: 1,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.STAB,
       DamageType.CUT,
@@ -608,7 +634,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 10,
     will: 2,
     endurance: 30,
+    maxEndurance: 30,
     av: 0,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.CUT,
       DamageType.GUN,
@@ -652,7 +680,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 12,
     will: 5,
     endurance: 80,
+    maxEndurance: 80,
     av: 0,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.GUN,
       DamageType.BURST,
@@ -694,7 +724,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 12,
     will: 4,
     endurance: 122,
+    maxEndurance: 122,
     av: 0,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.GUN,
       DamageType.BURST,
@@ -748,7 +780,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 2,
     will: 4,
     endurance: 74,
+    maxEndurance: 74,
     av: 0,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [DamageType.CUT, DamageType.NUKE, DamageType.LIGHT],
     attacks: [
       {
@@ -786,7 +820,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 6,
     will: 4,
     endurance: 74,
+    maxEndurance: 74,
     av: 2,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [DamageType.CUT, DamageType.LIGHT],
     attacks: [
       {
@@ -819,7 +855,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 5,
     will: 12,
     endurance: 38,
+    maxEndurance: 38,
     av: 2,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [DamageType.SMASH, DamageType.NUKE, DamageType.LIGHT],
     attacks: [
       {
@@ -866,7 +904,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 8,
     will: 2,
     endurance: 182,
+    maxEndurance: 182,
     av: 1,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.CUT,
       DamageType.VOLT,
@@ -913,7 +953,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 4,
     will: 5,
     endurance: 224,
+    maxEndurance: 224,
     av: 3,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.BURST,
       DamageType.BLAST,
@@ -959,7 +1001,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 3,
     will: 10,
     endurance: 208,
+    maxEndurance: 208,
     av: 3,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.BURST,
       DamageType.BLAST,
@@ -1009,7 +1053,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 4,
     will: 8,
     endurance: 42,
+    maxEndurance: 42,
     av: 2,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.GUN,
       DamageType.SMASH,
@@ -1020,12 +1066,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Sawblade",
-        damage: [DiceType.D8,DiceType.D4,DiceType.D4],
+        damage: [DiceType.D8, DiceType.D4, DiceType.D4],
         damageTypes: [DamageType.CUT, DamageType.PAIN],
       },
       {
         name: "Throw stuff",
-        damage: [DiceType.D4,DiceType.D4,DiceType.D4],
+        damage: [DiceType.D4, DiceType.D4, DiceType.D4],
         damageTypes: [DamageType.SMASH],
       },
     ],
@@ -1058,7 +1104,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 14,
     will: 7,
     endurance: 108,
+    maxEndurance: 108,
     av: 2,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.GUN,
       DamageType.BURST,
@@ -1115,7 +1163,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 10,
     will: 7,
     endurance: 32,
+    maxEndurance: 32,
     av: 1,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.STAB,
       DamageType.GUN,
@@ -1160,7 +1210,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 6,
     will: 7,
     endurance: 40,
+    maxEndurance: 40,
     av: 1,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.BURST,
       DamageType.LIGHT,
@@ -1213,7 +1265,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 6,
     will: 7,
     endurance: 40,
+    maxEndurance: 40,
     av: 1,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.BURST,
       DamageType.LIGHT,
@@ -1267,7 +1321,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 8,
     will: 2,
     endurance: 182,
+    maxEndurance: 182,
     av: 1,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.CUT,
       DamageType.VOLT,
@@ -1314,7 +1370,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 8,
     will: 2,
     endurance: 182,
+    maxEndurance: 182,
     av: 1,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.CUT,
       DamageType.VOLT,
@@ -1361,7 +1419,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 12,
     will: 7,
     endurance: 34,
+    maxEndurance: 34,
     av: 0,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.CUT,
       DamageType.NEURAL,
@@ -1371,7 +1431,7 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Bite",
-        damage: [DiceType.D4,DiceType.D6,DiceType.D6],
+        damage: [DiceType.D4, DiceType.D6, DiceType.D6],
         damageTypes: [DamageType.OOZE, DamageType.PAIN],
       },
     ],
@@ -1399,7 +1459,9 @@ export const creaturesList: ICreature[] = [
     dexterity: 7,
     will: 7,
     endurance: 51,
+    maxEndurance: 51,
     av: 1,
+    gameEntityType: GameEntityType.ENEMY,
     weaknesses: [
       DamageType.CUT,
       DamageType.GUN,
@@ -1410,17 +1472,17 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Makeshift pistol",
-        damage: [DiceType.D4,DiceType.D8,DiceType.D6],
+        damage: [DiceType.D4, DiceType.D8, DiceType.D6],
         damageTypes: [DamageType.GUN],
       },
       {
         name: "Pipe gun",
-        damage: [DiceType.D4,DiceType.D6,DiceType.D4],
+        damage: [DiceType.D4, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.GUN],
       },
       {
         name: "Knife",
-        damage: [DiceType.D4,DiceType.D6,DiceType.D6],
+        damage: [DiceType.D4, DiceType.D6, DiceType.D6],
         damageTypes: [DamageType.CUT, DamageType.STAB],
       },
     ],
@@ -1428,8 +1490,8 @@ export const creaturesList: ICreature[] = [
       {
         name: "Vanish in the winds",
         effect:
-          "Target rolls DEX save or the drinker bonds with them. While bonded, the victim can shake the drinker off with a successful STR. If bitten when bonded, the drinker sucks 1 unit of liquid from the victim, which must be replenished.",
+          "The pilgrim vanishes into the winds on successful DEX. Until the end of the round, or until they attack, they cannot be affected by any actions.",
       },
     ],
-  }
+  },
 ];

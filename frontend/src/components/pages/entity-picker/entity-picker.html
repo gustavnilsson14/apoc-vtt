@@ -1,0 +1,47 @@
+<template>
+  <require
+    from="../../partials/custom-form/custom-input/custom-input"
+  ></require>
+  <require from="../../partials/custom-list/custom-list"></require>
+  <require from="../../partials/custom-form/custom-form"></require>
+  <custom-input
+    if.bind="enemySelectSettings.dataField != true"
+    settings.bind="enemySelectSettings"
+    result.two-way="enemyResult"
+    data.bind="enemyData"
+  ></custom-input>
+  <button class="btn btn-primary" click.delegate="addSelected()">ADD</button>
+  <generator>
+    <controls>
+      <label for="generatorTemplate">Add template</label>
+      <select
+        id="generatorTemplate"
+        change.delegate="addTag($event)"
+        onfocus="this.selectedIndex = -1;"
+      >
+        <option repeat.for="key of generatorsCollection.getProperties()">
+          ${key}
+        </option>
+      </select>
+      <label for="generatorAmount">Generate #</label>
+      <input
+        id="generatorAmount"
+        type="number"
+        value.bind="generatorAmount"
+        placeholder="Generate #"
+      />
+
+      <label for="generatorRecurse">Recurse</label>
+      <input
+        id="generatorRecurse"
+        type="checkbox"
+        checked.bind="generatorRecurse"
+      />
+    </controls>
+    <textarea value.bind="generatorString" type="text"></textarea>
+    <button class="btn btn-primary" click.delegate="getGenerated()">
+      GENERATE
+    </button>
+    <p repeat.for="val of generated">${val}</p>
+  </generator>
+</template>

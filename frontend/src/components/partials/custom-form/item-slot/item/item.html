@@ -5,6 +5,7 @@
     <header>
       <icon style="background-image: url(${icon})"></icon>
       <label class="${getHeaderFontSize()}">${getItem().name}</label>
+      <stats-value if.bind="statsValue">${statsValue}</stats-value>
     </header>
     <damage-types if.bind="getItem().damageTypes != null">
       <type repeat.for="damageType of getItem().damageTypes"
@@ -24,6 +25,7 @@
     </stats>
     <skill>
       <box
+        if.bind="getItem().hasSkill"
         repeat.for="skillSlot of skillSlots"
         click.delegate="setSkill($event, $index)"
         class="filled-${skillSlot}"

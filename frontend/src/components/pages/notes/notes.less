@@ -1,14 +1,30 @@
-notes{
-    h3{
-        text-align: center;
-        margin: 5px 0;
-        width: 100%;
-        height: 40px;
+notes {
+  height: 100%;
+  h3 {
+    text-align: center;
+    margin: 5px 0;
+    width: 100%;
+    height: 40px;
+  }
+
+  custom-form {
+      display: block;
+      height: 100%;
+    form{
+        height: 100%;
+        custom-input {
+            display: block;
+            height: calc(100% - 50px);
+          inner {
+            display: block;
+            height: 100%;
+            textarea#notes {
+                height: 100%;
+              width: calc(100% - 4px);
+            }
+          }
+        }
     }
-    textarea{
-        width: calc(100% - 4px);
-        height: calc(100% - 60px);
-        padding: 0;
-        margin: 0;
-    }
+    
+  }
 }

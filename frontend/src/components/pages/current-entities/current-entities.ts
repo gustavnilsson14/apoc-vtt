@@ -1,84 +1,158 @@
-import { EventAggregator } from 'aurelia';
-import { getRandomFrom, IRollableResult } from './../../../../../shared/random';
-import { ICustomListSettings } from './../../../../../contracts/list';
-import { EntityFormSettings } from './../../../../../contracts/forms/entity';
-import { IFormSettings } from './../../../../../contracts/form';
-import { bindable, inject } from 'aurelia';
-import { creaturesList, ICreature } from './../../../../../collections/creatures';
-import { ISelectInputSettings, InputFactory, InputType } from './../../../../../contracts/input';
-import { BasePage } from './../../../infrastructure/view';
-import { TooltipSourceType } from '../../../infrastructure/tooltip';
-import { RollableHandler } from '../../../../../shared/random';
-import { Client } from '../../../infrastructure/client';
-import { DiceType } from '../../../../../contracts/models/dice';
+import {
+  IGameEntity,
+  GameEntityType,
+} from "./../../../../../contracts/models/entity";
+import { EntityController } from "./../../../../../contracts/controllers/entity";
+import {
+  MessageFactory,
+  MessageType,
+  IMessage,
+} from "./../../../../../contracts/message";
+import { EventAggregator } from "aurelia";
+import {
+  getRandomFrom,
+  IRollable,
+} from "./../../../../../shared/random";
+import { ICustomListSettings } from "./../../../../../contracts/list";
+import {
+  CharacterEntityFormSettings,
+  GMEnemyFormSettings,
+  PlayerEnemyFormSettings,
+} from "./../../../../../contracts/forms/entity";
+import { IFormSettings } from "./../../../../../contracts/form";
+import { bindable, inject } from "aurelia";
+import { ICreature } from "./../../../../../collections/creatures";
+import { BasePage } from "./../../../infrastructure/view";
+import { TooltipSourceType } from "../../../infrastructure/tooltip";
+import { RollableHandler } from "../../../../../shared/random";
+import { Client } from "../../../infrastructure/client";
+import { DiceType } from "../../../../../contracts/models/dice";
+import { UserType } from "../../../../../contracts/models/user";
 
 @inject(Client, EventAggregator, RollableHandler)
 export class CurrentEntities extends BasePage {
-    constructor(public client: Client, private eventAggregator: EventAggregator, private rollableHandler: RollableHandler){
-        super(client);
-    }
-    enemySelectSettings: ISelectInputSettings = InputFactory.createSelectInput({
-        label: "Creature",
-        labelIndex: "name",
-        key: "creature",
-        options: creaturesList,
-        type: InputType.SELECT,
-        group: "",
-        isTemplate: true,
-    });
-    attackListSettings: ICustomListSettings = {
-        indexes: [{
-            label: "name",
-            path: "name",
-        }],
-        ignoreLoadOnAttached: true,
-        noProvision: true,
-        tooltipSource: TooltipSourceType.PATH,
-        tooltipPaths: ["damage","damageTypes"],
-        onContext: (creature: ICreature, attackIndex: number)=>{
-            this.onAttackContext(creature, attackIndex);
-        }
-    };
-    actionListSettings: ICustomListSettings = {
-        indexes: [{
-            label: "name",
-            path: "name",
-        }],
-        ignoreLoadOnAttached: true,
-        noProvision: true,
-        tooltipSource: TooltipSourceType.PATH,
-        tooltipPaths: ["effect"]
-    };
-    enemyFormSettings: IFormSettings = new EntityFormSettings();
-    @bindable enemyResult: any = {};
-    @bindable enemyData: any = {};
-    entities: ICreature[] = [];
+  attackListSettings: ICustomListSettings = {
+    indexes: [
+      {
+        label: "name",
+        path: "name",
+      },
+    ],
+    ignoreLoadOnAttached: true,
+    noProvision: true,
+    tooltipSource: TooltipSourceType.PATH,
+    tooltipPaths: ["damage", "damageTypes"],
+  };
+  actionListSettings: ICustomListSettings = {
+    indexes: [
+      {
+        label: "name",
+        path: "name",
+      },
+    ],
+    ignoreLoadOnAttached: true,
+    noProvision: true,
+    tooltipSource: TooltipSourceType.PATH,
+    tooltipPaths: ["effect"],
+  };
+  gmEnemyFormSettings: IFormSettings = new GMEnemyFormSettings();
+  playerEnemyFormSettings: IFormSettings = new PlayerEnemyFormSettings();
+  enemyFormSettings: IFormSettings;
+  characterEntityFormSettings: IFormSettings =
+    new CharacterEntityFormSettings();
 
-    addSelected(){
-        this.entities = [...this.entities, {...this.enemyResult}];
-    }
-    removeEntity(index:number){
-        this.entities.splice(index, 1);
-    }
-    onAttackContext(item: any, attackIndex: number) {
-        const result: IRollableResult = this.rollableHandler.rollDefault({
-            name: `${getRandomFrom(attackPrefixes)} from:  ${item.name}`,
-            getBaseDice: (): DiceType[] => {
-                return [...item.damage];
-            }
-        });
-        this.eventAggregator.publish("DIE_ROLL", result);
-    }
+  @bindable enemyResult: any = {};
+  @bindable enemyData: any = {};
+  enemies: IGameEntity[] = [];
+
+  characters: IGameEntity[] = [];
+
+  constructor(
+    public client: Client,
+    private eventAggregator: EventAggregator,
+    private rollableHandler: RollableHandler
+  ) {
+    super(client);
+  }
+  binding() {
+    setTimeout(() => {
+      this.enemyFormSettings = this.getEnemyFormByUserType();
+    }, 100);
+
+    this.eventAggregator.subscribeOnce(
+      `${MessageType.RESPONSE}_${EntityController.name}`,
+      (message: IMessage) => {
+        this.setEntities((message.data as any).collection);
+      }
+    );
+    this.subscribeLocal(
+      this.eventAggregator.subscribe(
+        `${MessageType.PROVISION}_${EntityController.name}`,
+        (message: IMessage) => {
+          this.setEntities(message.data as any);
+        }
+      )
+    );
+    this.subscribeRemote(EntityController.name);
+    this.client.send(MessageFactory.request(EntityController.name, { id: "" }));
+  }
+  getEnemyFormByUserType(): IFormSettings {
+    if (this.client.user.userType == UserType.GM)
+      return this.gmEnemyFormSettings;
+    return this.playerEnemyFormSettings;
+  }
+  setEntities(collection: IGameEntity[]) {
+    this.characters = collection.filter(
+      (character) => character.gameEntityType == GameEntityType.CHARACTER
+    );
+    this.enemies = collection.filter(
+      (character) => character.gameEntityType == GameEntityType.ENEMY
+    );
+  }
+  removeEnemy(index: number) {
+    this.client.send(
+      MessageFactory.remove(EntityController.name, this.enemies[index])
+    );
+  }
+  onAttackContext(entity: IGameEntity, item: any) {
+    const rollable: IRollable = {
+      name: `${(entity as ICreature).name}:  ${item.name}`,
+      getBaseDice: (): DiceType[] => {
+        return [...item.damage];
+      },
+    };
+    this.eventAggregator.publish("CONTEXT_MENU_SET", [
+      {
+        label: "Roll",
+        callback: () => {
+          this.handleDefaultItemRoll(rollable);
+        },
+      },
+      {
+        label: "Roll critical damage",
+        callback: () => {
+          this.handleCriticalItemRoll(rollable);
+        },
+      },
+    ]);
+  }
+  handleDefaultItemRoll(rollable: IRollable) {
+    this.eventAggregator.publish(
+      "DIE_ROLL",
+      this.rollableHandler.rollDefault(rollable)
+    );
+  }
+  handleCriticalItemRoll(rollable: IRollable) {
+    this.eventAggregator.publish(
+      "DIE_ROLL",
+      this.rollableHandler.rollWithCritical(rollable)
+    );
+  }
+  getAttackListSettings(entity: IGameEntity): ICustomListSettings{
+    return Object.assign(this.attackListSettings, {
+      onContext: (attack: any) => {
+        this.onAttackContext(entity, attack);
+      },      
+    });
+  } 
 }
-const attackPrefixes: string[] = [
-    "Peril",
-    "Doom",
-    "Pain",
-    "Death",
-    "Agony",
-    "Hurt",
-    "Trauma",
-    "Torment",
-    "Woe",
-    "Suffer",
-];

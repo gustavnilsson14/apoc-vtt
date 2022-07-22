@@ -8,6 +8,7 @@
     from="../../partials/custom-form/custom-input/custom-input"
   ></require>
   <require from="../../partials/custom-form/item-slot/item-slot"></require>
+  <require from="../../partials/context-menu/context-menu"></require>
   <button
     class="btn btn-primary"
     if.bind="modelViewState == 'list'"
@@ -44,18 +45,24 @@
           result.two-way="characterFormResult"
           value.bind="input.getInputValue(selectedCharacter)"
           data.bind="selectedCharacter"
-          on-label-click.call="onLabelClick($event.settings, $event.value)"
+          on-label-context-callback.call="onLabelContext($event.settings)"
         ></custom-input>
       </attributes>
-      <endurance>
-        <custom-input
-          repeat.for="input of characterFormSettings.getInputsByGroup('endurance')"
-          settings.bind="input"
-          result.two-way="characterFormResult"
-          value.bind="input.getInputValue(selectedCharacter)"
-          data.bind="selectedCharacter"
-        ></custom-input>
-      </endurance>
+      <health>
+        <endurance>
+          <custom-input
+            repeat.for="input of characterFormSettings.getInputsByGroup('endurance')"
+            settings.bind="input"
+            result.two-way="characterFormResult"
+            value.bind="input.getInputValue(selectedCharacter)"
+            data.bind="selectedCharacter"
+          ></custom-input>
+        </endurance>
+        <wound contextmenu.delegate="onWoundContext($event)">
+          <label>${selectedCharacter.health}</label>
+          <background class="wound-state-${selectedCharacter.health}"></background>
+        </wound>
+      </health>
     </stats>
     <traits>
       <multiple-select
@@ -74,7 +81,7 @@
         result.two-way="characterFormResult"
         value.bind="input.getInputValue(selectedCharacter)"
         data.bind="selectedCharacter"
-        on-click-callback.call="onItemSlotClick($event.rollable)"
+        on-input-context-callback.call="onItemSlotContext($event.settings, $event.value)"
       ></custom-input>
     </inventory>
     <button class="btn btn-secondary" click.delegate="onCancel()">
@@ -100,4 +107,8 @@
       expanded-ids.two-way="selectedCharacterAssetsListExpanded"
     ></custom-list>
   </div>
+  <context-menu
+    if.bind="contextMenuButtons"
+    buttons.bind="contextMenuButtons"
+  ></context-menu>
 </template>

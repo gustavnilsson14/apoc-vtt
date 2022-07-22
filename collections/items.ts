@@ -13,7 +13,10 @@ export enum ItemType {
   ARMOR = "ARMOR",
   SHIELD = "SHIELD",
   CYBERNETICS = "CYBERNETICS",
+  INJURY = "INJURY",
+  STRESS = "STRESS",
   ANY = "ANY",
+  
 }
 export const physicalItemTypes: ItemType[] = [
   ItemType.MELEE,
@@ -27,6 +30,7 @@ export const physicalItemTypes: ItemType[] = [
   ItemType.ARMOR,
   ItemType.SHIELD,
   ItemType.CYBERNETICS,
+  ItemType.INJURY,
 ];
 export enum ItemSize {
   SMALL = "SMALL",
@@ -45,7 +49,7 @@ export interface IItem {
   name: string;
   type: ItemType;
   stats: StatType[];
-  filledSlots?: number[];
+  filledSlots?: number;
   damageTypes?: string[];
   hasSkill?: boolean;
   skill?: number;
@@ -53,6 +57,7 @@ export interface IItem {
   horizontal: boolean;
   image: string;
 }
+
 export const itemList: IItem[] = [
   {
     name: "KNIFE",
@@ -1688,26 +1693,6 @@ export const itemList: IItem[] = [
     image: "img/items/binoculars.png",
   },
   {
-    name: "EXPANDABLE SOLAR",
-    type: ItemType.ARTIFACT,
-    stats: [StatType.DURABILITY, StatType.DURABILITY],
-    damageTypes: [],
-    hasSkill: false,
-    size: ItemSize.SMALL,
-    horizontal: false,
-    image: "img/items/solar.png",
-  },
-  {
-    name: "EXPANDABLE TURBINE",
-    type: ItemType.ARTIFACT,
-    stats: [StatType.DURABILITY, StatType.DURABILITY],
-    damageTypes: [],
-    hasSkill: false,
-    size: ItemSize.SMALL,
-    horizontal: false,
-    image: "img/items/windturbine.png",
-  },
-  {
     name: "BURNER GENERATOR",
     type: ItemType.TOOL,
     stats: [
@@ -2224,28 +2209,72 @@ export const itemList: IItem[] = [
     horizontal: false,
     image: "img/items/lifeformsensor.png",
   },
+  {
+    name: "EXPANDABLE SOLAR",
+    type: ItemType.ARTIFACT,
+    stats: [StatType.DURABILITY, StatType.DURABILITY],
+    damageTypes: [],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/solar.png",
+  },
+  {
+    name: "EXPANDABLE TURBINE",
+    type: ItemType.ARTIFACT,
+    stats: [StatType.DURABILITY, StatType.DURABILITY],
+    damageTypes: [],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/windturbine.png",
+  },
+  {
+    name: "BUSTED RIBCAGE",
+    type: ItemType.INJURY,
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/injury/ribcage.png",
+  },
+  {
+    name: "CRACKED KNEE",
+    type: ItemType.INJURY,
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/injury/crackedknee.png",
+  },
+  {
+    name: "KEFF AXEL",
+    type: ItemType.INJURY,
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/injury/shoulder.png",
+  },
 ];
-/*
-for (var item of items) {
-    item.textClass = "";
-    if (item.name.length > 8) item.textClass = "small";
-    if (item.name.length > 11) item.textClass = "smaller";
-    if (item.name.length > 14) item.textClass = "smallest";
-  }
-function getItemValue(item) {
-  if (item.type == "magic") return 40;
-  var baseValue = item.usage.reduce((sum, usage) => getUsageValue(sum) + getUsageValue(usage));
-  if (item.type == "artifact") return baseValue * 10;
-  if (item.type == "cybernetics") return baseValue * 3;
-  if (item.type == "stuff") return baseValue;
-  if (item.type == "explosive") return baseValue;
-  if (item.type == "armor") return baseValue * 2;
-  return baseValue;
-}
-function getUsageValue(usage) {
-  if (usage == StatType.DURABILITY) return 1;
-  if (usage == StatType.EFFECT) return 3;
-  if (usage == StatType.QUALITY) return 4;
-  return usage;
-}
-*/

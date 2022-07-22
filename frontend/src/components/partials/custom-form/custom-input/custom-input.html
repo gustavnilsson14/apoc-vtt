@@ -5,12 +5,15 @@
     if.bind="settings.hasLabel != false"
     for="${settings.key}"
     class="form-label"
-    click.delegate="onLabelClick({settings: settings, value: value})"
+    click.delegate="onLabelClick($event)"
+    contextmenu.delegate="onLabelContext($event)"
     >${settings.label}</label
   >
-  <inner class="${settings.type.toLowerCase()}">
+  <inner
+    class="${settings.type.toLowerCase()} ${settings.key.toString().toLowerCase()} ${value.toString().toLowerCase().replace(' ', '-')}"
+  >
     <input
-      if.bind="settings.type == 'INPUT'"
+      if.bind="settings.type == 'INPUT' && settings.subType != 'TEXTAREA'"
       disabled.bind="settings.readonly"
       type="${settings.subType}"
       class="form-control"
@@ -19,6 +22,16 @@
       value.bind="value"
       mouseover.delegate="setTooltipVisibility(true)"
       mouseout.delegate="setTooltipVisibility(false)" />
+    <textarea
+      if.bind="settings.type == 'INPUT' && settings.subType == 'TEXTAREA'"
+      disabled.bind="settings.readonly"
+      class="form-control"
+      id="${settings.key}"
+      placeholder="${settings.placeholder || ''}"
+      value.bind="value"
+      mouseover.delegate="setTooltipVisibility(true)"
+      mouseout.delegate="setTooltipVisibility(false)"
+    ></textarea>
     <select
       if.bind="settings.type == 'SELECT'"
       value.bind="value"
@@ -27,7 +40,7 @@
     >
       <option disabled model.bind="null">${settings.label}</option>
       <option repeat.for="item of settings.options" model.bind="item">
-        ${item[settings.labelIndex]}
+        ${getSelectOptionValue(item)}
       </option>
     </select>
     <item-slot
@@ -36,7 +49,7 @@
       settings.bind="settings"
       value.two-way="value"
       index.bind="$index"
-      on-click-callback.call="onClickCallback($event)"
+      on-context-callback.call="onInputContextCallback($event)"
       mouseover.delegate="setTooltipVisibility(true)"
       mouseout.delegate="setTooltipVisibility(false)"
     ></item-slot>

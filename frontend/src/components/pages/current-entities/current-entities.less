@@ -4,7 +4,6 @@ current-entities {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     row-gap: 5px;
     column-gap: 5px;
-    margin-bottom: 200px;
     entity {
       display: block;
       padding: 8px;
@@ -34,18 +33,57 @@ current-entities {
                 }
               }
             }
+            inner{
+              
+              &.state{
+                text-align: center;
+                &.fallen{
+                  input{
+                    background-color: black;
+                    color: white;
+                  }
+                }
+                &.holding-on{
+                  input{
+                    background-color: red;
+                    color: white;
+                  }
+                }
+                &.wavering,
+                &.tired{
+                  input{
+                    background-color: darkgoldenrod;
+                    color: white;
+                  }
+                }
+                &.determined,
+                &.fresh{
+                  input{
+                    background-color: lightyellow;
+                    color: black;
+                  }
+                }
+                &.vigorous{
+                  input{
+                    background-color: lightgreen;
+                    color: black;
+                  }
+                }
+              }
+            }
             label.form-label {
-              line-height: 28px;
+              line-height: 38px;
               margin: 0;
               margin-right: 12px;
               text-transform: uppercase;
             }
             input {
-              height: 28px;
+              height: 38px;
             }
           }
         }
       }
     }
   }
+  margin-bottom: 200px;
 }

@@ -1,6 +1,5 @@
 const fs = require("fs");
 import { BaseController } from "../../contracts/controller";
-import { BaseProvider } from "../../contracts/provider";
 import { BaseForm } from "../../contracts/form";
 import { IController, ILoaderModule, LoaderModuleType } from "../../contracts/loader";
 import { DataStoreHandler } from "./data";
@@ -13,6 +12,7 @@ export class MyLoader {
     MyLoader.I = this;
     this.loadDirectory("../../contracts/");
     this.loadAll();
+    console.log(`Loaded: ${this.loaderModules.map(module=>module.name.replace('Controller', "")).join(', ')}`);
   }
   public getModule(type: LoaderModuleType, name: string): ILoaderModule | null {
     name = name.split("_").slice(-1)[0];
@@ -21,8 +21,6 @@ export class MyLoader {
         return this.loaderModules.find((m) => name == (m as BaseController).constructor.name) as BaseController;
       case LoaderModuleType.FORM:
         return this.loaderModules.find((m) => name == (m as BaseForm).constructor.name) as BaseForm;
-      case LoaderModuleType.PROVIDER:
-        return this.loaderModules.find((m) => m.loaderModuleType == LoaderModuleType.PROVIDER) as BaseProvider;
     }
     return null;
   }

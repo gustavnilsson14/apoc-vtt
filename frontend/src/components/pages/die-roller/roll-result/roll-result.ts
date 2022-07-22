@@ -5,6 +5,7 @@ export class RollResult{
   @bindable rollResult: IRollableResult;
   success: boolean = false;
   binding(){
+    if(!this.rollResult.rollable) return;
     this.success = this.rollResult.rollable.difficulty >= this.rollResult.totalResult;
   }
   getDieImage(die: DiceType): any {

@@ -1,0 +1,5 @@
+<template>
+  <inner if.bind="buttons" mouseout.delegate="onMouseOut()" mouseover.delegate="onMouseOver()" style="top:${position.y}px;left:${position.x}px;">
+    <button repeat.for="button of buttons" click.delegate="onClick($event, button)">${button.label}</button>
+  </inner>
+</template>

@@ -1,26 +1,33 @@
-import { IBackground, tribesList, ITribe, allBackgroundsList } from './../../collections/backgrounds';
-import { bodies, BodySize, IBodyTemplate } from './../../collections/body';
-import { IHasStats } from './../stats';
+import { GameEntityType, IGameEntity } from "./entity";
+import {
+  IBackground,
+  allBackgroundsList,
+} from "./../../collections/backgrounds";
+import { bodies, BodySize, IBodyTemplate } from "./../../collections/body";
+import { IHasStats, INamedObject, WoundState } from "./../stats";
 import { IModel } from "../model";
 import { IOwnedItem } from "./user";
-import { damageTypes, IDamageType } from "../../collections/damageType";
-import { maleFirstNames, femaleFirstNames, lastNames } from "../../collections/names";
+import {
+  DamageType,
+} from "../../collections/damageType";
+import {
+  maleFirstNames,
+  femaleFirstNames,
+  lastNames,
+} from "../../collections/names";
 import { getRandomInt, getRandomFrom } from "../../shared/random";
 import { ITacticalAction } from "../../collections/tacticalAction";
-export enum BackgroundType {
-  SCAVENGER = 1,
-  ZONE = 2,
-  SWAMPER = 3,
-  WASTELANDER = 4,
-  ANDROID = 5,
-  SYNTHETIC = 6,
-}
 
-export interface ICharacter extends IModel, IHasStats, IOwnedItem, IBodyTemplate {
+export interface ICharacter
+  extends IModel,
+    INamedObject,
+    IHasStats,
+    IGameEntity,
+    IBodyTemplate,
+    IOwnedItem {
   name: string;
   maxEndurance: number;
   background: IBackground;
-  weaknesses: IDamageType[];
   skills: ITacticalAction[];
   gambits: ITacticalAction[];
   assetIds: string[];
@@ -30,7 +37,6 @@ export class CharacterFactory {
     const strength = this.getRandomStat();
     const dexterity = this.getRandomStat();
     const will = this.getRandomStat();
-    const endurance = strength + dexterity + will + 10;
     let character: ICharacter = {
       id: "",
       name: getRandomName(),
@@ -40,27 +46,47 @@ export class CharacterFactory {
       strength: strength,
       dexterity: dexterity,
       will: will,
-      endurance: endurance,
-      maxEndurance: endurance,
+      endurance: 0,
+      maxEndurance: 0,
       weaknesses: getRandomWeaknesses(),
       skills: [],
       gambits: [],
       assetIds: [],
-      bodyName: '',
+      bodyName: "",
       size: BodySize.TINY,
-      itemSlots: []
+      itemSlots: [],
+      gameEntityType: GameEntityType.CHARACTER,
+      health: WoundState.HEALTHY
     };
-    character = Object.assign(character, bodies.find(x => x.bodyName == "Human"));
+    character.maxEndurance = this.calculateMaxEndurance(character);
+    character.endurance = character.maxEndurance;
+    character = Object.assign(
+      character,
+      bodies.find((x) => x.bodyName == "Human")
+    );
     return character;
   }
   public static getRandomStat(): number {
-    const raw: number[] = [getRandomInt(1, 6), getRandomInt(1, 6), getRandomInt(1, 6)].sort();
+    const raw: number[] = [
+      getRandomInt(1, 6),
+      getRandomInt(1, 6),
+      getRandomInt(1, 6),
+    ].sort();
     raw.splice(0, 1);
     const result = raw.reduce((sum, a) => sum + a, 0);
     return result;
   }
+  public static calculateMaxEndurance(character: ICharacter): number {
+    return (
+      parseInt(character.strength.toString()) +
+      parseInt(character.dexterity.toString()) +
+      parseInt(character.will.toString()) +
+      (character.level * 10) +
+      20
+    );
+  }
 }
-function getRandomWeaknesses(): IDamageType[] {
+function getRandomWeaknesses(): DamageType[] {
   const raw: number[] = [
     getRandomInt(1, 12),
     getRandomInt(1, 12),
@@ -69,7 +95,9 @@ function getRandomWeaknesses(): IDamageType[] {
     getRandomInt(1, 12),
     getRandomInt(1, 12),
   ].filter((x, index, list) => list.indexOf(x) === index);
-  return damageTypes.filter((damageType, index) => raw.find((x) => x == index));
+  return Object.values(DamageType).filter((damageType, index) =>
+    raw.find((x) => x == index)
+  );
 }
 function getRandomName(): string {
   let firstNames = maleFirstNames;
@@ -78,4 +106,3 @@ function getRandomName(): string {
   }
   return `${getRandomFrom(firstNames)} ${getRandomFrom(lastNames)}`;
 }
-

@@ -1,16 +1,16 @@
 import { EventPipeline } from "../../shared/event";
 import { Guid } from "../../shared/guid";
+import { ISession } from "../../shared/session";
 import { IMessage, MessageFactory } from "../message";
 import { IRollableResultData } from "../models/dice";
 import { MyController } from "./mycontroller";
 import { IUserSession } from "./user";
 export class DiceController extends MyController {
-  public override handleMessage(message: IMessage, session: IUserSession): IMessage {
-    const broadcastData: IRollableResultData = { ...(message.data as IRollableResultData) };
-    if (broadcastData == null) return MessageFactory.error("Nice dice pendeho", message, this);
-    broadcastData.userId = session.id;
-    broadcastData.userName = session.user.name;
-    EventPipeline.I.publish(this.constructor.name, broadcastData);
-    return MessageFactory.response(this, { id: Guid.newGuid() });
+  public add(session: ISession, message: IMessage): IMessage {
+    this.collection = (this.collection as any[]).filter((result: IRollableResultData)=>{
+      if(!result.lastChanged) return false;
+      return new Date(result.lastChanged).getTime() + (5 * 60 * 1000) > new Date().getTime(); 
+    });
+    return super.add(session, message);
   }
 }

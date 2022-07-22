@@ -4,6 +4,7 @@ import { getValueFromPath } from "../../../../../../shared/object-parser"
 
 export class CustomListItem {
   @bindable item: any;
+  @bindable displayData: any;
   @bindable index: number;
   @bindable settings: ICustomListSettings;
   @bindable tooltipVisible = false;
@@ -13,12 +14,12 @@ export class CustomListItem {
     this.setExpanded();
   }
   getCellValue(index: ICustomListIndex) {
-    return getValueFromPath(this.item, index.path);
+    return getValueFromPath(this.displayData, index.path);
   }
   onClick(): void {
     this.handleExpand();
     if (this.settings.onClick == null) return;
-    this.settings.onClick(this.item.id);
+    this.settings.onClick(this.item);
   }
   onContext(e): void {
     if (this.settings.onContext == null) return;

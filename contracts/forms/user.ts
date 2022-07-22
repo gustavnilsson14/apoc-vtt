@@ -107,3 +107,32 @@ export class ProfileForm
     throw new Error("Method not implemented.");
   }
 }
+
+const notesFields: IInputSettings[] = [
+  InputFactory.createDefaultInput({
+    label: "Notes",
+    placeholder: "",
+    key: "notes",
+    type: InputType.INPUT,
+    subType: InputSubType.TEXTAREA,
+    hasLabel: false
+  }),
+];
+export class NotesForm
+  extends BaseForm
+  implements ILoaderModule, IFormSettings
+{
+  messageType: MessageType = MessageType.EDIT;
+  controller: string = UserController.name;
+  submitTitle: string = "Notes";
+  inputs: IInputSettings[] = [...notesFields];
+  label: string = "Notes";
+  key: string = "profileForm";
+  autoSave?: boolean = true;
+  constructor() {
+    super();
+  }
+  handleMessage(message: IMessage): IMessage {
+    throw new Error("Method not implemented.");
+  }
+}

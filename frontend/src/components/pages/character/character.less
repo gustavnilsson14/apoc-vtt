@@ -9,39 +9,91 @@ character-form {
       grid-column-start: 1;
       grid-column-end: 3;
     }
-    endurance {
+    health {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      background-image: url(../../../assets/img/icons/endurance.svg);
-      background-repeat: no-repeat;
-      background-position: center;
-      align-items: center;
-      custom-input {
-        display: contents;
-        inner {
+      endurance {
+        background-image: url(../../../assets/img/icons/endurance.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        align-items: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        custom-input {
           display: contents;
-          input.form-control {
-            background-color: transparent;
-            display: block;
-            text-align: center;
-            padding: 0;
-            border: 0px;
-            width: 50px;
-            height: 50%;
-            font-size: 22px;
-            justify-self: left;
-            &:focus {
+          inner {
+            display: contents;
+            input.form-control {
               background-color: transparent;
+              display: block;
+              text-align: center;
+              padding: 0;
               border: 0px;
-              box-shadow: 0 0 0;
-              outline: 0 none;
+              width: 50px;
+              height: 50%;
+              font-size: 22px;
+              justify-self: left;
+              &[readonly],
+              &:disabled {
+                background-color: transparent;
+              }
+              &:focus {
+                background-color: transparent;
+                border: 0px;
+                box-shadow: 0 0 0;
+                outline: 0 none;
+              }
+            }
+          }
+          &:first-child {
+            inner {
+              input.form-control {
+                justify-self: right;
+              }
             }
           }
         }
-        &:first-child {
-          inner {
-            input.form-control {
-              justify-self: right;
+      }
+
+      wound {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        cursor: pointer;
+        label {
+          font-family: "medula";
+          font-size: 38px;
+          text-align: center;
+          width: 100%;
+          margin-top: 10px;
+        }
+        background {
+          background-color: black;
+          -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          width: 50%;
+          height: 50%;
+          transform: translate(50%, 75%);
+          &.wound-state- {
+            &HEALTHY {
+              -webkit-mask-image: url(../../../assets/img/icons/healthy.svg);
+              mask-image: url(../../../assets/img/icons/healthy.svg);
+            }
+            &WOUNDED {
+              -webkit-mask-image: url(../../../assets/img/icons/wounded.svg);
+              mask-image: url(../../../assets/img/icons/wounded.svg);
+            }
+            &UNCONSCIOUS {
+              -webkit-mask-image: url(../../../assets/img/icons/unconscious.svg);
+              mask-image: url(../../../assets/img/icons/unconscious.svg);
+            }
+            &DEAD {
+              -webkit-mask-image: url(../../../assets/img/icons/death.svg);
+              mask-image: url(../../../assets/img/icons/death.svg);
             }
           }
         }

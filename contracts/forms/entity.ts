@@ -1,3 +1,5 @@
+import { getEnduranceDescription, IHasStats } from './../stats';
+import { EntityController } from './../controllers/entity';
 import { Tooltip } from './../../frontend/src/components/partials/tooltip/tooltip';
 import { ILoaderModule } from "../../contracts/loader";
 import { UserController } from "../controllers/user";
@@ -11,7 +13,7 @@ import {
 import { IMessage, MessageType } from "../message";
 import { TooltipSourceType } from '../../frontend/src/infrastructure/tooltip';
 
-const fields: IInputSettings[] = [
+const baseFields: IInputSettings[] = [
   InputFactory.createDefaultInput({
     label: "name",
     key: "name",
@@ -19,9 +21,22 @@ const fields: IInputSettings[] = [
     readonly: true,
     type: InputType.INPUT,
     subType: InputSubType.TEXT,
-    tooltipPaths: ["description"],
-    tooltipSource: TooltipSourceType.PATH
   }),
+  InputFactory.createDefaultInput({
+    label: "state",
+    key: "State",
+    hasLabel: false,
+    readonly: true,
+    type: InputType.INPUT,
+    subType: InputSubType.TEXT,
+    getInputValue: (data: IHasStats): string=>{
+      if(data.endurance == null) return "";
+      if(data.maxEndurance == null) return "";
+      return getEnduranceDescription(data);
+    }
+  }),
+];
+const statsFields: IInputSettings[] = [
   InputFactory.createDefaultInput({
     label: "strength",
     key: "strength",
@@ -49,8 +64,21 @@ const fields: IInputSettings[] = [
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
   }),
+];
+
+const detailFields: IInputSettings[] = [
   InputFactory.createDefaultInput({
-    label: "av",
+    label: "name",
+    key: "name",
+    hasLabel: false,
+    readonly: true,
+    type: InputType.INPUT,
+    subType: InputSubType.TEXT,
+    tooltipPaths: ["description"],
+    tooltipSource: TooltipSourceType.PATH
+  }),
+  InputFactory.createDefaultInput({
+    label: "Armor",
     key: "av",
     readonly: true,
     type: InputType.INPUT,
@@ -58,17 +86,50 @@ const fields: IInputSettings[] = [
   }),
 ];
 
-export class EntityFormSettings
+export class CharacterEntityFormSettings
   extends BaseForm
   implements ILoaderModule, IFormSettings
 {
-  messageType: MessageType = MessageType.LOGIN;
-  controller: string = UserController.name;
+  messageType: MessageType = MessageType.EDIT;
+  controller: string = EntityController.name;
   submitTitle: string = "Login";
-  inputs: IInputSettings[] = [...fields];
+  inputs: IInputSettings[] = [...baseFields, ...statsFields];
   label: string = "";
-  key: string = "loginForm";
-  noSave: boolean = true;
+  key: string = "entityForm";
+  noSave?: boolean = true;
+  noSubscription?: boolean = true;
+  handleMessage(message: IMessage): IMessage {
+    throw new Error("Method not implemented.");
+  }
+}
+export class PlayerEnemyFormSettings
+  extends BaseForm
+  implements ILoaderModule, IFormSettings
+{
+  messageType: MessageType = MessageType.EDIT;
+  controller: string = EntityController.name;
+  submitTitle: string = "Login";
+  inputs: IInputSettings[] = [...baseFields];
+  label: string = "";
+  key: string = "entityForm";
+  autoSave?: boolean = true;
+  noSubscription?: boolean = true;
+  handleMessage(message: IMessage): IMessage {
+    throw new Error("Method not implemented.");
+  }
+}
+export class GMEnemyFormSettings
+  extends BaseForm
+  implements ILoaderModule, IFormSettings
+{
+  messageType: MessageType = MessageType.EDIT;
+  controller: string = EntityController.name;
+  submitTitle: string = "Login";
+  inputs: IInputSettings[] = [...detailFields, ...statsFields];
+  label: string = "";
+  key: string = "entityForm";
+  autoSave?: boolean = true;
+  noSubscription?: boolean = true;
   handleMessage(message: IMessage): IMessage {
     throw new Error("Method not implemented.");
   }

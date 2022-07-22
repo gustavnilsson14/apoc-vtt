@@ -6,6 +6,8 @@ export enum TribeType {
   ZONE = "Zone dweller",
   ANDROID = "Android",
   SYNTHETIC = "Synthetic",
+  OFFWORLDER = "Off-worlder",
+  DRIFTER = "Drifter",
 }
 export interface IOccupation {
   name: string;
@@ -59,6 +61,11 @@ export const tribesList: ITribe[] = [
     tribeType: TribeType.SYNTHETIC,
     description:
       "Designer made, ageless, and peerless. Synthetic humans are amazing creatures, yet they more than often suffer from a lack of direction. If this is a byproduct of their long lifespan, or if they were made this way anyone who could say is long since dead. Synthetics are normally shun as soulless and unpredictable, which is sometimes all too correct. Those who are not, may grow to lead groups or settlements to great futures, but these are few indeed. Prone to madness and depression, most synthetics wander alone.",
+  },
+  {
+    tribeType: TribeType.OFFWORLDER,
+    description:
+      "The offworlders came to earth from a far galaxy in a great ark, while searching for a habitable world, they crashed onto our planet and have been stranded since.",
   },
 ];
 
@@ -281,14 +288,24 @@ export const occupationsList: IOccupation[] = [
     description: "Sold burgers, now peddles anything.",
   },
   {
-    tribeType: TribeType.SYNTHETIC,
-    name: "Companion",
-    description: "Beautiful body, strong charisma",
+    tribeType: TribeType.OFFWORLDER,
+    name: "Cyth",
+    description: "Esper fascist space vampires. Respects strength. Slits for eyes, elongated arms, brown of skin.",
   },
   {
-    tribeType: TribeType.SYNTHETIC,
-    name: "Assasin",
-    description: "Deadly and silent, strong and fast",
+    tribeType: TribeType.OFFWORLDER,
+    name: "Maug",
+    description: "Race of cybernetic technocrats. Horned and hairy, grey of skin.",
+  },
+  {
+    tribeType: TribeType.OFFWORLDER,
+    name: "Re'lu",
+    description: "Race of a telepath collective, severed from the overmind. Tall and slender, green of skin.",
+  },
+  {
+    tribeType: TribeType.OFFWORLDER,
+    name: "Uva-mosk",
+    description: "Race of bioengineers. Long snout, many eyes, teal of skin",
   },
 ];
 export const allBackgroundsList: IBackground[] = tribesList.map(tribe => {
