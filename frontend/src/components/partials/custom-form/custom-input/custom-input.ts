@@ -45,11 +45,14 @@ export class CustomInput {
     return getValueFromPath(option, selectInputSettings.labelIndex);
   }
   private onLabelClick(e):void{
+    if (!this.settings.hasLabelClickCallback) return;
     e.preventDefault();
-    if(this.onLabelClickCallback) this.onLabelClickCallback({settings: this.settings});
+    
+    if (this.onLabelClickCallback) this.onLabelClickCallback({settings: this.settings, result: this.result});
   }
   private onLabelContext(e):void{
+    if (!this.settings.hasLabelContextCallback) return;
     e.preventDefault();
-    if(this.onLabelContextCallback) this.onLabelContextCallback({settings: this.settings});
+    if (this.onLabelContextCallback) this.onLabelContextCallback({settings: this.settings, result: this.result});
   }
 }

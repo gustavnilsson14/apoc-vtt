@@ -29,6 +29,10 @@ export interface IInputSettings extends ILabeledKey, IHasToolTip {
   group?: string;
   dataField?: boolean;
   getInputValue?(data: any): any;
+  hasLabelClickCallback?: boolean;
+  hasInputClickCallback?: boolean;
+  hasLabelContextCallback?: boolean;
+  hasInputContextCallback?: boolean;
 }
 export interface IDefaultInputSettings extends IInputSettings {
   placeholder?: string;

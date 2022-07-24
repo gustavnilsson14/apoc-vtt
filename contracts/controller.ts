@@ -46,9 +46,12 @@ export class BaseController
       case MessageType.REMOVE:
         response = this.remove(session, message);
         break;
-      case MessageType.REQUEST:
-        response = this.request(session, message);
-        break;
+        case MessageType.REQUEST:
+          response = this.request(session, message);
+          break;
+          case MessageType.BATCH_REQUEST:
+            response = this.request(session, message);
+            break;
       case MessageType.SUBSCRIBE:
         response = this.subscribe(session, message);
         break;
@@ -58,7 +61,7 @@ export class BaseController
     }
     if (response == null)
       return MessageFactory.error("invalid request", message, this);
-    EventPipeline.I.publish(this.constructor.name, this.getAllItems());
+    this.internalPublish();
     this.broadcast(this.getAllItems());
     return response;
   }
@@ -130,14 +133,14 @@ export class BaseController
     return item;
   }
   public getItemsForRequest(session: ISession, message: IMessage): IBase[] {
-    if (message.data.id == null || message.data.id == "") return this.getAllItems();
-    if ((message.data as IBatchRequest).ids != null) {
+    if (message.type == MessageType.BATCH_REQUEST) {
       const batchRequest: IBatchRequest = message.data as IBatchRequest;
       const result: IBase[] = this.collection.filter(
         (x) => batchRequest.ids.indexOf(x.id) != -1
       );
       return result;
     }
+    if (message.data.id == null || message.data.id == "") return this.getAllItems();
     return this.collection.filter((x) => x.id == message.data.id);
   }
   public getAllItems(): IBase[] {
@@ -176,5 +179,8 @@ export class BaseController
   getBroadcastMessage(data: any, id?: string): IMessage {
     if (!id) return MessageFactory.provide(this.name, this.getAllItems() as any);
     return MessageFactory.provide(`${this.name}_${id}`, data);
+  }
+  public internalPublish() {
+    EventPipeline.I.publish(this.constructor.name, this.getAllItems());
   }
 }

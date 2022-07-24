@@ -1,4 +1,4 @@
-const { Worker, isMainThread } = require('node:worker_threads');
+import { UserController, IUserSession } from './../../contracts/controllers/user';
 import * as WebSocket from "ws";
 import { ILoaderModule, LoaderModuleType } from "../../contracts/loader";
 import { IMessage, MessageFactory, MessageType } from "../../contracts/message";
@@ -15,6 +15,7 @@ export class App {
     const sessionHandler = MyLoader.I.getModule(LoaderModuleType.CONTROLLER, "UserController");
     if (sessionHandler == null) return;
     this.sessionHandler = sessionHandler;
+    
   }
 
   public addClient(ws: WebSocket) {
@@ -68,7 +69,9 @@ export class App {
     return MessageFactory.error(errors.join(", "), message, iLoaderModule);
   }
   private connectionClosed(session: ISession): void {
-    
+    const userController: UserController | null = MyLoader.I.getModule(LoaderModuleType.CONTROLLER, "UserController") as UserController | null;
+    if(!userController) return;
+    userController.setConnectedStatus(session as IUserSession, false);
   }
   private send(session: ISession, message: IMessage | null): void {
     if (message == null) return;

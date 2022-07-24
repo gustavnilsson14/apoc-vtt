@@ -31,15 +31,6 @@ export class UserController extends BaseController {
     (message.data as IUser).userType = this.getPlayerType(message);
     return super.add(session, message);
   }
-  /*
-  public edit(session: IUserSession, message: IMessage): IMessage {
-    const response = super.edit(session, message);
-    session.user = this.collection.find(
-      (user) => user.id == response.data.id
-    ) as User;
-    return response;
-  }
-  */
   getPlayerType(message: IMessage): UserType {
     const invite: string = (message.data as any).invite;
     if (invite == "p") return UserType.PLAYER;
@@ -54,6 +45,7 @@ export class UserController extends BaseController {
     user.cookie = Guid.newGuid();
     user.cookieExpiry = new Date();
     user.cookieExpiry.setDate(user.cookieExpiry.getDate() + 1);
+    user.connected = true;
     session.user = user;
     session.view = {
       name: "main",
@@ -78,6 +70,11 @@ export class UserController extends BaseController {
       if (new Date(user.cookieExpiry).getTime() < now.getTime()) return false;
       return true;
     }) as User;
+  }
+  setConnectedStatus(session: IUserSession, state: boolean) {
+    if (!session.user) return;
+    session.user.connected = state;
+    this.internalPublish();
   }
 
   public static verifyOwnerShip(

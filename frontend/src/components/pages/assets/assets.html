@@ -1,0 +1,14 @@
+<template>
+  <require from="../../partials/custom-list/custom-list"></require>
+  <require from="../../partials/custom-form/custom-form"></require>
+  <custom-form
+    on-submit.call="onAssetCreation()"
+    settings.bind="createAssetFormSettings"
+    result.two-way="createAssetFormResult"
+  ></custom-form>
+  <custom-list
+    batch-ids.bind="selectedCharacter.assetIds"
+    settings.bind="assetsListSettings"
+    expanded-ids.two-way="assetsListExpanded"
+  ></custom-list>
+</template>

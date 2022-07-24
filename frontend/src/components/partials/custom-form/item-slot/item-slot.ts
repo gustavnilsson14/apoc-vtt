@@ -8,6 +8,7 @@ import {
   IItem,
   ItemType,
   StatType,
+  unMoveableItems,
 } from "./../../../../../../collections/items";
 import { RollableHandler } from "./../../../../../../shared/random";
 import { bindable, EventAggregator, inject } from "aurelia";
@@ -64,14 +65,14 @@ export class ItemSlot extends ItemSlotsSetter implements ISelectable {
     if (this.value[this.index].rollable != true) return;
     if (this.getItem() == null) return;
     e.preventDefault();
-    if (this.onContextCallback) this.onContextCallback({settings: this.settings, value: this});
-    
+    if (this.onContextCallback)
+      this.onContextCallback({ settings: this.settings, value: this });
+
     //this.handleRollable();
   }
   handleRollable() {
     if (this.value[this.index].rollable != true)
-      
-    this.onContextCallback({ rollable: this });
+      this.onContextCallback({ rollable: this });
   }
   equals(otherSlot: ItemSlot): boolean {
     if (!otherSlot) return false;
@@ -84,11 +85,7 @@ export class ItemSlot extends ItemSlotsSetter implements ISelectable {
   handleMoveItem() {
     const selectedItemSlot: ItemSlot =
       this.selectionHandler.getSelected() as ItemSlot;
-    if (
-      this.selectionHandler.getCssPath(selectedItemSlot) ==
-      this.selectionHandler.getCssPath(this)
-    )
-      return;
+    if (this.selectionHandler.equals(selectedItemSlot, this)) return;
     if (selectedItemSlot.getItem() == undefined) return;
 
     const myItem: IItem = this.getItem();
@@ -96,6 +93,9 @@ export class ItemSlot extends ItemSlotsSetter implements ISelectable {
 
     if (!this.validateItemType(otherItem)) return;
     if (!selectedItemSlot.validateItemType(myItem)) return;
+
+    if (unMoveableItems.indexOf(myItem?.type) != -1) return;
+    if (unMoveableItems.indexOf(otherItem?.type) != -1) return;
 
     selectedItemSlot.setItem(myItem);
     this.setItem(otherItem);
@@ -113,7 +113,6 @@ export class ItemSlot extends ItemSlotsSetter implements ISelectable {
       ) != null
     );
   }
-
   handleBreakage() {
     if (!this.getItem()) return;
     if (

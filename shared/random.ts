@@ -96,17 +96,25 @@ export class RollableHandler {
   rollCheckWithAdvantage(rollable: IRollable): any {
     if (!rollable) return null;
     const dieResults = this.rollAll([DiceType.D20, DiceType.D20]);
-    
     return {
       rollable: rollable,
       dieResults: dieResults,
       totalResult: Math.min(...dieResults.map(x => x.result))
     };
   }
+  rollCheckWithDisdvantage(rollable: IRollable): any {
+    if (!rollable) return null;
+    const dieResults = this.rollAll([DiceType.D20, DiceType.D20]);
+    return {
+      rollable: rollable,
+      dieResults: dieResults,
+      totalResult: Math.max(...dieResults.map(x => x.result))
+    };
+  }
   rollWithCritical(rollable: IRollable): IRollableResult | null {
     if(rollable.getBaseDice == null) return null;
     let dice: DiceType[] = rollable.getBaseDice(this);
-    console.log(dice);
+    
     const values = Object.values(DiceType);
     dice.sort((x,y)=>{
       return values.indexOf(x) < values.indexOf(y) ? 1 : -1;

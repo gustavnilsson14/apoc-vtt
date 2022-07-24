@@ -17,6 +17,7 @@ export interface IUser extends IModel {
   cookie?: string;
   cookieExpiry?: Date;
   selectedCharacterId?: string;
+  connected: boolean;
 }
 
 export class User implements IUser {
@@ -30,6 +31,7 @@ export class User implements IUser {
   lastChanged?: Date;
   cookie?: string;
   cookieExpiry?: Date;
+  connected: boolean = true;
 }
 export interface IOwnedItem {
   userId?: string;

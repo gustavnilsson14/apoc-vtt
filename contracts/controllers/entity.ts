@@ -3,10 +3,8 @@ import { IUser } from "./../models/user";
 import { CharacterController } from "./character";
 import { LoaderModuleType } from "./../loader";
 import { UserController } from "./user";
-import { ISession } from "../../shared/session";
 import { IBase } from "../base";
 import { BaseController } from "../controller";
-import { IMessage, MessageType } from "../message";
 import { EventPipeline } from "../../shared/event";
 
 export class EntityController extends BaseController {
@@ -31,8 +29,7 @@ export class EntityController extends BaseController {
       const character = model as ICharacter;
       userController.collection.forEach((model2) => {
         const user = model2 as IUser;
-        if (!user.lastChanged) return;
-        if (new Date(user.lastChanged).getTime() + (1 * 60 * 1000) < new Date().getTime()) return; 
+        if(!user.connected) return;
         if (user.selectedCharacterId != character.id) return;
         characters.push(character);
       });

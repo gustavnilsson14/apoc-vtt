@@ -262,7 +262,7 @@
                 <info-row>
                     <inner>
                         <h4>Defend</h4>
-                        <span>The combatant may remove one dice from any attack that targets them. <i>Mitigates</i> one <i>weakness</i></span>
+                        <span>The combatant may remove one dice from any attack that targets them. <i>Mitigates</i> one <i>weakness</i>. Any saves to prevent spell interruption have advantage.</span>
                     </inner>
                 </info-row>
                 <info-row>
@@ -455,7 +455,7 @@
             <row class="internal">
                 <box class="no-border">
                     <h4>Advantage</h4>
-            <p>When rolling damage with advantage, any number of dice may be rerolled once, and the new result is the one used.</p>
+                    <p>When rolling damage with advantage, any number of dice may be rerolled once, and the new result is the one used.</p>
                 </box>
                 <box class="no-border">
                     <h4>Guaranteed damage</h4>
@@ -1906,31 +1906,3 @@
     </row>
     
 </container>
-<script>
-
-    function rng(max){
-        return Math.floor(Math.random()*max)+1
-    }
-
-    function diceTest(amount, dice){
-        sets = [];
-        for(i in [...Array(amount).keys()]){
-            set = [];
-            for(die in dice){
-                set.push(rng(dice[die]));
-            }
-            sets.push(set);
-        }
-        return sets;
-    }
-
-    function checkSetsForResult(sets, matches){
-        matchAmount = 0;
-        for(i in sets){
-            if(sets[i].find(element => matches.includes(element))){
-                matchAmount++;
-            }
-        }
-        return matchAmount;
-    }
-</script>

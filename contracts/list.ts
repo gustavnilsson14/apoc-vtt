@@ -1,5 +1,8 @@
 import { IFormSettings } from './form';
 import { IHasToolTip } from './../frontend/src/infrastructure/tooltip';
+interface IGetExpansionFormSettings{
+  (value: any): IFormSettings;
+}
 export interface ICustomListSettings extends IHasToolTip {
   indexes: ICustomListIndex[];
   headers?: boolean;
@@ -8,9 +11,10 @@ export interface ICustomListSettings extends IHasToolTip {
   onContext?: Function;
   ignoreLoadOnAttached?: boolean;
   expandable?: boolean;
-  expansionFormSettings?: IFormSettings;
   noProvision?: boolean;
   valueConverter?: Function;
+  itemClassKey?: string;
+  getExpansionFormSettings?: IGetExpansionFormSettings;
 }
 export interface ICustomListIndex {
   label: string;

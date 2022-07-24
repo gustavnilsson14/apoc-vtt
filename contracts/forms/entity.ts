@@ -43,6 +43,38 @@ const statsFields: IInputSettings[] = [
     readonly: true,
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
+    hasLabelContextCallback: true
+  }),
+  InputFactory.createDefaultInput({
+    label: "dexterity",
+    key: "dexterity",
+    readonly: true,
+    type: InputType.INPUT,
+    subType: InputSubType.NUMBER,
+    hasLabelContextCallback: true
+  }),
+  InputFactory.createDefaultInput({
+    label: "will",
+    key: "will",
+    readonly: true,
+    type: InputType.INPUT,
+    subType: InputSubType.NUMBER,
+    hasLabelContextCallback: true
+  }),
+  InputFactory.createDefaultInput({
+    label: "endurance",
+    key: "endurance",
+    type: InputType.INPUT,
+    subType: InputSubType.NUMBER,
+  }),
+];
+const characterStatsFields: IInputSettings[] = [
+  InputFactory.createDefaultInput({
+    label: "strength",
+    key: "strength",
+    readonly: true,
+    type: InputType.INPUT,
+    subType: InputSubType.NUMBER,
   }),
   InputFactory.createDefaultInput({
     label: "dexterity",
@@ -93,7 +125,7 @@ export class CharacterEntityFormSettings
   messageType: MessageType = MessageType.EDIT;
   controller: string = EntityController.name;
   submitTitle: string = "Login";
-  inputs: IInputSettings[] = [...baseFields, ...statsFields];
+  inputs: IInputSettings[] = [...baseFields, ...characterStatsFields];
   label: string = "";
   key: string = "entityForm";
   noSave?: boolean = true;

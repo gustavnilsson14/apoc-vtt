@@ -17,6 +17,7 @@ import {
 } from "../../collections/names";
 import { getRandomInt, getRandomFrom } from "../../shared/random";
 import { ITacticalAction } from "../../collections/tacticalAction";
+import { ItemType } from "../../collections/items";
 
 export interface ICharacter
   extends IModel,
@@ -53,7 +54,7 @@ export class CharacterFactory {
       gambits: [],
       assetIds: [],
       bodyName: "",
-      size: BodySize.TINY,
+      size: BodySize.MEDIUM,
       itemSlots: [],
       gameEntityType: GameEntityType.CHARACTER,
       health: WoundState.HEALTHY
@@ -77,12 +78,16 @@ export class CharacterFactory {
     return result;
   }
   public static calculateMaxEndurance(character: ICharacter): number {
+    let injuries = 0;
+    character.itemSlots.forEach((slot)=>{
+      if (slot.item?.type == ItemType.INJURY) injuries++;
+    });
     return (
-      parseInt(character.strength.toString()) +
+      (parseInt(character.strength.toString()) +
       parseInt(character.dexterity.toString()) +
       parseInt(character.will.toString()) +
       (character.level * 10) +
-      20
+      20) - injuries * 5
     );
   }
 }

@@ -1,6 +1,6 @@
 import { MessageFactory } from './../../../contracts/message';
 import { Client } from './client';
-import { inject } from "aurelia";
+import { EventAggregator, inject } from "aurelia";
 
 export enum ModelViewState {
   LIST = "list",

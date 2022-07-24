@@ -18,6 +18,10 @@ export class CustomForm extends BasePage {
   @bindable errorText: string;
   @bindable successText: string;
   @bindable onSubmit: any;
+  @bindable onLabelClickCallback;
+  @bindable onInputClickCallback;
+  @bindable onLabelContextCallback;
+  @bindable onInputContextCallback;
   ignoreChanges: boolean = false;
   autoSaveFrequencyIntervalTimeout: NodeJS.Timeout;
   constructor(client: Client, private eventAggregator: EventAggregator) {
@@ -26,8 +30,8 @@ export class CustomForm extends BasePage {
   binding() {
     this.setResult(this.data);
     if (!this.result.id) return;
-    
     if(this.settings.noSubscription) return;
+    
     this.subscribeRemote(this.settings.controller, (this.result as any).id);
     this.subscribeLocal(
       this.eventAggregator.subscribe(
@@ -44,7 +48,6 @@ export class CustomForm extends BasePage {
     this.ignoreChanges = true;
     this.result = { ...data };
     this.ignoreChanges = false;
-    
   }
   resultChanged() {
     if (this.ignoreChanges) return;
@@ -66,7 +69,6 @@ export class CustomForm extends BasePage {
   submit(event: any = null): void {
     if (event) event.preventDefault();
     if (this.settings.noSave) return;
-
     this.errorText = null;
     this.eventAggregator.subscribeOnce(
       `${MessageType.ERROR}_${this.settings.controller}`,

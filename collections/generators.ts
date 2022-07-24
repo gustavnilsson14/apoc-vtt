@@ -85,7 +85,7 @@ export class GeneratorsCollection {
       "hospital",
       "university",
       "museum",
-      "research",
+      "research lab",
       "courthouse",
       "church",
       "power plant",
@@ -190,7 +190,9 @@ export class GeneratorsCollection {
       "ruined",
       "sunk askew",
       "cracked foundation",
-      "sinkholes"
+      "sinkholes",
+      "run down",
+      "unkept",
     ];
     this.enemies = [
       ...creaturesList.map((x) => x.name.toLocaleLowerCase()),

@@ -1,3 +1,4 @@
+import { DiceHelper } from './../../../infrastructure/helpers/diceHelper';
 import {
   IGameEntity,
   GameEntityType,
@@ -9,10 +10,7 @@ import {
   IMessage,
 } from "./../../../../../contracts/message";
 import { EventAggregator } from "aurelia";
-import {
-  getRandomFrom,
-  IRollable,
-} from "./../../../../../shared/random";
+import { IRollable } from "./../../../../../shared/random";
 import { ICustomListSettings } from "./../../../../../contracts/list";
 import {
   CharacterEntityFormSettings,
@@ -28,8 +26,9 @@ import { RollableHandler } from "../../../../../shared/random";
 import { Client } from "../../../infrastructure/client";
 import { DiceType } from "../../../../../contracts/models/dice";
 import { UserType } from "../../../../../contracts/models/user";
+import { IInputSettings } from "../../../../../contracts/input";
 
-@inject(Client, EventAggregator, RollableHandler)
+@inject(Client, EventAggregator, DiceHelper, RollableHandler)
 export class CurrentEntities extends BasePage {
   attackListSettings: ICustomListSettings = {
     indexes: [
@@ -70,6 +69,7 @@ export class CurrentEntities extends BasePage {
   constructor(
     public client: Client,
     private eventAggregator: EventAggregator,
+    private diceHelper: DiceHelper,
     private rollableHandler: RollableHandler
   ) {
     super(client);
@@ -148,11 +148,35 @@ export class CurrentEntities extends BasePage {
       this.rollableHandler.rollWithCritical(rollable)
     );
   }
-  getAttackListSettings(entity: IGameEntity): ICustomListSettings{
+  getAttackListSettings(entity: IGameEntity): ICustomListSettings {
     return Object.assign(this.attackListSettings, {
       onContext: (attack: any) => {
         this.onAttackContext(entity, attack);
-      },      
+      },
     });
-  } 
+  }
+  @bindable onLabelContext(settings: IInputSettings, result: any) {
+    if (!result) return;
+    if (!result.name) return;
+    this.eventAggregator.publish("CONTEXT_MENU_SET", [
+      {
+        label: "Roll",
+        callback: () => {
+          this.diceHelper.handleDefaultStatRoll(settings, result);
+        },
+      },
+      {
+        label: "Roll with advantage",
+        callback: () => {
+          this.diceHelper.handleAdvantageStatRoll(settings, result);
+        },
+      },
+      {
+        label: "Roll with disadvantage",
+        callback: () => {
+          this.diceHelper.handleDisadvantageStatRoll(settings, result);
+        },
+      },
+    ]);
+  }
 }

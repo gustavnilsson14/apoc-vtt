@@ -62,6 +62,7 @@ const fields: IInputSettings[] = [
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
     group: "attributes",
+    hasLabelContextCallback: true
   }),
   InputFactory.createDefaultInput({
     label: "dexterity",
@@ -70,6 +71,7 @@ const fields: IInputSettings[] = [
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
     group: "attributes",
+    hasLabelContextCallback: true
   }),
   InputFactory.createDefaultInput({
     label: "will",
@@ -78,6 +80,7 @@ const fields: IInputSettings[] = [
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
     group: "attributes",
+    hasLabelContextCallback: true
   }),
   InputFactory.createDefaultInput({
     label: "endurance",

@@ -96,12 +96,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "bite",
-        damage: "2-1-1",
+        damage: [DiceType.D6, DiceType.D4, DiceType.D4],
         damageTypes: [DamageType.PAIN, DamageType.STAB],
       },
       {
         name: "swipe",
-        damage: "3-1-1",
+        damage: [DiceType.D8, DiceType.D4, DiceType.D4],
         damageTypes: [DamageType.CUT],
       },
     ],
@@ -145,12 +145,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Bite",
-        damage: "2-2-1",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.PAIN, DamageType.NUKE],
       },
       {
         name: "Stinger",
-        damage: "1-1-1",
+        damage: [DiceType.D4, DiceType.D4, DiceType.D4],
         damageTypes: [DamageType.NUKE],
       },
     ],
@@ -199,12 +199,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Bite",
-        damage: "2-1-1",
+        damage: [DiceType.D6, DiceType.D4, DiceType.D4],
         damageTypes: [DamageType.PAIN, DamageType.OOZE],
       },
       {
         name: "Punch",
-        damage: "1-1-1",
+        damage: [DiceType.D4, DiceType.D4, DiceType.D4],
         damageTypes: [DamageType.SMASH],
       },
     ],
@@ -242,17 +242,17 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Bite",
-        damage: "3-2-1",
+        damage: [DiceType.D8, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.PAIN, DamageType.CUT],
       },
       {
         name: "Swipe",
-        damage: "2-2-1",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.PAIN, DamageType.SMASH],
       },
       {
         name: "Bear Arbalest",
-        damage: "3-2-1",
+        damage: [DiceType.D8, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.STAB],
       },
     ],
@@ -290,12 +290,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Sting",
-        damage: "3-1-1",
+        damage: [DiceType.D8, DiceType.D4, DiceType.D4],
         damageTypes: [DamageType.PAIN, DamageType.NUKE],
       },
       {
         name: "Bite",
-        damage: "2-2-1",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.PAIN],
       },
     ],
@@ -337,17 +337,17 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Mouth Shotgun",
-        damage: "3-3-3",
+        damage: [DiceType.D8, DiceType.D8, DiceType.D8],
         damageTypes: [DamageType.GUN, DamageType.BLAST],
       },
       {
         name: "Eye Barrels",
-        damage: "3-3-3",
+        damage: [DiceType.D8, DiceType.D8, DiceType.D8],
         damageTypes: [DamageType.GUN, DamageType.BURST],
       },
       {
         name: "Finger Teslas (melee)",
-        damage: "5-1-3",
+        damage: [DiceType.D12, DiceType.D4, DiceType.D8],
         damageTypes: [DamageType.VOLT, DamageType.PAIN],
       },
     ],
@@ -395,17 +395,17 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Spear",
-        damage: "2-2-1",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.STAB],
       },
       {
         name: "Spear Throw",
-        damage: "2-2-1",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.STAB],
       },
       {
         name: "Tail swipe",
-        damage: "1-2-1",
+        damage: [DiceType.D4, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.SMASH, DamageType.PAIN],
       },
     ],
@@ -451,12 +451,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Beak",
-        damage: "1-2-1",
+        damage: [DiceType.D4, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.CUT, DamageType.PAIN],
       },
       {
         name: "Tentacles",
-        damage: "1-2-1",
+        damage: [DiceType.D4, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.SMASH, DamageType.PAIN],
       },
     ],
@@ -511,7 +511,7 @@ export const creaturesList: ICreature[] = [
       },
       {
         name: "Wrist cannon",
-        damage: "1-2-1",
+        damage: [DiceType.D4, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.SMASH],
       },
     ],
@@ -550,12 +550,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Makeshift pistol",
-        damage: "3-1-1",
+        damage: [DiceType.D8, DiceType.D4, DiceType.D4],
         damageTypes: [DamageType.GUN],
       },
       {
         name: "Cutter ",
-        damage: "3-1-1",
+        damage: [DiceType.D8, DiceType.D4, DiceType.D4],
         damageTypes: [DamageType.CUT, DamageType.PAIN],
       },
     ],
@@ -596,12 +596,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Shred",
-        damage: "3-3-3",
+        damage: [DiceType.D8, DiceType.D8, DiceType.D8],
         damageTypes: [DamageType.CUT, DamageType.PAIN],
       },
       {
         name: "Tentacle Clap",
-        damage: "3-3-3",
+        damage: [DiceType.D8, DiceType.D8, DiceType.D8],
         damageTypes: [DamageType.NUKE, DamageType.LIGHT],
       },
     ],
@@ -647,12 +647,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: DamageType.SMASH,
-        damage: "2-1-1",
+        damage: [DiceType.D6, DiceType.D4, DiceType.D4],
         damageTypes: [DamageType.SMASH],
       },
       {
         name: "Bite",
-        damage: "2-1-1",
+        damage: [DiceType.D6, DiceType.D4, DiceType.D4],
         damageTypes: [DamageType.PAIN],
       },
     ],
@@ -692,7 +692,7 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Bite",
-        damage: "3-2-2",
+        damage: [DiceType.D8, DiceType.D6, DiceType.D6],
         damageTypes: [DamageType.PAIN],
       },
     ],
@@ -737,12 +737,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Bite",
-        damage: "3-3-2",
+        damage: [DiceType.D8, DiceType.D8, DiceType.D6],
         damageTypes: [DamageType.PAIN, DamageType.OOZE],
       },
       {
         name: "Tendrils",
-        damage: "1-2-2",
+        damage: [DiceType.D4, DiceType.D6, DiceType.D6],
         damageTypes: [DamageType.PAIN, DamageType.STAB, DamageType.CUT],
       },
     ],
@@ -787,12 +787,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Shoot Thorn",
-        damage: "2-2-1",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.GUN, DamageType.STAB, DamageType.OOZE],
       },
       {
         name: "Slashing vines",
-        damage: "2-2-1",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.PAIN, DamageType.CUT, DamageType.OOZE],
       },
     ],
@@ -827,12 +827,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Bone spear",
-        damage: "3-2-2",
+        damage: [DiceType.D8, DiceType.D6, DiceType.D6],
         damageTypes: [DamageType.PAIN, DamageType.STAB, DamageType.SMASH],
       },
       {
         name: "Headbutt",
-        damage: "2-2-2",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D6],
         damageTypes: [DamageType.SMASH],
       },
     ],
@@ -862,17 +862,17 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Spear",
-        damage: "2-2-1",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.STAB],
       },
       {
         name: "Tendril slap",
-        damage: "1-2-1",
+        damage: [DiceType.D4, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.SMASH, DamageType.NEURAL],
       },
       {
         name: "Zap",
-        damage: "2-2-1",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.VOLT, DamageType.NEURAL],
       },
     ],
@@ -916,7 +916,7 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Slap",
-        damage: "3-3-3",
+        damage: [DiceType.D8, DiceType.D8, DiceType.D8],
         damageTypes: [DamageType.SMASH, DamageType.PAIN],
       },
     ],
@@ -965,12 +965,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Rake",
-        damage: "4-3-4",
+        damage: [DiceType.D10, DiceType.D8, DiceType.D10],
         damageTypes: [DamageType.CUT, DamageType.PAIN],
       },
       {
         name: "Bite",
-        damage: "5-3-4",
+        damage: [DiceType.D12, DiceType.D8, DiceType.D10],
         damageTypes: [DamageType.STAB, DamageType.SMASH, DamageType.PAIN],
       },
     ],
@@ -1116,17 +1116,17 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Sawblade",
-        damage: "3-2-3",
+        damage: [DiceType.D8, DiceType.D6, DiceType.D8],
         damageTypes: [DamageType.CUT, DamageType.PAIN],
       },
       {
         name: "Nail Barrage",
-        damage: "3-2-3",
+        damage: [DiceType.D8, DiceType.D6, DiceType.D8],
         damageTypes: [DamageType.STAB, DamageType.GUN],
       },
       {
         name: "Piston Kick",
-        damage: "2-2-3",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D8],
         damageTypes: [DamageType.SMASH, DamageType.BLAST],
       },
     ],
@@ -1177,12 +1177,12 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Bite",
-        damage: "2-2-1",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.STAB, DamageType.PAIN],
       },
       {
         name: "Rake",
-        damage: "2-2-1",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.CUT, DamageType.PAIN],
       },
     ],
@@ -1223,17 +1223,17 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Club",
-        damage: "1-2-1",
+        damage: [DiceType.D4, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.SMASH],
       },
       {
         name: "Gore",
-        damage: "2-2-1",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.STAB, DamageType.PAIN],
       },
       {
         name: "Pipe gun",
-        damage: "2-1-1",
+        damage: [DiceType.D6, DiceType.D4, DiceType.D4],
         damageTypes: [DamageType.GUN],
       },
     ],
@@ -1278,17 +1278,17 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Club",
-        damage: "1-2-1",
+        damage: [DiceType.D4, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.SMASH],
       },
       {
         name: "Gore",
-        damage: "2-2-1",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D4],
         damageTypes: [DamageType.STAB, DamageType.PAIN],
       },
       {
         name: "Pipe gun",
-        damage: "2-1-1",
+        damage: [DiceType.D6, DiceType.D4, DiceType.D4],
         damageTypes: [DamageType.GUN],
       },
     ],
@@ -1333,7 +1333,7 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Slap",
-        damage: "3-3-3",
+        damage: [DiceType.D8, DiceType.D8, DiceType.D8],
         damageTypes: [DamageType.SMASH, DamageType.PAIN],
       },
     ],
@@ -1382,7 +1382,7 @@ export const creaturesList: ICreature[] = [
     attacks: [
       {
         name: "Slap",
-        damage: "3-3-3",
+        damage: [DiceType.D8, DiceType.D8, DiceType.D8],
         damageTypes: [DamageType.SMASH, DamageType.PAIN],
       },
     ],

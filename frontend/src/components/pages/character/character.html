@@ -9,6 +9,7 @@
   ></require>
   <require from="../../partials/custom-form/item-slot/item-slot"></require>
   <require from="../../partials/context-menu/context-menu"></require>
+  <require from="../assets/assets"></require>
   <button
     class="btn btn-primary"
     if.bind="modelViewState == 'list'"
@@ -45,7 +46,7 @@
           result.two-way="characterFormResult"
           value.bind="input.getInputValue(selectedCharacter)"
           data.bind="selectedCharacter"
-          on-label-context-callback.call="onLabelContext($event.settings)"
+          on-label-context-callback.call="onLabelContext($event.settings, $event.result)"
         ></custom-input>
       </attributes>
       <health>
@@ -60,7 +61,9 @@
         </endurance>
         <wound contextmenu.delegate="onWoundContext($event)">
           <label>${selectedCharacter.health}</label>
-          <background class="wound-state-${selectedCharacter.health}"></background>
+          <background
+            class="wound-state-${selectedCharacter.health}"
+          ></background>
         </wound>
       </health>
     </stats>
@@ -95,18 +98,12 @@
       SAVE
     </button>
   </character-form>
-  <div if.bind="selectedCharacter && operation == 'EDIT'">
-    <custom-form
-      on-submit.call="onVehicleCreation()"
-      settings.bind="createVehicleFormSettings"
-      result.two-way="createVehicleFormResult"
-    ></custom-form>
-    <custom-list
-      ids.bind="selectedCharacterAssetIds"
-      settings.bind="selectedCharacterAssetsListSettings"
-      expanded-ids.two-way="selectedCharacterAssetsListExpanded"
-    ></custom-list>
-  </div>
+  <assets
+    if.bind="selectedCharacter && operation == 'EDIT' && client.user.userType != 'GM'"
+    selected-character.bind="selectedCharacter"
+    character-form-result.two-way="characterFormResult"
+
+  ></assets>
   <context-menu
     if.bind="contextMenuButtons"
     buttons.bind="contextMenuButtons"

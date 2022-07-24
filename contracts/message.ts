@@ -18,6 +18,7 @@ export enum MessageType {
   PROVISION = "PROVISION",
   ERROR = "ERROR",
   REQUEST = "REQUEST",
+  BATCH_REQUEST = "BATCH_REQUEST",
   BATTLE = "BATTLE",
   SUCCESS = "SUCCESS"
 }
@@ -85,7 +86,9 @@ export class MessageFactory {
   public static request(handlerName: string, data: IBase): IMessage {
     return MessageFactory.clientMessage(MessageType.REQUEST, handlerName, data);
   }
-  
+  public static batchRequest(handlerName: string, data: IBatchRequest): IMessage {
+    return MessageFactory.clientMessage(MessageType.BATCH_REQUEST, handlerName, data);
+  }
   public static subscribe(handlerName: string, id: string = ""): IMessage {
     return MessageFactory.clientMessage(MessageType.SUBSCRIBE, handlerName, { id: id });
   }

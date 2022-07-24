@@ -1,3 +1,4 @@
+import { IFormSettings } from './../../../../../../contracts/form';
 import { bindable } from "aurelia";
 import { ICustomListIndex, ICustomListSettings } from "../../../../../../contracts/list";
 import { getValueFromPath } from "../../../../../../shared/object-parser"
@@ -31,6 +32,9 @@ export class CustomListItem {
     this.toggleExpandedIds();
     this.expandedIds = [...this.expandedIds];
     this.setExpanded();
+  }
+  getExpansionFormSettings(): IFormSettings{
+    return this.settings.getExpansionFormSettings(this.item);
   }
   toggleExpandedIds() {
     if (!this.settings.expandable) return;

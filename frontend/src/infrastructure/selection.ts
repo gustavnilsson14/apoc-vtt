@@ -9,28 +9,28 @@ export interface ISelectable {
 export class SelectionHandler {
   public selected: ISelectable;
   public selectedPath: string;
-  constructor(private eventAggregator: EventAggregator){}
-  public isSelected(selectable: ISelectable):boolean{
+  constructor(private eventAggregator: EventAggregator) {}
+  public isSelected(selectable: ISelectable): boolean {
     return this.getCssPath(selectable) == this.selectedPath;
   }
   public select(selectable: ISelectable): void {
     const newSelectedPath = this.getCssPath(selectable);
-    if(this.selectedPath != newSelectedPath){
+    if (this.selectedPath != newSelectedPath) {
       this.setSelected(selectable);
       return;
     }
     this.deselect();
   }
-  public getSelected(): ISelectable{
+  public getSelected(): ISelectable {
     if (!this.selectedPath) return null;
-    const base: any = document.querySelector(this.selectedPath)
+    const base: any = document.querySelector(this.selectedPath);
     if (!base) return null;
     const au: any = base["$au"];
     if (!au) return null;
     const selected = au["au:resource:custom-element"].viewModel as ISelectable;
     return selected;
   }
-  public setSelected(selectable: ISelectable): void{
+  public setSelected(selectable: ISelectable): void {
     this.selected = selectable;
     this.selectedPath = this.getCssPath(this.selected);
     this.eventAggregator.publish("SELECTION_CHANGED", this.selected);
@@ -40,19 +40,23 @@ export class SelectionHandler {
     this.selected = null;
     this.eventAggregator.publish("SELECTION_CHANGED", null);
   }
-  getCssPath(selectable: ISelectable): string{
+  getCssPath(selectable: ISelectable): string {
     let current: Element = selectable.element;
     let path: string[] = [];
-    while(current != null){
-      if(current.parentElement == null){
+    while (current != null) {
+      if (current.parentElement == null) {
         current = null;
         continue;
       }
-      const index = Array.from(current.parentNode.children).indexOf(current) + 1;
+      const index =
+        Array.from(current.parentNode.children).indexOf(current) + 1;
       const currentPath = `${current.nodeName.toLowerCase()}:nth-child(${index})`;
       path = [currentPath, ...path];
       current = current.parentElement;
     }
-    return path.join('>');
+    return path.join(">");
+  }
+  equals(x: ISelectable, y: ISelectable): boolean {
+    return this.getCssPath(x) == this.getCssPath(y);
   }
 }

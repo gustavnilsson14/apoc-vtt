@@ -35,23 +35,31 @@ export class CustomList extends BasePage {
     this.displayData = this.settings.valueConverter(this.data);
   }
   getRequestMessage():IMessage{
-    if (this.batchIds != null) return MessageFactory.request(this.settings.controller, { id: null, ids: this.batchIds } as IBatchRequest);
+    if (this.batchIds != null) return MessageFactory.batchRequest(this.settings.controller, { id: null, ids: this.batchIds } as IBatchRequest);
     return MessageFactory.request(this.settings.controller, { id: null });
   }
   batchIdsChanged():void{
-    const message: IMessage = MessageFactory.request(this.settings.controller, { id: null, ids: this.batchIds } as IBatchRequest);
+    const message: IMessage = MessageFactory.batchRequest(this.settings.controller, { id: null, ids: this.batchIds } as IBatchRequest);
+    this.responseSubscription();
     this.client.send(message);
   }
   registerSubscriptions(): void {
     if (this.settings.controller == null) return;
     
-    this.subscribeRemote(this.settings.controller);
-    this.subscribeLocal(this.eventAggregator.subscribeOnce(`${MessageType.RESPONSE}_${this.settings.controller}`, (message: IMessage) => {
-      this.data = (message.data as IRequestResponse).collection;
-    }));
+    this.responseSubscription();
     if(this.settings.noProvision) return;
+    this.subscribeRemote(this.settings.controller);
     this.subscribeLocal(this.eventAggregator.subscribe(`${MessageType.PROVISION}_${this.settings.controller}`, (message: IMessage) => {
       this.data = message.data as unknown as any[];
     }));
+  }
+  responseSubscription(): void{
+    this.subscribeLocal(this.eventAggregator.subscribeOnce(`${MessageType.RESPONSE}_${this.settings.controller}`, (message: IMessage) => {
+      this.data = (message.data as IRequestResponse).collection;
+    }));
+  }
+  getItemClass(item: any): string{
+    if (this.settings.itemClassKey) return item[this.settings.itemClassKey].toLowerCase();
+    return "";
   }
 }

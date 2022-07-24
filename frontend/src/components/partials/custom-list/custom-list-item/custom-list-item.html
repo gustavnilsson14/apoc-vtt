@@ -13,7 +13,7 @@
   <custom-form
     class="list-expansion horizontal-fields expanded-${isExpanded}"
     if.bind="isExpanded"
-    settings.bind="settings.expansionFormSettings"
+    settings.bind="getExpansionFormSettings()"
     data.bind="item"
   ></custom-form>
   <tooltip

@@ -7,7 +7,6 @@
   <entities>
     <entity repeat.for="entity of characters" class="character">
       <custom-form
-        repeat.for="entity of characters"
         class="character"
         settings.bind="characterEntityFormSettings"
         result.bind="{}"
@@ -28,6 +27,7 @@
         settings.bind="enemyFormSettings"
         result.bind="{}"
         data.bind="entity"
+        on-label-context-callback.call="onLabelContext($event.settings, $event.result)"
       >
       </custom-form>
       <custom-list

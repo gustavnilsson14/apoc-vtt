@@ -84,15 +84,16 @@ export class Item extends ItemSlotsSetter implements ISelectable {
   getValueOnItemType(item: IItem, baseValue: number): number {
     const val = item.damageTypes.length;
     if(this.getItem().type == ItemType.STUFF) return 2;
-    if(this.getItem().type == ItemType.TOOL) return 2;
-    if(this.getItem().type == ItemType.EXPLOSIVE) return baseValue + (val * 2);
+    if(this.getItem().type == ItemType.TOOL) return 4;
+    if(this.getItem().type == ItemType.EXPLOSIVE) return Math.floor(baseValue / 2) + (val * 2);
     if(this.getItem().type == ItemType.CONSUMABLE) return Math.floor(baseValue / 2);
     if(this.getItem().type == ItemType.MELEE) return baseValue + val;
-    if(this.getItem().type == ItemType.RANGED) return baseValue + val;
+    if(this.getItem().type == ItemType.RANGED) return baseValue + val + 2;
     if(this.getItem().type == ItemType.MAGIC) return 10 + (val * 3);
     if(this.getItem().type == ItemType.ARMOR) return baseValue + (val * 2);
     if(this.getItem().type == ItemType.HEADGEAR) return baseValue + (val * 2);
     if(this.getItem().type == ItemType.SHIELD) return baseValue + (val * 1);
+    if(this.getItem().type == ItemType.GOODS) return 5 + (baseValue * 2);
     if(this.getItem().type == ItemType.CYBERNETICS) return 10 + (baseValue * 3) + (val * 2);
     if(this.getItem().type == ItemType.ARTIFACT) return 20 + (baseValue * 5);
   }
