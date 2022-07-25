@@ -5,11 +5,14 @@ import { IInputSettings } from "../../../../contracts/input";
 import { IRollable, RollableHandler } from "../../../../shared/random";
 import { DiceType } from "../../../../contracts/models/dice";
 import { IItem, ItemType, StatType } from "../../../../collections/items";
-import { IHenchman } from "../../../../contracts/models/asset";
 
 @inject(EventAggregator, RollableHandler)
 export class DiceHelper {
-  handleCustomRoll(entity: string, action: string, dice: DiceType[]) {
+  constructor(
+    private eventAggregator: EventAggregator,
+    private rollableHandler: RollableHandler
+  ) {}
+  public handleCustomRoll(entity: string, action: string, dice: DiceType[]) {
     this.eventAggregator.publish(
       "DIE_ROLL",
       this.rollableHandler.rollDefault( {
@@ -18,10 +21,6 @@ export class DiceHelper {
       })
     );
   }
-  constructor(
-    private eventAggregator: EventAggregator,
-    private rollableHandler: RollableHandler
-  ) {}
   public handleStatRoll(settings: IInputSettings, result: any) {
     this.eventAggregator.publish("CONTEXT_MENU_SET", [
       {

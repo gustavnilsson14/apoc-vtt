@@ -87,7 +87,7 @@ export class CharacterFactory {
       parseInt(character.dexterity.toString()) +
       parseInt(character.will.toString()) +
       (character.level * 10) +
-      20) - injuries * 5
+      20) - injuries * 8
     );
   }
 }

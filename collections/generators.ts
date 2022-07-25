@@ -11,32 +11,58 @@ export class GeneratorsCollection {
   public commodities: string[];
   public ailments: string[];
   public structures: string[];
+  public shrines: string[];
   public enemies: string[];
   public encounters: string[];
   public magic: string[];
   public naturalLiquids: string[];
   public wierdLiquids: string[];
   public structuralState: string[];
+  public saltFlatsLocations: string[];
+  public people: string[];
+  public magicalFeatures: string[];
+  public volatilities: string[];
+  public vegetationCluster: string[];
+  public saltFlatsVegetation: string[];
+  public food: string[];
+  public valuableStructures: string[];
+  public tribalCreatures: string[];
   constructor() {
-    this.encounters = [
-      "outsiders [engagements]",
-      "locals [engagements]",
-      "bandits [engagements]",
-      "survivors [engagements]",
-      "madmen [engagements]",
-      "victims [engagements]",
+    this.people = [
+      "outsiders",
+      "locals",
+      "bandits",
+      "survivors",
+      "madmen",
+      "rags",
+      "[tribalCreatures]",
+      "androids",
+      "crazed androids",
+      "mutants",
+      "cultists",
+      "conclave",
     ];
+    this.encounters = ["[people] [engagements]"];
     this.engagements = [
       "burying [relationships]",
       "digging for [objectives]",
       "scavenging for [itemTypes]",
       "searching for [objectives]",
       "dying from [ailments]",
-      "fighting [enemies]",
-      "hiding from [enemies]",
-      "fleeing from from [enemies]",
+      "fighting [people,enemies]",
+      "hiding from [people,enemies]",
+      "harassing [people]",
+      "sieging [people] in a [structuralState] [structures]",
+      "fleeing from [people,enemies]",
       "looting a [structures]",
-      "travelling"
+      "eating [food]",
+      "travelling",
+    ];
+    this.food = [
+      "rations",
+      "grilled [enemies,people]",
+      "a well rounded meal",
+      "scraps and dirty water",
     ];
     this.relationships = [
       "an ally",
@@ -46,12 +72,15 @@ export class GeneratorsCollection {
       "a pet",
       "a sibling",
       "a parent",
+      "a companion",
     ];
     this.objectives = [
-      "finding entrance to a [structures]",
+      "an entrance to a [valuableStructures]",
       "a mechanical mcguffin",
-      "a [liquid] well",
-      "a lost [items]"
+      ...Array(2).fill("a [naturalLiquids] well"),
+      "a [wierdLiquids] well",
+      "a lost [items]",
+      "a [magicalFeatures]",
     ];
     this.itemTypes = [
       "weapons",
@@ -72,7 +101,22 @@ export class GeneratorsCollection {
       "hypothermia",
       "ooze infection",
     ];
+    this.valuableStructures = [
+      "police station",
+      "army base",
+      "hospital",
+      "research lab",
+      "power plant",
+      "water treatment",
+      "[liquid] tower",
+      "chemical plant",
+      "food processing plant",
+      "parking garage",
+      "bunker",
+      ...Array(8).fill("[shrines]"),
+    ];
     this.structures = [
+      "[valuableStructures]",
       "apartments",
       "hotel",
       "villa",
@@ -80,30 +124,21 @@ export class GeneratorsCollection {
       "post office",
       "town hall",
       "prison",
-      "police station",
-      "army base",
-      "hospital",
       "university",
       "museum",
-      "research lab",
       "courthouse",
       "church",
-      "power plant",
-      "water treatment",
-      "water tower",
+      "radio tower",
       "reservoir",
       "oil and gas refinery",
-      "chemical plant",
       "explosives industry",
       "assembly plant",
       "consumer goods factory",
       "electronics production",
       "furniture factory",
-      "food processing plant",
       "offices",
       "stock exchange",
       "bank",
-      "parking garage",
       "gas station",
       "mechanics shop",
       "cinema",
@@ -117,6 +152,7 @@ export class GeneratorsCollection {
       "pool house",
       "theater",
       "zoo",
+      "pawn shop",
       ...Array(5).fill("[commodities] store"),
       ...Array(5).fill("[commodities] warehouse"),
       ...Array(5).fill("[commodities] outlet"),
@@ -131,7 +167,6 @@ export class GeneratorsCollection {
       "floating market",
       "greenhouse plantation",
       "dancehall",
-      "bunker",
       "windmill",
       "bus station",
       "train station",
@@ -143,10 +178,15 @@ export class GeneratorsCollection {
       "gym",
       "pizzeria",
       "coffeeshop",
-      ...Array(8).fill("shrine of [magic]"),
     ];
-    this.naturalLiquids = [...Array(10).fill("water"), ...Array(10).fill("salt-water"), "oil", "acid"];
-    this.wierdLiquids = ["asphalt", "ooze", "molten salt", "blood" ];
+    this.shrines = ["shrine of [magic]", "desecrated shrine of [magic]"];
+    this.naturalLiquids = [
+      ...Array(10).fill("water"),
+      ...Array(10).fill("salt-water"),
+      "oil",
+      "acid",
+    ];
+    this.wierdLiquids = ["asphalt", "ooze", "molten salt", "blood"];
     this.commodities = [
       "food",
       "meat",
@@ -163,7 +203,6 @@ export class GeneratorsCollection {
       "lamp",
       "interior design",
       "tools",
-      "pawn",
       "jewelry",
       "camping",
       "clothes",
@@ -184,7 +223,8 @@ export class GeneratorsCollection {
     ];
     this.structuralState = [
       "pristine",
-      "patchwork repairs",
+      "patchwork repaired",
+      "nicely restored",
       "completely destroyed",
       "destroyed interior",
       "ruined",
@@ -193,13 +233,55 @@ export class GeneratorsCollection {
       "sinkholes",
       "run down",
       "unkept",
+      "fortified",
+      "permanently settled",
     ];
     this.enemies = [
       ...creaturesList.map((x) => x.name.toLocaleLowerCase()),
       "[encounters]",
     ];
+    this.tribalCreatures = [
+      "gators",
+      "city-bears",
+      "sluggan",
+    ];
     this.magic = ["light", "volt", "neural", "ooze", "nuke"];
     this.items = [...itemList.map((x) => x.name.toLocaleLowerCase())];
+    this.volatilities = [
+      "stable",
+      "unstable",
+      "steady",
+      "volatile",
+      "erupting",
+    ];
+    this.magicalFeatures = [
+      ...Array(10).fill("layline"),
+      "comet-fragment of [magic]",
+      "[volatilities] rift of [magic]",
+      "spell vault",
+    ];
+    this.vegetationCluster = ["shaw of", "grove of", "forest of", "canop ofy"];
+    this.saltFlatsVegetation = [
+      "dryvine",
+      "brown salt tuber",
+      "stonegrass",
+      "picklewood",
+      "rubberthorn",
+    ];
+    this.saltFlatsLocations = [
+      ...Array(3).fill("salt dunes"),
+      ...Array(3).fill("salt flats"),
+      ...Array(3).fill("hills"),
+      "boneyard",
+      "buried [structure]",
+      "buried suburb",
+      "cave containing a [shrines], guarded by [people,enemies]",
+      "cave containing [commodities], guarded by [people,enemies]",
+      ...Array(3).fill("oasis of [naturalLiquids]"),
+      "oasis of [wierdLiquids]",
+      "[magicalFeatures]",
+      "[vegetationCluster] [saltFlatsVegetation]",
+    ];
   }
   public getProperties(): string[] {
     return Object.keys(this);
@@ -208,8 +290,8 @@ export class GeneratorsCollection {
     const matches = value.match(/\[(.*?)\]/g);
     if (!matches) return value;
     matches.forEach((raw) => {
-      if(!recurse) {
-        value = value.replace(raw,"");
+      if (!recurse) {
+        value = value.replace(raw, "");
         return;
       }
       value = this.processMatch(value, raw);
@@ -221,10 +303,10 @@ export class GeneratorsCollection {
     const collectionRaw = getRandomFrom(collections.split(","));
     let collection = collectionRaw;
     let amount = 1;
-    if(collection.indexOf('*') != -1){
-      amount = parseInt(collection.split('*')[1]);
-      collection = collection.split('*')[0];
-    }  
+    if (collection.indexOf("*") != -1) {
+      amount = parseInt(collection.split("*")[1]);
+      collection = collection.split("*")[0];
+    }
     if (!this[collection]) {
       console.error(`Cant find collection ${collection}`);
       return;
@@ -233,6 +315,6 @@ export class GeneratorsCollection {
     for (let i = 0; i < amount; i++) {
       nestedValue.push(this.generateFrom(getRandomFrom(this[collection])));
     }
-    return value.replace(raw, nestedValue.join(', '));
+    return value.replace(raw, nestedValue.join(", "));
   }
 }
