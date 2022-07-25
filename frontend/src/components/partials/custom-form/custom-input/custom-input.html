@@ -21,7 +21,9 @@
       placeholder="${settings.placeholder || ''}"
       value.bind="value"
       mouseover.delegate="setTooltipVisibility(true)"
-      mouseout.delegate="setTooltipVisibility(false)" />
+      mouseout.delegate="setTooltipVisibility(false)"
+      click.delegate="onInputClick($event)"
+      contextmenu.delegate="onInputContext($event)" />
     <textarea
       if.bind="settings.type == 'INPUT' && settings.subType == 'TEXTAREA'"
       disabled.bind="settings.readonly"
@@ -31,12 +33,16 @@
       value.bind="value"
       mouseover.delegate="setTooltipVisibility(true)"
       mouseout.delegate="setTooltipVisibility(false)"
+      click.delegate="onInputClick($event)"
+      contextmenu.delegate="onInputContext($event)"
     ></textarea>
     <select
       if.bind="settings.type == 'SELECT'"
       value.bind="value"
       mouseover.delegate="setTooltipVisibility(true)"
       mouseout.delegate="setTooltipVisibility(false)"
+      click.delegate="onInputClick($event)"
+      contextmenu.delegate="onInputContext($event)"
     >
       <option disabled model.bind="null">${settings.label}</option>
       <option repeat.for="item of settings.options" model.bind="item">
@@ -49,9 +55,9 @@
       settings.bind="settings"
       value.two-way="value"
       index.bind="$index"
-      on-context-callback.call="onInputContextCallback($event)"
       mouseover.delegate="setTooltipVisibility(true)"
       mouseout.delegate="setTooltipVisibility(false)"
+      on-context-callback.call="onItemSlotInputContext($event)"
     ></item-slot>
 
     <tooltip

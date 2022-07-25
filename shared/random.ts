@@ -1,4 +1,3 @@
-
 import { DiceType } from "./../contracts/models/dice";
 export function getRandomNumber(min: number, max: number) {
   return Math.floor(Math.random() * Math.floor(max - min)) + min;
@@ -57,6 +56,12 @@ export class RollableHandler {
         return getRandomInt(3, 14);
       case DiceType.D12_3:
         return getRandomInt(4, 15);
+      case DiceType.D12_4:
+        return getRandomInt(5, 16);
+      case DiceType.D12_5:
+        return getRandomInt(6, 17);
+      case DiceType.D12_6:
+        return getRandomInt(7, 18);
       case DiceType.D20:
         return getRandomInt(1, 20);
       default:
@@ -75,52 +80,52 @@ export class RollableHandler {
   }
   rollDefault(rollable: IRollable): IRollableResult | null {
     if (!rollable) return null;
-    if(rollable.getBaseDice == null) return null;
+    if (rollable.getBaseDice == null) return null;
     const dice: DiceType[] = rollable.getBaseDice(this);
     const dieResults = this.rollAll(dice);
     return {
       rollable: rollable,
       dieResults: dieResults,
-      totalResult: this.getTotalResult(dieResults)
+      totalResult: this.getTotalResult(dieResults),
     };
   }
-  rollCheck(rollable: IRollable): any {
+  rollCheck(rollable: IRollable): IRollableResult | null {
     if (!rollable) return null;
     const dieResults = this.rollAll([DiceType.D20]);
     return {
       rollable: rollable,
       dieResults: dieResults,
-      totalResult: this.getTotalResult(dieResults)
+      totalResult: this.getTotalResult(dieResults),
     };
   }
-  rollCheckWithAdvantage(rollable: IRollable): any {
+  rollCheckWithAdvantage(rollable: IRollable): IRollableResult | null {
     if (!rollable) return null;
     const dieResults = this.rollAll([DiceType.D20, DiceType.D20]);
     return {
       rollable: rollable,
       dieResults: dieResults,
-      totalResult: Math.min(...dieResults.map(x => x.result))
+      totalResult: Math.min(...dieResults.map((x) => x.result)),
     };
   }
-  rollCheckWithDisdvantage(rollable: IRollable): any {
+  rollCheckWithDisdvantage(rollable: IRollable): IRollableResult | null {
     if (!rollable) return null;
     const dieResults = this.rollAll([DiceType.D20, DiceType.D20]);
     return {
       rollable: rollable,
       dieResults: dieResults,
-      totalResult: Math.max(...dieResults.map(x => x.result))
+      totalResult: Math.max(...dieResults.map((x) => x.result)),
     };
   }
   rollWithCritical(rollable: IRollable): IRollableResult | null {
-    if(rollable.getBaseDice == null) return null;
+    if (rollable.getBaseDice == null) return null;
     let dice: DiceType[] = rollable.getBaseDice(this);
-    
+
     const values = Object.values(DiceType);
-    dice.sort((x,y)=>{
+    dice.sort((x, y) => {
       return values.indexOf(x) < values.indexOf(y) ? 1 : -1;
     });
     dice.push(dice[0]);
-    dice.sort((x,y)=>{
+    dice.sort((x, y) => {
       return values.indexOf(x) > values.indexOf(y) ? 1 : -1;
     });
     const dieResults = this.rollAll(dice);
@@ -132,10 +137,10 @@ export class RollableHandler {
     };
   }
   rollWithAdvantage(rollable: IRollable): IRollableResult | null {
-    if(rollable.getBaseDice == null) return null;
+    if (rollable.getBaseDice == null) return null;
     const dieResults: IDieResult[] = [];
     const dice: DiceType[] = rollable.getBaseDice(this);
-    
+
     dice.forEach((die) => {
       const dieResult = this.rollAll([die, die]);
       const max = Math.max(...dieResult.map((x) => x.result));
@@ -148,13 +153,13 @@ export class RollableHandler {
       rollable: rollable,
       dieResults: dieResults,
       totalResult: this.getTotalResult(dieResults),
-      advantage: true
+      advantage: true,
     };
   }
-  getDiceFromList(rollables: IRollable[]): DiceType[]{
+  getDiceFromList(rollables: IRollable[]): DiceType[] {
     let result: DiceType[] = [];
-    rollables.forEach(rollable=>{
-      if(!rollable.getBaseDice) return;
+    rollables.forEach((rollable) => {
+      if (!rollable.getBaseDice) return;
       result = [...result, ...rollable.getBaseDice(this)];
     });
     return result;
@@ -179,12 +184,18 @@ export class RollableHandler {
       case DiceType.D12_2:
         return DiceType.D12_3;
       case DiceType.D12_3:
+        return DiceType.D12_4;
+      case DiceType.D12_4:
+        return DiceType.D12_5;
+      case DiceType.D12_5:
+        return DiceType.D12_6;
+      case DiceType.D12_6:
         return DiceType.D20;
       default:
         return DiceType.D4;
     }
   }
-  numberToDieType(n: number): DiceType{
+  numberToDieType(n: number): DiceType {
     return Object.values(DiceType)[n] as DiceType;
   }
 }

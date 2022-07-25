@@ -13,8 +13,6 @@ current-entities {
         margin-top: 10px;
         form {
           display: grid;
-          row-gap: 4px;
-          column-gap: 4px;
           grid-template-columns: repeat(2, 1fr);
           h2 {
             display: contents;
@@ -22,10 +20,32 @@ current-entities {
           custom-input {
             display: flex;
             flex-direction: row;
-            &:first-of-type {
-              grid-column-start: 1;
-              grid-column-end: 3;
+            label.form-label{
+              text-transform: uppercase;
+              display: flex;
+              flex-direction: column;
+              justify-self: center;
+              align-self: center;
+              margin: 0;
+              background-color: #ccc;
+              padding: 3px 8px;
+              flex: 1.1;
+              border-right: 1px solid black;
+              border: 1px solid black;
+            }
+            inner{
+              display: flex;
+              flex: 1;
+            }
+            input.form-control{
+              height: 32px;
+            }
+            &.name,
+            &.state,
+            &.weaknesses{
+              grid-column: 1 / -1;
               inner {
+                flex: 3.5;
                 width: 100%;
                 input {
                   text-align: center;
@@ -33,52 +53,42 @@ current-entities {
                 }
               }
             }
-            inner{
-              
-              &.state{
+            inner {
+              &.state {
                 text-align: center;
-                &.fallen{
-                  input{
+                &.fallen {
+                  input {
                     background-color: black;
                     color: white;
                   }
                 }
-                &.holding-on{
-                  input{
+                &.holding-on {
+                  input {
                     background-color: red;
                     color: white;
                   }
                 }
                 &.wavering,
-                &.tired{
-                  input{
+                &.tired {
+                  input {
                     background-color: darkgoldenrod;
                     color: white;
                   }
                 }
                 &.determined,
-                &.fresh{
-                  input{
+                &.fresh {
+                  input {
                     background-color: lightyellow;
                     color: black;
                   }
                 }
-                &.vigorous{
-                  input{
+                &.vigorous {
+                  input {
                     background-color: lightgreen;
                     color: black;
                   }
                 }
               }
-            }
-            label.form-label {
-              line-height: 38px;
-              margin: 0;
-              margin-right: 12px;
-              text-transform: uppercase;
-            }
-            input {
-              height: 38px;
             }
           }
         }

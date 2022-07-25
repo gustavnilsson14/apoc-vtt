@@ -3,6 +3,10 @@ import { IInputSettings, ILabeledKey } from "./input";
 import { ILoaderModule, LoaderModuleType } from "../contracts/loader";
 import { IMessage, MessageType } from "./message";
 
+export interface IOnMouseInteraction{
+  (inputSettings: IInputSettings, result: any): void;
+}
+
 export interface IFormSettings extends ILabeledKey {
   messageType: MessageType;
   controller: string;
@@ -16,6 +20,10 @@ export interface IFormSettings extends ILabeledKey {
   autoSaveFrequency?: number;
   noSave?: boolean;
   noSubscription?: boolean;
+  onInputClick?: IOnMouseInteraction;
+  onInputContext?: IOnMouseInteraction;
+  onLabelClick?: IOnMouseInteraction;
+  onLabelContext?: IOnMouseInteraction;
   getInputsByGroup(group: string): IInputSettings[];
   validate(message: IMessage): string[];
 }
@@ -28,6 +36,10 @@ export class BaseForm extends BaseLoaderModule implements ILoaderModule, IFormSe
   public inputs: IInputSettings[];
   public label: string;
   public key: string;
+  public onInputClick?: IOnMouseInteraction;
+  public onInputContext?: IOnMouseInteraction;
+  public onLabelClick?: IOnMouseInteraction;
+  public onLabelContext?: IOnMouseInteraction;
   constructor(loaderObject: any = null) {
     super(loaderObject);
     this.name = this.constructor.name;
@@ -49,4 +61,5 @@ export class BaseForm extends BaseLoaderModule implements ILoaderModule, IFormSe
     });
     return result;
   }
+  
 }

@@ -1,7 +1,7 @@
+import { IInputSettings } from './../../../../../contracts/input';
 import { bindable, EventAggregator, inject } from "aurelia";
 import { IError } from "../../../../../contracts/base";
 import { BaseForm, IFormSettings } from "../../../../../contracts/form";
-import { LoaderModuleType } from "../../../../../contracts/loader";
 import {
   IMessage,
   MessageFactory,
@@ -18,10 +18,6 @@ export class CustomForm extends BasePage {
   @bindable errorText: string;
   @bindable successText: string;
   @bindable onSubmit: any;
-  @bindable onLabelClickCallback;
-  @bindable onInputClickCallback;
-  @bindable onLabelContextCallback;
-  @bindable onInputContextCallback;
   ignoreChanges: boolean = false;
   autoSaveFrequencyIntervalTimeout: NodeJS.Timeout;
   constructor(client: Client, private eventAggregator: EventAggregator) {
@@ -90,5 +86,21 @@ export class CustomForm extends BasePage {
     if (this.onSubmit) this.onSubmit();
     message.validatorName = (this.settings as BaseForm).constructor.name;
     this.client.send(message);
+  }
+  @bindable onInputClick(settings: IInputSettings, result: any):void{
+    if(!this.settings.onInputClick) return;
+    this.settings.onInputClick(settings, result);
+  }
+  @bindable onInputContext(settings: IInputSettings, result: any):void{
+    if(!this.settings.onInputContext) return;
+    this.settings.onInputContext(settings, result);
+  }
+  @bindable onLabelClick(settings: IInputSettings, result: any):void{
+    if(!this.settings.onLabelClick) return;
+    this.settings.onLabelClick(settings, result);
+  }
+  @bindable onLabelContext(settings: IInputSettings, result: any):void{
+    if(!this.settings.onLabelContext) return;
+    this.settings.onLabelContext(settings, result);
   }
 }

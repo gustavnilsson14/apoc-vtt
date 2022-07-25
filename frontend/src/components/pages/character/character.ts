@@ -42,6 +42,7 @@ import { ModelViewState } from "../../../infrastructure/view";
 import { ICustomListSettings } from "../../../../../contracts/list";
 import { bodies } from "../../../../../collections/body";
 import { DiceHelper } from "../../../infrastructure/helpers/diceHelper";
+import { IItem } from "../../../../../collections/items";
 
 @inject(Client, EventAggregator, ContextMenu, DiceHelper)
 export class Character extends BasePage {
@@ -188,46 +189,14 @@ export class Character extends BasePage {
     this.modelViewState = ModelViewState.FORM;
   }
   @bindable onLabelContext(settings: IInputSettings, result: any) {
-    this.eventAggregator.publish("CONTEXT_MENU_SET", [
-      {
-        label: "Roll",
-        callback: () => {
-          this.diceHelper.handleDefaultStatRoll(settings, result);
-        },
-      },
-      {
-        label: "Roll with advantage",
-        callback: () => {
-          this.diceHelper.handleAdvantageStatRoll(settings, result);
-        },
-      },
-      {
-        label: "Roll with disadvantage",
-        callback: () => {
-          this.diceHelper.handleDisadvantageStatRoll(settings, result);
-        },
-      },
-    ]);
+    this.diceHelper.handleStatRoll(settings, result);
   }
-  @bindable onItemSlotContext(
-    settings: IItemSlotInputSettings,
-    value: ItemSlot
-  ): void {
-    this.eventAggregator.publish("CONTEXT_MENU_SET", [
-      {
-        label: "Roll",
-        callback: () => {
-          this.diceHelper.handleDefaultItemRoll(this.selectedCharacter, value);
-        },
-      },
-      {
-        label: "Roll critical damage",
-        callback: () => {
-          this.diceHelper.handleCriticalItemRoll(this.selectedCharacter, value);
-        },
-      },
-    ]);
+
+  @bindable onItemSlotContext(settings: IInputSettings, result: any): void {
+    const item: IItem = result.item;
+    this.diceHelper.handleItemRoll(item, this.selectedCharacter);
   }
+
   @bindable onWoundContext(e): void {
     e.preventDefault();
     this.eventAggregator.publish("CONTEXT_MENU_SET", [

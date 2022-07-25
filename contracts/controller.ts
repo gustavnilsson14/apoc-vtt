@@ -16,7 +16,7 @@ import {
 } from "./message";
 import { IModel } from "./model";
 
-export class Subscription{
+export class Subscription {
   key: string;
   id: string;
   session: ISession;
@@ -46,12 +46,12 @@ export class BaseController
       case MessageType.REMOVE:
         response = this.remove(session, message);
         break;
-        case MessageType.REQUEST:
-          response = this.request(session, message);
-          break;
-          case MessageType.BATCH_REQUEST:
-            response = this.request(session, message);
-            break;
+      case MessageType.REQUEST:
+        response = this.request(session, message);
+        break;
+      case MessageType.BATCH_REQUEST:
+        response = this.request(session, message);
+        break;
       case MessageType.SUBSCRIBE:
         response = this.subscribe(session, message);
         break;
@@ -140,25 +140,27 @@ export class BaseController
       );
       return result;
     }
-    if (message.data.id == null || message.data.id == "") return this.getAllItems();
+    if (message.data.id == null || message.data.id == "")
+      return this.getAllItems();
     return this.collection.filter((x) => x.id == message.data.id);
   }
   public getAllItems(): IBase[] {
     return this.collection;
   }
-  
-  public getSubscriptionKey(session: ISession, id: string = ""):string{
-    if(!id) return session.id;
+
+  public getSubscriptionKey(session: ISession, id: string = ""): string {
+    if (!id) return session.id;
     return `${session.id}_${id}`;
   }
   public subscribe(session: ISession, message: IMessage): IMessage {
     const key = this.getSubscriptionKey(session, message.data.id);
-    const existing = this.subscriptions.find(x => x.key == key);
-    if (existing) return MessageFactory.error(`Subscription ${key} exists`, message, this);
+    const existing = this.subscriptions.find((x) => x.key == key);
+    if (existing)
+      return MessageFactory.error(`Subscription ${key} exists`, message, this);
     this.subscriptions.push({
       key: key,
       session: session,
-      id: message.data.id
+      id: message.data.id,
     });
     return MessageFactory.success(this);
   }
@@ -170,14 +172,17 @@ export class BaseController
     */
     return MessageFactory.success(this);
   }
-  public broadcast(data: any, id: string = ""): void{
+  public broadcast(data: any, id: string = ""): void {
     const message: IMessage = this.getBroadcastMessage(data, id);
-    this.subscriptions.filter(x => !x.id == !id).forEach(subscription => {
-      subscription.session.socket.send(JSON.stringify(message));
-    });
+    this.subscriptions
+      .filter((x) => !x.id == !id)
+      .forEach((subscription) => {
+        subscription.session.socket.send(JSON.stringify(message));
+      });
   }
   getBroadcastMessage(data: any, id?: string): IMessage {
-    if (!id) return MessageFactory.provide(this.name, this.getAllItems() as any);
+    if (!id)
+      return MessageFactory.provide(this.name, this.getAllItems() as any);
     return MessageFactory.provide(`${this.name}_${id}`, data);
   }
   public internalPublish() {

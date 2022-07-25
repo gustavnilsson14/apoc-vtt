@@ -9,7 +9,6 @@ import {
 } from "../../../../../contracts/message";
 import { Client } from "../../../infrastructure/client";
 import { Guid } from "../../../../../shared/guid";
-import { LoaderModuleType } from "../../../../../contracts/loader";
 import { DiceController } from "../../../../../contracts/controllers/dice";
 import { DiceType } from "../../../../../contracts/models/dice";
 
@@ -59,14 +58,6 @@ export class DieRoller extends BasePage {
     };
     
     this.client.send(MessageFactory.add(DiceController.name, resultData));
-    /*this.client.send(
-      MessageFactory.clientMessage(
-        MessageType.BROADCAST,
-        LoaderModuleType.CONTROLLER,
-        DiceController.name,
-        resultData
-      )
-    );*/
   }
 
   getDieImage(die: DiceType): any {

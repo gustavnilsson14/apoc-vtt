@@ -667,6 +667,24 @@ export const itemList: IItem[] = [
     image: "img/items/rockethammer.png",
   },
   {
+    name: "ROCKET LAUNCHER",
+    type: ItemType.MELEE,
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: ["","","","","","","","","","","","*","SMASH"],
+    hasSkill: true,
+    size: ItemSize.SMALL,
+    horizontal: true,
+    image: "img/items/rpg.png",
+  },
+  {
     name: "CROSSBOW",
     type: ItemType.RANGED,
     stats: [

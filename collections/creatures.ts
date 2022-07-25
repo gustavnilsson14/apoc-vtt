@@ -1,3 +1,4 @@
+import { ITacticalAction } from './tacticalAction';
 import { INamedObject } from './../contracts/stats';
 import { GameEntityType, IGameEntity } from "./../contracts/models/entity";
 import { DiceType } from "./../contracts/models/dice";
@@ -10,14 +11,10 @@ export interface IAttack {
   damage: string | DiceType[];
   damageTypes: DamageType[];
 }
-export interface ICreatureAction {
-  name: string;
-  effect: string;
-}
 export interface ICreature extends IHasStats, INamedObject, IBase, IGameEntity {
   description: string;
   attacks: IAttack[];
-  actions: ICreatureAction[];
+  actions: ITacticalAction[];
 }
 
 export const creaturesList: ICreature[] = [
@@ -54,22 +51,26 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "psychic vortex",
-        effect:
+        description:
           "Creates a phychic vortex on a tile. Passing through, or ending a turn inside the vortex deals 2d4 neural damage. When damaged, on failed WIL, immediately stops, and cannot exit the vortex until spending a TA to exit. Recharges on a 4",
       },
       {
+        id: "",
         name: "drain power",
-        effect:
+        description:
           "Target an enemy in melee, if they fail WIL, they lose all their spell charges. Restores 1d4 endurance per spell charge drained.",
       },
       {
+        id: "",
         name: "Teleportation",
-        effect: "Move to any tile. On a failed WIL, cannot teleport again.",
+        description: "Move to any tile. On a failed WIL, cannot teleport again.",
       },
       {
+        id: "",
         name: "screech",
-        effect:
+        description:
           "All enemies. On failed WIL, they may not charge, and the straker may remove a dice from any attack they make. Reloads on 4",
       },
     ],
@@ -107,18 +108,21 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "blindsight",
-        effect:
+        description:
           "The moledog uses its heightened secondary senses to anticipate, and evade danger. It cannot attack, but ranged attacks deal one less dice of the dogs choosing",
       },
       {
+        id: "",
         name: "burrow",
-        effect:
+        description:
           "If on soft soil, the moledog burrows into the ground, and escpaes from combat",
       },
       {
+        id: "",
         name: "on the hunt",
-        effect:
+        description:
           "Mole dogs move twice as fast when charging if an enemy is retreating",
       },
     ],
@@ -156,22 +160,26 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Spit",
-        effect: "Allows melee attack to be ranged if stationary.",
+        description: "Allows melee attack to be ranged if stationary.",
       },
       {
+        id: "",
         name: "Rappel",
-        effect:
+        description:
           "Allows moving anywhere on the battleground at the end of round, at the expense of no actions or movement",
       },
       {
+        id: "",
         name: "Phase shift",
-        effect:
+        description:
           "When hit by Nuke, Ooze, Volt, Burst, or Gun, the spider phases out of existence, and is unharmed",
       },
       {
+        id: "",
         name: "Poison gland",
-        effect:
+        description:
           "If the stinger deals damage, on failed STR victim becomes poisoned",
       },
     ],
@@ -210,12 +218,14 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Ooze infection",
-        effect: "Bites which deal damage, on failed STR cause sickness.",
+        description: "Bites which deal damage, on failed STR cause sickness.",
       },
       {
+        id: "",
         name: "Rush",
-        effect: "Charge movement is doubled, cannot take action",
+        description: "Charge movement is doubled, cannot take action",
       },
     ],
   },
@@ -258,18 +268,21 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Roar",
-        effect:
+        description:
           "On a failed WIL enemies lose their movement and action in the first turn.",
       },
       {
+        id: "",
         name: "Bear charge",
-        effect:
+        description:
           "All bears on the same tile charge, moving twice the first turn",
       },
       {
+        id: "",
         name: "Sharpen claws",
-        effect: "Swipe deals 1d6 extra damage, but bear cannot move",
+        description: "Swipe deals 1d6 extra damage, but bear cannot move",
       },
     ],
   },
@@ -301,17 +314,20 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Flight",
-        effect:
+        description:
           "Hornet moves anywhere on the map at the end of the round, but must stand ground during",
       },
       {
+        id: "",
         name: "Ready poison",
-        effect: "Sting attacks deal 1d4 extra damage",
+        description: "Sting attacks deal 1d4 extra damage",
       },
       {
+        id: "",
         name: "Evasive",
-        effect: "Ranged attacks deal only the level die",
+        description: "Ranged attacks deal only the level die",
       },
     ],
   },
@@ -353,22 +369,26 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Lightning Strike",
-        effect:
+        description:
           "Roll 1d4, usable on 4. At the end of the round, a lightning strikes a tile. Combatants on that tile, and adjacent ones take dealing 3d6 volt, and blast damage on a failed DEX.",
       },
       {
+        id: "",
         name: "Stasis",
-        effect:
+        description:
           "On failed WIL, target cannot move, or take action for the round",
       },
       {
+        id: "",
         name: "Shield",
-        effect: "Ranged attacks against the gun hag deal only the damage die",
+        description: "Ranged attacks against the gun hag deal only the damage die",
       },
       {
+        id: "",
         name: "Static field",
-        effect:
+        description:
           "Roll 1d4, usable on 3. A single tile becomes filled with static electricity. At the start of turn, or when entering, combatants inside take 2d4 volt damage",
       },
     ],
@@ -411,21 +431,25 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Constrict",
-        effect: "An enemy in melee cannot move on a failed STR.",
+        description: "An enemy in melee cannot move on a failed STR.",
       },
       {
+        id: "",
         name: "Slither",
-        effect: "Move twice when charging if at least one opponent retreats",
+        description: "Move twice when charging if at least one opponent retreats",
       },
       {
+        id: "",
         name: "Venom spit",
-        effect:
+        description:
           "One ranged opponent, on a failed DEX they take 2d4 ooze damage",
       },
       {
+        id: "",
         name: "Inner strength",
-        effect: "Mitigate one weakness this round.",
+        description: "Mitigate one weakness this round.",
       },
     ],
   },
@@ -462,23 +486,27 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Attach",
-        effect:
+        description:
           "Attach to a melee enemy on failed DEX, moving with them. Beak, and tentacle attacks have advantage, and enemy can only melee attack the owltopus.",
       },
       {
+        id: "",
         name: "Hoot",
-        effect:
+        description:
           "On successful WIL, deal 2d4 neural damage to an enemy, and they lose their next Tactical action",
       },
       {
+        id: "",
         name: "Hooooooooot",
-        effect:
+        description:
           "All enemies, on a failed WIL, lose their action, and move back on the first turn",
       },
       {
+        id: "",
         name: "Fly",
-        effect: "Move two tiles, ignoring enemies.",
+        description: "Move two tiles, ignoring enemies.",
       },
     ],
   },
@@ -517,13 +545,15 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Trick blades",
-        effect:
+        description:
           "On successful DEX, move twice each round when charging or retreating. when arriving at target, deal 1d8 extra melee damage. On fail, no move, or attack first turn.",
       },
       {
+        id: "",
         name: "Superior dash",
-        effect: "Move two tiles",
+        description: "Move two tiles",
       },
     ],
   },
@@ -561,13 +591,15 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Cower",
-        effect:
+        description:
           "The combatant cannot move or attack, but suffers only the level die from ranged damage",
       },
       {
+        id: "",
         name: "Relentless",
-        effect:
+        description:
           "This round, an attack of the combatants choice gets advantage, prior to rolling",
       },
     ],
@@ -607,18 +639,21 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Pounce",
-        effect:
+        description:
           "Move into melee with any enemy between 2 or 3 tiles away. On failed STR, enemy takes 1d10 pain damage and suffer knockback",
       },
       {
+        id: "",
         name: "on the hunt",
-        effect:
+        description:
           "Coeurl move twice as fast when charging if an enemy is retreating",
       },
       {
+        id: "",
         name: "Flash",
-        effect:
+        description:
           "Coeurk move twice as fast when charging if an enemy is retreating",
       },
     ],
@@ -658,13 +693,15 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Hulk jump",
-        effect:
+        description:
           "Move into melee with any enemy between 2 or 3 tiles away. On failed STR, enemy takes 1d4 smash damage and suffer knockback",
       },
       {
+        id: "",
         name: "Frenzy",
-        effect:
+        description:
           "When using the stand ground movement, gain 1d6 extra melee damage. Recharges on a 4.",
       },
     ],
@@ -698,17 +735,20 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Constrict",
-        effect:
+        description:
           "On successful STR, constrict the enemy, who can escape with successful STR as a TA. Constricted cannot move, and eel can only melee attack constricted, with advantage.",
       },
       {
+        id: "",
         name: "Slither",
-        effect: "Move twice.",
+        description: "Move twice.",
       },
       {
+        id: "",
         name: "Mount",
-        effect:
+        description:
           "If mounted, the zone eel cannot take TA. When mounted, both rider and mount take damage to endurance. Unless mounted, the eel will act on instinct.",
       },
     ],
@@ -748,23 +788,27 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Aggressive Flight",
-        effect:
+        description:
           "Triple movement when charging, takes 1d8 more ranged damage if moving.",
       },
       {
+        id: "",
         name: "Tendril flurry",
-        effect:
+        description:
           "Target a melee enemy, and attack twice per turn with tendrils. Cannot set movement plan, but follows the target to always stay in melee range. Recharges on 4.",
       },
       {
+        id: "",
         name: "Glare",
-        effect:
+        description:
           "On failed WIL, combatant is forced to retreat, and loses their skill die",
       },
       {
+        id: "",
         name: "Hardened regeneration",
-        effect:
+        description:
           "Gain 2 armor, regenerate 1d10 endurance per turn. Usable once.",
       },
     ],
@@ -798,13 +842,15 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Vine pull",
-        effect:
+        description:
           "Target an enemy at range. On a failed DEX, that enemy is pull two tiles towards the Lapagerien",
       },
       {
+        id: "",
         name: "Radioactive Slime",
-        effect:
+        description:
           "Any tile the Lapagerien starts its turn on is covered by slime. Any combatant susceptile to nuke damage, take 1d6 nuke damage when starting their turn on the slime.",
       },
     ],
@@ -838,8 +884,9 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Trample",
-        effect:
+        description:
           "Can only be used if not in melee. Cannot take action. Increases charge speed to two tiles and allows the boarian to trample enemies the run over. Trampled enemies take 6d6 smash damage.",
       },
     ],
@@ -878,18 +925,21 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Vicious slappery",
-        effect:
+        description:
           "Their first melee attack, all enemies in melee make a DEX save except the original target. On fail they also take the damage.",
       },
       {
+        id: "",
         name: "Roll shape",
-        effect:
+        description:
           "When charging or retreating, move twice per turn. Cannot take action.",
       },
       {
+        id: "",
         name: "Mental surge",
-        effect: "On failed WIL, enemy cannot assist or do ranged attack.",
+        description: "On failed WIL, enemy cannot assist or do ranged attack.",
       },
     ],
   },
@@ -922,22 +972,26 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Grapple",
-        effect:
+        description:
           "The squid can grapple an opponent at range. Each turn while grappled, the victim is pulled towards the squid, and cannot take tactical action. At the start of each round, on successful DEX, the victim slithers loose. If the squid takes critical damage, its grip loosens, and the victim escapes. The squid can only grapple one opponent. Recharges on 4",
       },
       {
+        id: "",
         name: "Devour",
-        effect:
+        description:
           "The squid consumes one melee opponent which is also grappled. The devoured victim becomes unconscious, and takes 2d4 ooze damage each turn. The squid regurgitates the devoured victim if it takes critical damage.",
       },
       {
+        id: "",
         name: "Harden",
-        effect: "Gain 1 armor, and mitigate 1 weakness.",
+        description: "Gain 1 armor, and mitigate 1 weakness.",
       },
       {
+        id: "",
         name: "Massive slappery",
-        effect:
+        description:
           "When using slap, enemies on the same tile as the target, and the target, suffer knockback on a failed STR.",
       },
     ],
@@ -976,16 +1030,19 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Dash",
-        effect: "Move 3 tiles in any direction.",
+        description: "Move 3 tiles in any direction.",
       },
       {
+        id: "",
         name: "Devour",
-        effect: "Eats any unconscious enemy adjacent to them.",
+        description: "Eats any unconscious enemy adjacent to them.",
       },
       {
+        id: "",
         name: "Expunge",
-        effect:
+        description:
           "Releases a radioactive spray from its many pores on its back, extinguishing fire, and dealing 3d6 nuke damage within 2 tiles of the Great Angler.",
       },
     ],
@@ -1024,20 +1081,24 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Dash",
-        effect: "Move 2 tiles in any direction.",
+        description: "Move 2 tiles in any direction.",
       },
       {
+        id: "",
         name: "Devour",
-        effect: "Eats any unconscious enemy adjacent to them.",
+        description: "Eats any unconscious enemy adjacent to them.",
       },
       {
+        id: "",
         name: "Harden",
-        effect: "Gain 1 armor, and mitigate 1 weakness.",
+        description: "Gain 1 armor, and mitigate 1 weakness.",
       },
       {
+        id: "",
         name: "Roar",
-        effect:
+        description:
           "The Angoliant roars with otherworldly tone. All enemies save WIL, and on a fail they suffer 4d6 neural damage, and they are unable to move or attack the first turn.Recharges on a 4.",
       },
     ],
@@ -1077,18 +1138,21 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Grovel",
-        effect:
+        description:
           "If the service bot controls itself, and is not remotely controlled, it will grovel if wounded, stand ground, and take the defend action.",
       },
       {
+        id: "",
         name: "Feign Shutdown",
-        effect:
+        description:
           "On a successful DEX, the next damage to the Service Bot will cause it to feign shutdown. It may resume fighting as a tactical action.",
       },
       {
+        id: "",
         name: "Shoot Tazer",
-        effect:
+        description:
           "Fires a tazer at an enemy combatant, dealing 1d6 volt damage. The target must use a tactical action to remove the tazer, or take an additional 1d6 volt damage for each tactical action they make. Usable once.",
       },
     ],
@@ -1132,22 +1196,26 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Chaos Footwork",
-        effect:
+        description:
           "When targeted by ranged attacks, and not in melee, on successful DEX the clown takes no damage",
       },
       {
+        id: "",
         name: "Acrobatics",
-        effect: "Move 2 tiles. Can move past enemy combatants.",
+        description: "Move 2 tiles. Can move past enemy combatants.",
       },
       {
+        id: "",
         name: "Electric Discharge",
-        effect:
+        description:
           "Enemies in melee save their STR. If they fail, they cannot move, and take 2d6 volt damage",
       },
       {
+        id: "",
         name: "Noxious Grenade",
-        effect:
+        description:
           "Throws a grenade to a target tile, which deals 3d6 nuke damage to all combatants on the tile. Affected targets save STR, and on fail they suffer one mutation progress. Recharges on a 4.",
       },
     ],
@@ -1188,13 +1256,15 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Sprint",
-        effect:
+        description:
           "Increases movement speed to 2 while charging. First attack deals knockback on failed STR.",
       },
       {
+        id: "",
         name: "Bond",
-        effect:
+        description:
           "Stick to an enemy in melee on a failed DEX, increasing melee damage by 1d6 to the bonded enemy, and increasing armor by 1 when attacked by the bonded enemy. All attacks from other enemies deal critical damage.",
       },
     ],
@@ -1239,18 +1309,21 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Charging attack",
-        effect:
+        description:
           "Can only be done if an enemy is exactly 2 tiles away. The borq moves into melee, they make a club attack with 1d6 increased damage. On failed STR, the target suffers knockback.",
       },
       {
+        id: "",
         name: "Screech",
-        effect:
+        description:
           "Can only be done when below 20 EN. The borq screeches and recieves a second wind, and gains 3 armor for the round. Usable once.",
       },
       {
+        id: "",
         name: "Firing squad",
-        effect:
+        description:
           "Each borq using this TA adds 1 guarantueed damage to all borq using firing squad on the same tile.",
       },
     ],
@@ -1294,18 +1367,21 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Charging attack",
-        effect:
+        description:
           "Can only be done if an enemy is exactly 2 tiles away. The borq moves into melee, they make a club attack with 1d6 increased damage. On failed STR, the target suffers knockback.",
       },
       {
+        id: "",
         name: "Screech",
-        effect:
+        description:
           "Can only be done when below 20 EN. The borq screeches and recieves a second wind, and gains 3 armor for the round. Usable once.",
       },
       {
+        id: "",
         name: "Firing squad",
-        effect:
+        description:
           "Each borq using this TA adds 1 guarantueed damage for the pipe gun to all borq using firing squad on the same tile.",
       },
     ],
@@ -1337,27 +1413,7 @@ export const creaturesList: ICreature[] = [
         damageTypes: [DamageType.SMASH, DamageType.PAIN],
       },
     ],
-    actions: [
-      {
-        name: "Grapple",
-        effect:
-          "The squid can grapple an opponent at range. Each turn while grappled, the victim is pulled towards the squid, and cannot take tactical action. At the start of each round, on successful DEX, the victim slithers loose. If the squid takes critical damage, its grip loosens, and the victim escapes. The squid can only grapple one opponent. Recharges on 4",
-      },
-      {
-        name: "Devour",
-        effect:
-          "The squid consumes one melee opponent which is also grappled. The devoured victim becomes unconscious, and takes 2d4 ooze damage each turn. The squid regurgitates the devoured victim if it takes critical damage.",
-      },
-      {
-        name: "Harden",
-        effect: "Gain 1 armor, and mitigate 1 weakness.",
-      },
-      {
-        name: "Massive slappery",
-        effect:
-          "When using slap, enemies on the same tile as the target, and the target, suffer knockback on a failed STR.",
-      },
-    ],
+    actions: [],
   },
   {
     id: "Sky Centipede",
@@ -1386,27 +1442,7 @@ export const creaturesList: ICreature[] = [
         damageTypes: [DamageType.SMASH, DamageType.PAIN],
       },
     ],
-    actions: [
-      {
-        name: "Grapple",
-        effect:
-          "The squid can grapple an opponent at range. Each turn while grappled, the victim is pulled towards the squid, and cannot take tactical action. At the start of each round, on successful DEX, the victim slithers loose. If the squid takes critical damage, its grip loosens, and the victim escapes. The squid can only grapple one opponent. Recharges on 4",
-      },
-      {
-        name: "Devour",
-        effect:
-          "The squid consumes one melee opponent which is also grappled. The devoured victim becomes unconscious, and takes 2d4 ooze damage each turn. The squid regurgitates the devoured victim if it takes critical damage.",
-      },
-      {
-        name: "Harden",
-        effect: "Gain 1 armor, and mitigate 1 weakness.",
-      },
-      {
-        name: "Massive slappery",
-        effect:
-          "When using slap, enemies on the same tile as the target, and the target, suffer knockback on a failed STR.",
-      },
-    ],
+    actions: [],
   },
   {
     id: "Albino drinker",
@@ -1437,13 +1473,15 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Bond",
-        effect:
+        description:
           "Target rolls DEX save or the drinker bonds with them. While bonded, the victim can shake the drinker off with a successful STR. If bitten when bonded, the drinker sucks 1 unit of liquid from the victim, which must be replenished.",
       },
       {
+        id: "",
         name: "Burrow",
-        effect:
+        description:
           "When in salt, the drinker may burrow, and emerge within 5 tiles at the start of the rounds last turn",
       },
     ],
@@ -1488,9 +1526,55 @@ export const creaturesList: ICreature[] = [
     ],
     actions: [
       {
+        id: "",
         name: "Vanish in the winds",
-        effect:
+        description:
           "The pilgrim vanishes into the winds on successful DEX. Until the end of the round, or until they attack, they cannot be affected by any actions.",
+          resultRoll: [DiceType.D20,DiceType.D20,DiceType.D20]
+        
+      },
+    ],
+  },
+  {
+    id: "Turin",
+    name: "Turin",
+    description:
+      "A winged serpent in dark green scales with bright orange details around its eyes.",
+    image: "",
+    level: 2,
+    strength: 7,
+    dexterity: 7,
+    will: 7,
+    endurance: 51,
+    maxEndurance: 51,
+    av: 1,
+    gameEntityType: GameEntityType.ENEMY,
+    weaknesses: [
+      DamageType.CUT,
+      DamageType.STAB,
+      DamageType.GUN,
+      DamageType.LIGHT,
+      DamageType.OOZE,
+    ],
+    attacks: [
+      {
+        name: "Bite",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D6],
+        damageTypes: [DamageType.PAIN, DamageType.CUT],
+      },
+    ],
+    actions: [
+      {
+        id: "",
+        name: "Hallucinogenic spit",
+        description:
+          "Targets one enemy at range. The victim suffers 2D6 NEURAL damage, and on a failed WIL starts hallucinating for the rest of the day.",
+      },
+      {
+        id: "",
+        name: "Fly",
+        description:
+          "",
       },
     ],
   },

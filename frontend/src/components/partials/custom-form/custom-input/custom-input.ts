@@ -1,5 +1,9 @@
 import { bindable } from "aurelia";
-import { IInputSettings, InputType, ISelectInputSettings } from "../../../../../../contracts/input";
+import {
+  IInputSettings,
+  InputType,
+  ISelectInputSettings,
+} from "../../../../../../contracts/input";
 import { getValueFromPath } from "../../../../../../shared/object-parser";
 
 export class CustomInput {
@@ -16,43 +20,78 @@ export class CustomInput {
   binding(): void {
     this.setValue();
   }
-  dataChanged():void{
+  dataChanged(): void {
     this.setValue();
   }
-  setValue():void{
+  setValue(): void {
     this.ignoreChange = true;
     this.value = this.settings.getInputValue(this.data);
     this.ignoreChange = false;
   }
   valueChanged(): void {
-    if(this.ignoreChange) return;
+    if (this.ignoreChange) return;
     switch (this.settings.type) {
       case InputType.SELECT:
-        if(!(this.settings as ISelectInputSettings).isTemplate) break;
+        if (!(this.settings as ISelectInputSettings).isTemplate) break;
         this.result = this.value;
         return;
     }
     this.result[this.settings.key] = this.value;
     this.result = { ...this.result };
   }
-  setTooltipVisibility(value: boolean):void{
+  setTooltipVisibility(value: boolean): void {
     if (!this.settings.tooltipPaths && !this.settings.tooltipText) return;
     this.tooltipVisible = value;
   }
-  
+
   getSelectOptionValue(option: any) {
-    const selectInputSettings: ISelectInputSettings = (this.settings as ISelectInputSettings);
+    const selectInputSettings: ISelectInputSettings = this
+      .settings as ISelectInputSettings;
     return getValueFromPath(option, selectInputSettings.labelIndex);
   }
-  private onLabelClick(e):void{
-    if (!this.settings.hasLabelClickCallback) return;
-    e.preventDefault();
-    
-    if (this.onLabelClickCallback) this.onLabelClickCallback({settings: this.settings, result: this.result});
+  private onInputClick(e): void {
+    if (!this.settings.hasInputClickCallback) return;
+    if (e.preventDefault) e.preventDefault();
+    if (!this.onInputClickCallback) return;
+    this.onInputClickCallback({
+      settings: this.settings,
+      result: this.result,
+    });
   }
-  private onLabelContext(e):void{
+  private onInputContext(e): void {
+    if (!this.settings.hasInputContextCallback) return;
+    if (e.preventDefault) e.preventDefault();
+    if (!this.onInputContextCallback) return;
+    this.onInputContextCallback({
+      settings: this.settings,
+      result: this.result,
+    });
+  }
+  private onItemSlotInputContext(e): void {
+    if (!this.onInputContextCallback) return;
+    console.log("private onItemSlotInputContext(e): void {");
+    
+    this.onInputContextCallback({
+      settings: this.settings,
+      result: { owner: this.result, item: e.result },
+    });
+  }
+  private onLabelClick(e): void {
+    if (!this.settings.hasLabelClickCallback) return;
+    if (e.preventDefault) e.preventDefault();
+    if (!this.onLabelClickCallback) return;
+    this.onLabelClickCallback({
+      settings: this.settings,
+      result: this.result,
+    });
+  }
+  private onLabelContext(e): void {
     if (!this.settings.hasLabelContextCallback) return;
-    e.preventDefault();
-    if (this.onLabelContextCallback) this.onLabelContextCallback({settings: this.settings, result: this.result});
+    if (e.preventDefault) e.preventDefault();
+    if (!this.onLabelContextCallback) return;
+    this.onLabelContextCallback({
+      settings: this.settings,
+      result: this.result,
+    });
   }
 }

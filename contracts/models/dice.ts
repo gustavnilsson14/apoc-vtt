@@ -12,6 +12,9 @@ export enum DiceType {
   D12_1 = "D12_1",
   D12_2 = "D12_2",
   D12_3 = "D12_3",
+  D12_4 = "D12_4",
+  D12_5 = "D12_5",
+  D12_6 = "D12_6",
   D20 = "D20",
 }
 export interface IRollableResultData extends IRollableResult, IOwnedItem, IBase {}

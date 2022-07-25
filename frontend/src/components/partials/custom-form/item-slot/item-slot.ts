@@ -65,14 +65,12 @@ export class ItemSlot extends ItemSlotsSetter implements ISelectable {
     if (this.value[this.index].rollable != true) return;
     if (this.getItem() == null) return;
     e.preventDefault();
-    if (this.onContextCallback)
-      this.onContextCallback({ settings: this.settings, value: this });
+    if (!this.onContextCallback) return;
+    console.log("this.getItem()", this.getItem());
+    
+    this.onContextCallback({ settings: this.settings, result: this.getItem() });
 
     //this.handleRollable();
-  }
-  handleRollable() {
-    if (this.value[this.index].rollable != true)
-      this.onContextCallback({ rollable: this });
   }
   equals(otherSlot: ItemSlot): boolean {
     if (!otherSlot) return false;

@@ -1,3 +1,4 @@
+import { ITacticalAction } from './../../../../../collections/tacticalAction';
 import { DiceHelper } from './../../../infrastructure/helpers/diceHelper';
 import {
   IGameEntity,
@@ -19,7 +20,7 @@ import {
 } from "./../../../../../contracts/forms/entity";
 import { IFormSettings } from "./../../../../../contracts/form";
 import { bindable, inject } from "aurelia";
-import { ICreature } from "./../../../../../collections/creatures";
+import { IAttack, ICreature } from "./../../../../../collections/creatures";
 import { BasePage } from "./../../../infrastructure/view";
 import { TooltipSourceType } from "../../../infrastructure/tooltip";
 import { RollableHandler } from "../../../../../shared/random";
@@ -33,7 +34,7 @@ export class CurrentEntities extends BasePage {
   attackListSettings: ICustomListSettings = {
     indexes: [
       {
-        label: "name",
+        label: "Attacks",
         path: "name",
       },
     ],
@@ -45,14 +46,14 @@ export class CurrentEntities extends BasePage {
   actionListSettings: ICustomListSettings = {
     indexes: [
       {
-        label: "name",
+        label: "Actions",
         path: "name",
       },
     ],
     ignoreLoadOnAttached: true,
     noProvision: true,
     tooltipSource: TooltipSourceType.PATH,
-    tooltipPaths: ["effect"],
+    tooltipPaths: ["description"],
   };
   gmEnemyFormSettings: IFormSettings = new GMEnemyFormSettings();
   playerEnemyFormSettings: IFormSettings = new PlayerEnemyFormSettings();
@@ -97,17 +98,21 @@ export class CurrentEntities extends BasePage {
     this.client.send(MessageFactory.request(EntityController.name, { id: "" }));
   }
   getEnemyFormByUserType(): IFormSettings {
-    if (this.client.user.userType == UserType.GM)
-      return this.gmEnemyFormSettings;
-    return this.playerEnemyFormSettings;
+    if (this.client.user.userType == UserType.PLAYER)
+      return this.playerEnemyFormSettings;
+    this.gmEnemyFormSettings.onLabelContext = (inputSettings: IInputSettings, item: any) => {
+      this.diceHelper.handleStatRoll(inputSettings, item);
+    }
+    return this.gmEnemyFormSettings;
   }
   setEntities(collection: IGameEntity[]) {
     this.characters = collection.filter(
       (character) => character.gameEntityType == GameEntityType.CHARACTER
     );
-    this.enemies = collection.filter(
+    const enemies = collection.filter(
       (character) => character.gameEntityType == GameEntityType.ENEMY
     );
+    this.enemies = enemies;
   }
   removeEnemy(index: number) {
     this.client.send(
@@ -150,33 +155,17 @@ export class CurrentEntities extends BasePage {
   }
   getAttackListSettings(entity: IGameEntity): ICustomListSettings {
     return Object.assign(this.attackListSettings, {
-      onContext: (attack: any) => {
+      onContext: (attack: IAttack) => {
         this.onAttackContext(entity, attack);
       },
     });
   }
-  @bindable onLabelContext(settings: IInputSettings, result: any) {
-    if (!result) return;
-    if (!result.name) return;
-    this.eventAggregator.publish("CONTEXT_MENU_SET", [
-      {
-        label: "Roll",
-        callback: () => {
-          this.diceHelper.handleDefaultStatRoll(settings, result);
-        },
+  getActionListSettings(entity: IGameEntity): ICustomListSettings {
+    return Object.assign(this.actionListSettings, {
+      onContext: (action: ITacticalAction) => {
+        if (!action.resultRoll) return;
+        this.diceHelper.handleCustomRoll(entity.name, action.name, action.resultRoll);
       },
-      {
-        label: "Roll with advantage",
-        callback: () => {
-          this.diceHelper.handleAdvantageStatRoll(settings, result);
-        },
-      },
-      {
-        label: "Roll with disadvantage",
-        callback: () => {
-          this.diceHelper.handleDisadvantageStatRoll(settings, result);
-        },
-      },
-    ]);
+    });
   }
 }

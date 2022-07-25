@@ -1,7 +1,10 @@
+import { IHenchman } from './../../../../../contracts/models/asset';
+import { IItem } from './../../../../../collections/items';
 import { bindable, EventAggregator, inject } from "aurelia";
 import { AssetController } from "../../../../../contracts/controllers/asset";
 import { IFormSettings } from "../../../../../contracts/form";
 import { AssetCreateForm, VehicleEditForm, HenchmanEditForm } from "../../../../../contracts/forms/asset";
+import { IInputSettings } from "../../../../../contracts/input";
 import { ICustomListSettings } from "../../../../../contracts/list";
 import { IMessage, MessageType } from "../../../../../contracts/message";
 import { ICharacter } from "../../../../../contracts/models/character";
@@ -27,11 +30,19 @@ export class Assets extends BasePage {
     noProvision: true,
     itemClassKey: 'gameEntityType',
     getExpansionFormSettings: (value: any): IFormSettings => {
+      let form;
       switch ((value as IGameEntity).gameEntityType) {
         case GameEntityType.VEHICLE:
           return new VehicleEditForm();
         case GameEntityType.HENCHMAN:
-          return new HenchmanEditForm();
+          form = new HenchmanEditForm();
+          form.onLabelContext = (inputSettings: IInputSettings, item: any) => {
+            this.diceHelper.handleStatRoll(inputSettings, item);
+          }
+          form.onInputContext = (inputSettings: IInputSettings, item: any) => {
+            this.onHenchmanItemRoll(inputSettings, item);
+          }
+          return form;
         default:
           return null;
       }
@@ -56,5 +67,10 @@ export class Assets extends BasePage {
         this.characterFormResult = { ...this.characterFormResult };
       }
     );
+  }
+  onHenchmanItemRoll(inputSettings: IInputSettings, value: any):void{
+    const item: IItem = value.item;
+    const henchman: IHenchman = value.owner;
+    this.diceHelper.handleItemRoll(item, henchman);
   }
 }

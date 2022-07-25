@@ -84,7 +84,7 @@
         result.two-way="characterFormResult"
         value.bind="input.getInputValue(selectedCharacter)"
         data.bind="selectedCharacter"
-        on-input-context-callback.call="onItemSlotContext($event.settings, $event.value)"
+        on-input-context-callback.call="onItemSlotContext($event.settings, $event.result)"
       ></custom-input>
     </inventory>
     <button class="btn btn-secondary" click.delegate="onCancel()">
@@ -102,7 +102,6 @@
     if.bind="selectedCharacter && operation == 'EDIT' && client.user.userType != 'GM'"
     selected-character.bind="selectedCharacter"
     character-form-result.two-way="characterFormResult"
-
   ></assets>
   <context-menu
     if.bind="contextMenuButtons"

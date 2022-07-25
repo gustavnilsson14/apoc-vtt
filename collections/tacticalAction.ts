@@ -1,8 +1,10 @@
 import { IBase } from "../contracts/base";
+import { DiceType } from "../contracts/models/dice";
 
 export interface ITacticalAction extends IBase {
   name: string;
   description: string;
+  resultRoll?: DiceType[]
 }
 
 export const skillActions: ITacticalAction[] = [

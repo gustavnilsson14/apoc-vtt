@@ -1,8 +1,6 @@
-import { getEnduranceDescription, IHasStats } from './../stats';
-import { EntityController } from './../controllers/entity';
-import { Tooltip } from './../../frontend/src/components/partials/tooltip/tooltip';
+import { getEnduranceDescription, IHasStats } from "./../stats";
+import { EntityController } from "./../controllers/entity";
 import { ILoaderModule } from "../../contracts/loader";
-import { UserController } from "../controllers/user";
 import { BaseForm, IFormSettings } from "../form";
 import {
   IInputSettings,
@@ -11,9 +9,39 @@ import {
   InputType,
 } from "../input";
 import { IMessage, MessageType } from "../message";
-import { TooltipSourceType } from '../../frontend/src/infrastructure/tooltip';
+import { TooltipSourceType } from "../../frontend/src/infrastructure/tooltip";
 
-const baseFields: IInputSettings[] = [
+const statFields: IInputSettings[] = [
+  InputFactory.createDefaultInput({
+    label: "strength",
+    key: "strength",
+    readonly: true,
+    type: InputType.INPUT,
+    subType: InputSubType.NUMBER,
+  }),
+  InputFactory.createDefaultInput({
+    label: "dexterity",
+    key: "dexterity",
+    readonly: true,
+    type: InputType.INPUT,
+    subType: InputSubType.NUMBER,
+  }),
+  InputFactory.createDefaultInput({
+    label: "will",
+    key: "will",
+    readonly: true,
+    type: InputType.INPUT,
+    subType: InputSubType.NUMBER,
+  }),
+];
+const rollableStatFields: IInputSettings[] = [...statFields].map(x=> {
+  const y = {...x};
+  y.hasLabelContextCallback = true;
+  y.getInputValue = x.getInputValue;
+  return y;
+});
+
+const prefixFields: IInputSettings[] = [
   InputFactory.createDefaultInput({
     label: "name",
     key: "name",
@@ -22,6 +50,14 @@ const baseFields: IInputSettings[] = [
     type: InputType.INPUT,
     subType: InputSubType.TEXT,
   }),
+];
+const prefixFieldsEditable: IInputSettings[] = [...prefixFields].map(x=>{
+  const y = {...x};
+  y.readonly = false;
+  y.getInputValue = x.getInputValue;
+  return y;
+});
+const suffixFields: IInputSettings[] = [
   InputFactory.createDefaultInput({
     label: "state",
     key: "State",
@@ -29,93 +65,46 @@ const baseFields: IInputSettings[] = [
     readonly: true,
     type: InputType.INPUT,
     subType: InputSubType.TEXT,
-    getInputValue: (data: IHasStats): string=>{
-      if(data.endurance == null) return "";
-      if(data.maxEndurance == null) return "";
+    getInputValue: (data: IHasStats): string => {
+      if (data.endurance == null) return "";
+      if (data.maxEndurance == null) return "";
       return getEnduranceDescription(data);
-    }
-  }),
-];
-const statsFields: IInputSettings[] = [
-  InputFactory.createDefaultInput({
-    label: "strength",
-    key: "strength",
-    readonly: true,
-    type: InputType.INPUT,
-    subType: InputSubType.NUMBER,
-    hasLabelContextCallback: true
-  }),
-  InputFactory.createDefaultInput({
-    label: "dexterity",
-    key: "dexterity",
-    readonly: true,
-    type: InputType.INPUT,
-    subType: InputSubType.NUMBER,
-    hasLabelContextCallback: true
-  }),
-  InputFactory.createDefaultInput({
-    label: "will",
-    key: "will",
-    readonly: true,
-    type: InputType.INPUT,
-    subType: InputSubType.NUMBER,
-    hasLabelContextCallback: true
-  }),
-  InputFactory.createDefaultInput({
-    label: "endurance",
-    key: "endurance",
-    type: InputType.INPUT,
-    subType: InputSubType.NUMBER,
-  }),
-];
-const characterStatsFields: IInputSettings[] = [
-  InputFactory.createDefaultInput({
-    label: "strength",
-    key: "strength",
-    readonly: true,
-    type: InputType.INPUT,
-    subType: InputSubType.NUMBER,
-  }),
-  InputFactory.createDefaultInput({
-    label: "dexterity",
-    key: "dexterity",
-    readonly: true,
-    type: InputType.INPUT,
-    subType: InputSubType.NUMBER,
-  }),
-  InputFactory.createDefaultInput({
-    label: "will",
-    key: "will",
-    readonly: true,
-    type: InputType.INPUT,
-    subType: InputSubType.NUMBER,
-  }),
-  InputFactory.createDefaultInput({
-    label: "endurance",
-    key: "endurance",
-    type: InputType.INPUT,
-    subType: InputSubType.NUMBER,
+    },
   }),
 ];
 
-const detailFields: IInputSettings[] = [
+const playerCharacterFields: IInputSettings[] = [
+  ...prefixFields,
+  ...statFields,
   InputFactory.createDefaultInput({
-    label: "name",
-    key: "name",
-    hasLabel: false,
-    readonly: true,
+    label: "Health",
+    key: "health",
     type: InputType.INPUT,
     subType: InputSubType.TEXT,
-    tooltipPaths: ["description"],
-    tooltipSource: TooltipSourceType.PATH
   }),
+  ...suffixFields,
+];
+const playerCreatureFields: IInputSettings[] = [
+  ...prefixFields,
+  ...suffixFields,
+];
+const gmCreatureFields: IInputSettings[] = [
+  ...prefixFieldsEditable,
+  ...rollableStatFields,
   InputFactory.createDefaultInput({
-    label: "Armor",
-    key: "av",
-    readonly: true,
+    label: "endurance",
+    key: "endurance",
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
   }),
+  InputFactory.createDefaultInput({
+    label: "weaknesses",
+    key: "weaknesses",
+    type: InputType.INPUT,
+    subType: InputSubType.TEXT,
+    readonly: true
+  }),
+  ...suffixFields,
 ];
 
 export class CharacterEntityFormSettings
@@ -125,7 +114,7 @@ export class CharacterEntityFormSettings
   messageType: MessageType = MessageType.EDIT;
   controller: string = EntityController.name;
   submitTitle: string = "Login";
-  inputs: IInputSettings[] = [...baseFields, ...characterStatsFields];
+  inputs: IInputSettings[] = playerCharacterFields;
   label: string = "";
   key: string = "entityForm";
   noSave?: boolean = true;
@@ -141,7 +130,7 @@ export class PlayerEnemyFormSettings
   messageType: MessageType = MessageType.EDIT;
   controller: string = EntityController.name;
   submitTitle: string = "Login";
-  inputs: IInputSettings[] = [...baseFields];
+  inputs: IInputSettings[] = playerCreatureFields;
   label: string = "";
   key: string = "entityForm";
   autoSave?: boolean = true;
@@ -157,7 +146,7 @@ export class GMEnemyFormSettings
   messageType: MessageType = MessageType.EDIT;
   controller: string = EntityController.name;
   submitTitle: string = "Login";
-  inputs: IInputSettings[] = [...detailFields, ...statsFields];
+  inputs: IInputSettings[] = gmCreatureFields;
   label: string = "";
   key: string = "entityForm";
   autoSave?: boolean = true;

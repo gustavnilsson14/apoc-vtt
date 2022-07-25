@@ -27,7 +27,6 @@
         settings.bind="enemyFormSettings"
         result.bind="{}"
         data.bind="entity"
-        on-label-context-callback.call="onLabelContext($event.settings, $event.result)"
       >
       </custom-form>
       <custom-list
@@ -38,7 +37,7 @@
       <custom-list
         if.bind="client.user.userType == 'GM'"
         data.bind="entity.actions"
-        settings.bind="actionListSettings"
+        settings.bind="getActionListSettings(entity)"
       ></custom-list>
     </entity>
   </entities>

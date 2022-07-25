@@ -4,11 +4,14 @@
   <custom-input
     repeat.for="input of settings.inputs"
     if.bind="input.dataField != true"
-    class="${input.type.toLowerCase()} ${input.key}"
+    class="${input.type.toLowerCase()} ${input.key.toLowerCase()}"
     settings.bind="input"
     result.two-way="result"
     data.bind="data"
-    on-label-context-callback.call="onLabelContextCallback($event)"
+    on-input-click-callback.call="onInputClick($event.settings, $event.result)"
+    on-input-context-callback.call="onInputContext($event.settings, $event.result)"
+    on-label-click-callback.call="onLabelClick($event.settings, $event.result)"
+    on-label-context-callback.call="onLabelContext($event.settings, $event.result)"
   ></custom-input>
   <error if.bind="errorText">${errorText}</error>
   <response if.bind="successText">${successText}</response>

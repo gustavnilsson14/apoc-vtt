@@ -1,6 +1,6 @@
 import { GeneratorsCollection } from './../../../../../collections/generators';
 import { EntityController } from './../../../../../contracts/controllers/entity';
-import { MessageFactory } from './../../../../../contracts/message';
+import { IMessage, MessageFactory, MessageType } from './../../../../../contracts/message';
 import { EventAggregator } from 'aurelia';
 import { bindable, inject } from 'aurelia';
 import { creaturesList, ICreature } from './../../../../../collections/creatures';

@@ -1,6 +1,6 @@
 import { henchmanList, vehicleList } from "../../collections/asset";
 import { AssetController } from "./../controllers/asset";
-import { BaseForm } from "../form";
+import { BaseForm, IOnMouseInteraction } from "../form";
 import { IMessage, MessageType } from "../message";
 import {
   IInputSettings,
@@ -96,7 +96,7 @@ const editHenchmanFields: IInputSettings[] = [
     key: "experience",
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
-    group: "",
+    group: ""
   }),
   InputFactory.createDefaultInput({
     label: "strength",
@@ -104,6 +104,7 @@ const editHenchmanFields: IInputSettings[] = [
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
     group: "",
+    hasLabelContextCallback: true
   }),
   InputFactory.createDefaultInput({
     label: "dexterity",
@@ -111,6 +112,7 @@ const editHenchmanFields: IInputSettings[] = [
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
     group: "",
+    hasLabelContextCallback: true
   }),
   InputFactory.createDefaultInput({
     label: "will",
@@ -118,6 +120,7 @@ const editHenchmanFields: IInputSettings[] = [
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
     group: "",
+    hasLabelContextCallback: true
   }),
   InputFactory.createDefaultInput({
     label: "endurance",
@@ -158,22 +161,10 @@ const editHenchmanFields: IInputSettings[] = [
     label: "",
     key: "itemSlots",
     type: InputType.ITEMSLOTS,
-    itemSlots: []
+    itemSlots: [],
+    hasInputContextCallback: true
   })
 ];
-
-/*
-    level: number;
-    experience?: number;
-    strength: number;
-    dexterity: number;
-    will: number;
-    endurance: number;
-    maxEndurance: number;
-    av?: number;
-    weaknesses: DamageType[];
-    health?: WoundState;
-*/
 
 export class AssetCreateForm extends BaseForm {
   messageType: MessageType = MessageType.ADD;
