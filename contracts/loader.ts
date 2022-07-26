@@ -36,13 +36,6 @@ export interface IController extends ILoaderModule {
   request(session: ISession, message: IMessage): IMessage;
   getItem(id: string): IBase | null;
 }
-export interface IProvider {
-  subscribers: ISubscription[];
-  subscribe(subscription: ISubscription, originalMessage: IMessage): IMessage;
-  unSubsribe(subscription: ISubscription, originalMessage: IMessage): IMessage;
-  unSubsribeAll(session: ISession): void;
-  broadcast(key: string, data: any): void;
-}
 export interface ISubscription extends IBase {
   key: string;
   session: ISession;

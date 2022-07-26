@@ -27,7 +27,7 @@ export class Assets extends BasePage {
     ],
     controller: AssetController.name,
     expandable: true,
-    noProvision: true,
+    alwaysUpdate: false,
     itemClassKey: 'gameEntityType',
     getExpansionFormSettings: (value: any): IFormSettings => {
       let form;

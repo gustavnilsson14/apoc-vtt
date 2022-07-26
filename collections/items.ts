@@ -685,6 +685,18 @@ export const itemList: IItem[] = [
     image: "img/items/rpg.png",
   },
   {
+    name: "GUITAR",
+    type: ItemType.MELEE,
+    stats: [
+      StatType.DURABILITY,
+    ],
+    damageTypes: ["","","","*","SMASH"],
+    hasSkill: true,
+    size: ItemSize.SMALL,
+    horizontal: true,
+    image: "img/items/guitar.png",
+  },
+  {
     name: "CROSSBOW",
     type: ItemType.RANGED,
     stats: [
@@ -1961,6 +1973,18 @@ export const itemList: IItem[] = [
     image: "img/items/gold.png",
   },
   {
+    name: "SALT",
+    type: ItemType.GOODS,
+    stats: [
+      StatType.DURABILITY,
+    ],
+    damageTypes: [],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/salt.png",
+  },
+  {
     name: "HOCKEY MASK",
     type: ItemType.HEADGEAR,
     stats: [StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY],
@@ -2621,5 +2645,21 @@ export const itemList: IItem[] = [
     size: ItemSize.SMALL,
     horizontal: false,
     image: "img/injury/tumor.png",
+  },
+  {
+    name: "MADNESS",
+    type: ItemType.AFFLICTION,
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/injury/madness.png",
   },
 ];

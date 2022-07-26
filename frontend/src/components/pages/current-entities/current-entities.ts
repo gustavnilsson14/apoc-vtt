@@ -112,7 +112,7 @@ export class CurrentEntities extends BasePage {
     const enemies = collection.filter(
       (character) => character.gameEntityType == GameEntityType.ENEMY
     );
-    this.enemies = enemies;
+    if(this.enemies.length != enemies.length) this.enemies = enemies;
   }
   removeEnemy(index: number) {
     this.client.send(

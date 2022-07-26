@@ -1,6 +1,5 @@
 import { Guid } from "./guid";
 import { IBase } from "./../contracts/base";
-import { ICombatant } from "../contracts/models/battle";
 
 export enum GridType {
   SQUARE = "SQUARE",
@@ -38,7 +37,6 @@ export class Grid implements IGrid {
 export interface ITile extends IBase {
   pos: Vector2;
   utilityTags: TileUtilityTags[],
-  combatant?: ICombatant;
 }
 export class GridFactory {
   public static createSquareGrid(dimensions: Vector2): Grid {

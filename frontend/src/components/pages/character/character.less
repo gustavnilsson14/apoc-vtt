@@ -19,6 +19,7 @@ character-form {
         background-size: contain;
         align-items: center;
         display: grid;
+        grid-template-rows: 2fr 4fr;
         grid-template-columns: 1fr 1fr;
         custom-input {
           display: contents;
@@ -30,10 +31,12 @@ character-form {
               text-align: center;
               padding: 0;
               border: 0px;
-              width: 50px;
+              width: 60px;
               height: 50%;
               font-size: 22px;
               justify-self: left;
+              align-self: flex-start;
+              padding-left: 7px;
               &[readonly],
               &:disabled {
                 background-color: transparent;
@@ -45,14 +48,29 @@ character-form {
                 outline: 0 none;
               }
             }
-          }
-          &:first-child {
-            inner {
-              input.form-control {
-                justify-self: right;
+            &.av{
+              input.form-control{
+                display: grid;
+                grid-column: 1 / -1;
+                justify-self: center;
+                text-align: center;
+                align-self: flex-end;
+                padding-bottom: 10px;
+                padding-left: 11px;
               }
             }
           }
+            inner.endurance {
+              input.form-control {
+                justify-self: right;
+                padding-left: 5px;
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                  -webkit-appearance: none;
+                  margin: 0;
+                }
+              }
+            }
         }
       }
 

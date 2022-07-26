@@ -12,9 +12,10 @@
   ></custom-list-cell>
   <custom-form
     class="list-expansion horizontal-fields expanded-${isExpanded}"
-    if.bind="isExpanded"
+    if.bind="settings.expandable"
+    show.bind="isExpanded"
     settings.bind="getExpansionFormSettings()"
-    data.bind="item"
+    data.two-way="item"
   ></custom-form>
   <tooltip
     if.bind="!!settings.tooltipSource"

@@ -50,8 +50,17 @@ export class CustomList extends BasePage {
     if(this.settings.noProvision) return;
     this.subscribeRemote(this.settings.controller);
     this.subscribeLocal(this.eventAggregator.subscribe(`${MessageType.PROVISION}_${this.settings.controller}`, (message: IMessage) => {
-      this.data = message.data as unknown as any[];
+      this.setData(message.data as unknown as any[]);
     }));
+  }
+  setData(newData: any[]) {
+    if(this.settings.alwaysUpdate == true || this.data == undefined){
+      this.data = newData;
+      return;
+    }
+    if (newData == undefined) return;
+    if (newData.length == this.data.length) return;
+    this.data = newData;
   }
   responseSubscription(): void{
     this.subscribeLocal(this.eventAggregator.subscribeOnce(`${MessageType.RESPONSE}_${this.settings.controller}`, (message: IMessage) => {

@@ -1,6 +1,7 @@
-import { WoundState } from './../stats';
-import { DamageType, IDamageType } from './../../collections/damageType';
-import { allBackgroundsList } from './../../collections/backgrounds';
+import { ItemType, IItem, StatType } from './../../collections/items';
+import { WoundState } from "./../stats";
+import { DamageType, IDamageType } from "./../../collections/damageType";
+import { allBackgroundsList } from "./../../collections/backgrounds";
 import { ILoaderModule } from "../../contracts/loader";
 import { CharacterController } from "../controllers/character";
 import { BaseForm, IFormSettings } from "../form";
@@ -37,7 +38,7 @@ const fields: IInputSettings[] = [
     group: "base-info",
     isTemplate: false,
     tooltipSource: TooltipSourceType.PATH,
-    tooltipPaths: ["background.tribe", "background.occupationDescription"]
+    tooltipPaths: ["background.tribe", "background.occupationDescription"],
   }),
   InputFactory.createDefaultInput({
     label: "level",
@@ -62,7 +63,7 @@ const fields: IInputSettings[] = [
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
     group: "attributes",
-    hasLabelContextCallback: true
+    hasLabelContextCallback: true,
   }),
   InputFactory.createDefaultInput({
     label: "dexterity",
@@ -71,7 +72,7 @@ const fields: IInputSettings[] = [
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
     group: "attributes",
-    hasLabelContextCallback: true
+    hasLabelContextCallback: true,
   }),
   InputFactory.createDefaultInput({
     label: "will",
@@ -80,7 +81,41 @@ const fields: IInputSettings[] = [
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
     group: "attributes",
-    hasLabelContextCallback: true
+    hasLabelContextCallback: true,
+  }),
+  InputFactory.createDefaultInput({
+    label: "av",
+    placeholder: "",
+    key: "av",
+    type: InputType.INPUT,
+    subType: InputSubType.NUMBER,
+    hasLabel: false,
+    group: "endurance",
+    readonly: true,
+    getInputValue: (data: any): any => {
+      let av = 0;
+      data.itemSlots.forEach((slot) => {
+        if (slot.item == null) return;
+        const item = slot.item as IItem;
+        const armorSlots = [
+          "Upper Body",
+          "Lower Body",
+        ];
+        const shieldSlots = [
+          "Main hand",
+          "Off hand",
+        ];
+        if (armorSlots.indexOf(slot.name) != -1) {
+          if (item.type != ItemType.ARMOR && item.type != ItemType.HEADGEAR) return;
+          av += item.stats.filter(x=>x!=StatType.DURABILITY).length;
+        }
+        if (shieldSlots.indexOf(slot.name) != -1) {
+          if (item.type != ItemType.SHIELD) return;
+          av += item.stats.filter(x=>x!=StatType.DURABILITY).length;
+        }
+      });
+      return av;
+    },
   }),
   InputFactory.createDefaultInput({
     label: "endurance",
@@ -131,8 +166,10 @@ const fields: IInputSettings[] = [
       tooltipPaths: ["description"],
       tooltipSource: TooltipSourceType.PATH,
       valueConverter: (damageTypeIdentifiers: DamageType[]): IDamageType[] => {
-        return damageTypes.filter(x => damageTypeIdentifiers.indexOf(x.damageType) != -1); 
-      }
+        return damageTypes.filter(
+          (x) => damageTypeIdentifiers.indexOf(x.damageType) != -1
+        );
+      },
     },
   }),
   InputFactory.createMultipleSelectInput({
@@ -169,8 +206,8 @@ const fields: IInputSettings[] = [
     hasLabel: false,
     type: InputType.ITEMSLOTS,
     itemSlots: [],
-    group: "itemSlots"
-  })
+    group: "itemSlots",
+  }),
 ];
 
 export class CharacterForm

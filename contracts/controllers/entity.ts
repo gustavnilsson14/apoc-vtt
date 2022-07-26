@@ -11,7 +11,7 @@ export class EntityController extends BaseController {
   constructor(loaderObject: any) {
     super(loaderObject);
     EventPipeline.I.subscribe("UserController", (key: string, data: any) => {
-      this.broadcast(this.getAllItems());
+      this.broadcast(null, this.getAllItems());
     });
   }
   public getAllItems(): IBase[] {

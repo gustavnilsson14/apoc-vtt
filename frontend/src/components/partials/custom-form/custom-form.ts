@@ -35,6 +35,9 @@ export class CustomForm extends BasePage {
           (this.result as any).id
         }`,
         (message: IMessage) => {
+          if(message.handlerName == "EntityController") console.log(message);
+          
+          this.data = message.data;
           this.setResult(this.data);
         }
       )

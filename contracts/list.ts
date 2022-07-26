@@ -14,6 +14,7 @@ export interface ICustomListSettings extends IHasToolTip {
   noProvision?: boolean;
   valueConverter?: Function;
   itemClassKey?: string;
+  alwaysUpdate?: boolean;
   getExpansionFormSettings?: IGetExpansionFormSettings;
 }
 export interface ICustomListIndex {

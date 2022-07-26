@@ -58,6 +58,7 @@ export class Character extends BasePage {
       { label: "level", path: "level" },
     ],
     controller: CharacterController.name,
+    alwaysUpdate: true,
     onClick: (item: any) => {
       this.displayCharacter(item.id);
     },

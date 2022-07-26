@@ -90,7 +90,7 @@ export class Item extends ItemSlotsSetter implements ISelectable {
     if(this.getItem().type == ItemType.MELEE) return baseValue + val;
     if(this.getItem().type == ItemType.RANGED) return baseValue + val + 2;
     if(this.getItem().type == ItemType.MAGIC) return 10 + (val * 3);
-    if(this.getItem().type == ItemType.ARMOR) return baseValue + (val * 2);
+    if(this.getItem().type == ItemType.ARMOR) return (baseValue * 2) + (val * 2);
     if(this.getItem().type == ItemType.HEADGEAR) return baseValue + (val * 2);
     if(this.getItem().type == ItemType.SHIELD) return baseValue + (val * 1);
     if(this.getItem().type == ItemType.GOODS) return 5 + (baseValue * 2);

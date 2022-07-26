@@ -43,7 +43,6 @@ export class CustomInput {
     if (!this.settings.tooltipPaths && !this.settings.tooltipText) return;
     this.tooltipVisible = value;
   }
-
   getSelectOptionValue(option: any) {
     const selectInputSettings: ISelectInputSettings = this
       .settings as ISelectInputSettings;

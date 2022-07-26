@@ -49,6 +49,10 @@ const prefixFields: IInputSettings[] = [
     readonly: true,
     type: InputType.INPUT,
     subType: InputSubType.TEXT,
+    getInputValue: (data: any) => {
+      if(data.background) return `${data.name} the ${data.background.occupation}`;
+      return data.name;
+    },
   }),
 ];
 const prefixFieldsEditable: IInputSettings[] = [...prefixFields].map(x=>{
@@ -134,7 +138,6 @@ export class PlayerEnemyFormSettings
   label: string = "";
   key: string = "entityForm";
   autoSave?: boolean = true;
-  noSubscription?: boolean = true;
   handleMessage(message: IMessage): IMessage {
     throw new Error("Method not implemented.");
   }
@@ -150,7 +153,6 @@ export class GMEnemyFormSettings
   label: string = "";
   key: string = "entityForm";
   autoSave?: boolean = true;
-  noSubscription?: boolean = true;
   handleMessage(message: IMessage): IMessage {
     throw new Error("Method not implemented.");
   }
