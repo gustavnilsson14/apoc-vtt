@@ -7,6 +7,7 @@ import { IUserSession } from "../../../contracts/controllers/user";
 import { IMessage, MessageType } from "../../../contracts/message";
 import { ICookieLogin } from "../../../contracts/models/user";
 import { getCookie, setCookie } from "../../../shared/session";
+import { asyncTimeout } from '../../../shared/async-timeout';
 
 @inject(EventAggregator)
 export class Client extends BasePage{
@@ -17,7 +18,9 @@ export class Client extends BasePage{
   private ignoreChanges: boolean = false;
   private webSocket: WebSocket;
   public userSession: IUserSession;
+
   @observable public user: IUser;
+  newUser: IUser;
 
   constructor(private eventAggregator: EventAggregator) {
     super(null);
@@ -34,10 +37,17 @@ export class Client extends BasePage{
       setCookie('cookie', this.userSession.user.cookie);
     });
   }
-  setUser(user: IUser):void{
+  async setUser(user: IUser):Promise<void>{
     this.ignoreChanges = true;
     this.user = user;
+    await asyncTimeout(5);
     this.ignoreChanges = false;
+  }
+  async setNewUser(user: IUser){
+    if(this.newUser) return;
+    this.newUser = user;
+    await this.setUser(user);
+    this.newUser = null;
   }
   connect() {
     try {
@@ -57,6 +67,8 @@ export class Client extends BasePage{
       if (message.type == MessageType.ERROR) {
         console.error(message);
       }
+      console.log(`${message.type}_${message.handlerName}`);
+      
       this.eventAggregator.publish(`${message.type}_${message.handlerName}`, message);
     };
     this.webSocket.onclose = () => {

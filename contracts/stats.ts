@@ -26,11 +26,12 @@ export interface IHasStats{
 
 export function getEnduranceDescription(character: IHasStats):string{
     const percentageLeft: number = (character.endurance / character.maxEndurance);
-    if(percentageLeft == 1) return "Vigorous";
+    if(percentageLeft >= 1) return "Vigorous";
     if(percentageLeft > 0.8) return "Fresh";
     if(percentageLeft > 0.6) return "Determined";
     if(percentageLeft > 0.4) return "Tired";
     if(percentageLeft > 0.2) return "Wavering";
     if(percentageLeft > 0) return "Holding on";
-    return "Fallen";
+    return "Exhausted";
   }
+  

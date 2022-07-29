@@ -28,6 +28,8 @@ import { Client } from "../../../infrastructure/client";
 import { DiceType } from "../../../../../contracts/models/dice";
 import { UserType } from "../../../../../contracts/models/user";
 import { IInputSettings } from "../../../../../contracts/input";
+import { asyncTimeout } from '../../../../../shared/async-timeout';
+import { jsonEquals } from '../../../../../shared/evaluators';
 
 @inject(Client, EventAggregator, DiceHelper, RollableHandler)
 export class CurrentEntities extends BasePage {
@@ -75,11 +77,10 @@ export class CurrentEntities extends BasePage {
   ) {
     super(client);
   }
-  binding() {
-    setTimeout(() => {
-      this.enemyFormSettings = this.getEnemyFormByUserType();
-    }, 100);
-
+  async binding() {
+    await asyncTimeout(100);
+    this.enemyFormSettings = this.getEnemyFormByUserType();
+    
     this.eventAggregator.subscribeOnce(
       `${MessageType.RESPONSE}_${EntityController.name}`,
       (message: IMessage) => {
@@ -106,9 +107,10 @@ export class CurrentEntities extends BasePage {
     return this.gmEnemyFormSettings;
   }
   setEntities(collection: IGameEntity[]) {
-    this.characters = collection.filter(
+    const characters = collection.filter(
       (character) => character.gameEntityType == GameEntityType.CHARACTER
     );
+    if(!jsonEquals(this.characters,characters)) this.characters = characters;
     const enemies = collection.filter(
       (character) => character.gameEntityType == GameEntityType.ENEMY
     );

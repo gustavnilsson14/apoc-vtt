@@ -91,7 +91,7 @@ export class CharacterFactory {
     );
   }
 }
-function getRandomWeaknesses(): DamageType[] {
+export function getRandomWeaknesses(): DamageType[] {
   const raw: number[] = [
     getRandomInt(1, 12),
     getRandomInt(1, 12),

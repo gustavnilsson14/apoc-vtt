@@ -1,3 +1,4 @@
+import { BiomeType } from './biomes';
 import { ITacticalAction } from './tacticalAction';
 import { INamedObject } from './../contracts/stats';
 import { GameEntityType, IGameEntity } from "./../contracts/models/entity";
@@ -13,6 +14,7 @@ export interface IAttack {
 }
 export interface ICreature extends IHasStats, INamedObject, IBase, IGameEntity {
   description: string;
+  habitats: BiomeType[];
   attacks: IAttack[];
   actions: ITacticalAction[];
 }
@@ -31,6 +33,10 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 90,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [
+      BiomeType.SUBTERRANEAN,
+      BiomeType.METRO,
+    ],
     weaknesses: [
       DamageType.LIGHT,
       DamageType.CUT,
@@ -88,6 +94,11 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 40,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [
+      BiomeType.SUBTERRANEAN,
+      BiomeType.METRO,
+      BiomeType.RIVER,
+    ],
     weaknesses: [
       DamageType.LIGHT,
       DamageType.SMASH,
@@ -140,6 +151,10 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 42,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [
+      BiomeType.CITY_RUINS,
+      BiomeType.ZONE,
+    ],
     weaknesses: [
       DamageType.SMASH,
       DamageType.BLAST,
@@ -196,6 +211,11 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 30,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [
+      BiomeType.CITY_RUINS,
+      BiomeType.METRO,
+      BiomeType.SWAMP,
+    ],
     weaknesses: [
       DamageType.CUT,
       DamageType.PAIN,
@@ -242,6 +262,11 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 60,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [
+      BiomeType.CITY_RUINS,
+      BiomeType.ZONE,
+      BiomeType.SWAMP,
+    ],
     weaknesses: [
       DamageType.STAB,
       DamageType.GUN,
@@ -299,6 +324,12 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 34,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [
+      BiomeType.CITY_RUINS,
+      BiomeType.ZONE,
+      BiomeType.METRO,
+      BiomeType.SWAMP,
+    ],
     weaknesses: [DamageType.SMASH, DamageType.BLAST, DamageType.LIGHT],
     attacks: [
       {
@@ -344,6 +375,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 142,
     av: 2,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.LIGHT,
       DamageType.SMASH,
@@ -406,6 +438,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 48,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.LIGHT,
       DamageType.SMASH,
@@ -466,6 +499,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 32,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.NUKE,
       DamageType.GUN,
@@ -523,6 +557,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 50,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.STAB,
       DamageType.SMASH,
@@ -569,6 +604,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 45,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.PAIN,
       DamageType.SMASH,
@@ -618,6 +654,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 120,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.STAB,
       DamageType.CUT,
@@ -672,6 +709,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 30,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.CUT,
       DamageType.GUN,
@@ -720,6 +758,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 80,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.GUN,
       DamageType.BURST,
@@ -767,6 +806,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 122,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.GUN,
       DamageType.BURST,
@@ -827,6 +867,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 74,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [DamageType.CUT, DamageType.NUKE, DamageType.LIGHT],
     attacks: [
       {
@@ -869,6 +910,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 74,
     av: 2,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [DamageType.CUT, DamageType.LIGHT],
     attacks: [
       {
@@ -905,6 +947,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 38,
     av: 2,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [DamageType.SMASH, DamageType.NUKE, DamageType.LIGHT],
     attacks: [
       {
@@ -957,6 +1000,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 182,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.CUT,
       DamageType.VOLT,
@@ -1010,6 +1054,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 224,
     av: 3,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.BURST,
       DamageType.BLAST,
@@ -1061,6 +1106,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 208,
     av: 3,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.BURST,
       DamageType.BLAST,
@@ -1117,6 +1163,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 42,
     av: 2,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.GUN,
       DamageType.SMASH,
@@ -1171,6 +1218,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 108,
     av: 2,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.GUN,
       DamageType.BURST,
@@ -1234,6 +1282,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 32,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.STAB,
       DamageType.GUN,
@@ -1283,6 +1332,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 40,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.BURST,
       DamageType.LIGHT,
@@ -1341,6 +1391,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 40,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.BURST,
       DamageType.LIGHT,
@@ -1400,6 +1451,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 182,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.CUT,
       DamageType.VOLT,
@@ -1429,6 +1481,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 182,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
     weaknesses: [
       DamageType.CUT,
       DamageType.VOLT,
@@ -1458,6 +1511,9 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 34,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [
+      BiomeType.SALT_FLATS
+    ],
     weaknesses: [
       DamageType.CUT,
       DamageType.NEURAL,
@@ -1500,6 +1556,9 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 51,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [
+      BiomeType.SALT_FLATS
+    ],
     weaknesses: [
       DamageType.CUT,
       DamageType.GUN,
@@ -1549,12 +1608,105 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 51,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
+    habitats: [
+      BiomeType.SALT_FLATS
+    ],
     weaknesses: [
       DamageType.CUT,
       DamageType.STAB,
       DamageType.GUN,
       DamageType.LIGHT,
       DamageType.OOZE,
+    ],
+    attacks: [
+      {
+        name: "Bite",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D6],
+        damageTypes: [DamageType.PAIN, DamageType.CUT],
+      },
+    ],
+    actions: [
+      {
+        id: "",
+        name: "Hallucinogenic spit",
+        description:
+          "Targets one enemy at range. The victim suffers 2D6 NEURAL damage, and on a failed WIL starts hallucinating for the rest of the day.",
+      },
+      {
+        id: "",
+        name: "Fly",
+        description:
+          "",
+      },
+    ],
+  },  
+  {
+    id: "Wilted shambler",
+    name: "Wilted shambler",
+    description:
+      "A winged serpent in dark green scales with bright orange details around its eyes.",
+    image: "",
+    level: 2,
+    strength: 12,
+    dexterity: 3,
+    will: 5,
+    endurance: 51,
+    maxEndurance: 51,
+    av: 1,
+    gameEntityType: GameEntityType.ENEMY,
+    habitats: [
+      BiomeType.SALT_FLATS
+    ],
+    weaknesses: [
+      DamageType.CUT,
+      DamageType.SMASH,
+      DamageType.LIGHT,
+      DamageType.VOLT,
+    ],
+    attacks: [
+      {
+        name: "Bite",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D6],
+        damageTypes: [DamageType.PAIN, DamageType.CUT],
+      },
+    ],
+    actions: [
+      {
+        id: "",
+        name: "Hallucinogenic spit",
+        description:
+          "Targets one enemy at range. The victim suffers 2D6 NEURAL damage, and on a failed WIL starts hallucinating for the rest of the day.",
+      },
+      {
+        id: "",
+        name: "Fly",
+        description:
+          "",
+      },
+    ],
+  },
+  {
+    id: "Wilted brute",
+    name: "Wilted brute",
+    description:
+      "A winged serpent in dark green scales with bright orange details around its eyes.",
+    image: "",
+    level: 2,
+    strength: 12,
+    dexterity: 3,
+    will: 5,
+    endurance: 51,
+    maxEndurance: 51,
+    av: 1,
+    gameEntityType: GameEntityType.ENEMY,
+    habitats: [
+      BiomeType.SALT_FLATS
+    ],
+    weaknesses: [
+      DamageType.CUT,
+      DamageType.SMASH,
+      DamageType.LIGHT,
+      DamageType.VOLT,
     ],
     attacks: [
       {

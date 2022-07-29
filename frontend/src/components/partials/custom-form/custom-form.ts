@@ -1,4 +1,4 @@
-import { IInputSettings } from './../../../../../contracts/input';
+import { IInputSettings } from "./../../../../../contracts/input";
 import { bindable, EventAggregator, inject } from "aurelia";
 import { IError } from "../../../../../contracts/base";
 import { BaseForm, IFormSettings } from "../../../../../contracts/form";
@@ -9,11 +9,13 @@ import {
 } from "../../../../../contracts/message";
 import { Client } from "../../../infrastructure/client";
 import { BasePage } from "../../../infrastructure/view";
+import { asyncTimeout } from "../../../../../shared/async-timeout"
 
 @inject(Client, EventAggregator)
 export class CustomForm extends BasePage {
   @bindable settings: IFormSettings;
   @bindable result: any = {};
+  @bindable newResult: any = {};
   @bindable data: any;
   @bindable errorText: string;
   @bindable successText: string;
@@ -26,8 +28,8 @@ export class CustomForm extends BasePage {
   binding() {
     this.setResult(this.data);
     if (!this.result.id) return;
-    if(this.settings.noSubscription) return;
-    
+    if (this.settings.noSubscription) return;
+
     this.subscribeRemote(this.settings.controller, (this.result as any).id);
     this.subscribeLocal(
       this.eventAggregator.subscribe(
@@ -35,20 +37,33 @@ export class CustomForm extends BasePage {
           (this.result as any).id
         }`,
         (message: IMessage) => {
-          if(message.handlerName == "EntityController") console.log(message);
-          
           this.data = message.data;
-          this.setResult(this.data);
+          this.setNewResult(this.data);
         }
       )
     );
   }
-  setResult(data:any):void{
+  async setResult(data: any): Promise<void> {
     this.ignoreChanges = true;
     this.result = { ...data };
+    await asyncTimeout(1);
     this.ignoreChanges = false;
   }
-  resultChanged() {
+  async setNewResult(data: any): Promise<void> {
+    if (this.newResult) {
+      /*
+      EFFECTIVELY IGNORES NEW PACKAGES IF ANOTHER PACKAGE IS ALREADY PROCESSED
+      THIS DOES DISCARD TO PACKAGE UNFORTUNATELY
+      */
+      return;
+    }
+    this.newResult = data;
+    await this.setResult(data);
+    this.newResult = null;
+  }
+  
+  async resultChanged() {
+    this.data = { ...this.result };
     if (this.ignoreChanges) return;
     if (this.settings.autoSave != true) return;
     if (this.handleFrequency()) return;
@@ -68,6 +83,17 @@ export class CustomForm extends BasePage {
   submit(event: any = null): void {
     if (event) event.preventDefault();
     if (this.settings.noSave) return;
+    this.subscribeOnceToResponse();
+    const message: IMessage = MessageFactory.clientMessage(
+      this.settings.messageType,
+      this.settings.controller,
+      this.result
+    );
+    if (this.onSubmit) this.onSubmit();
+    message.validatorName = (this.settings as BaseForm).constructor.name;
+    this.client.send(message);
+  }
+  subscribeOnceToResponse() {
     this.errorText = null;
     this.eventAggregator.subscribeOnce(
       `${MessageType.ERROR}_${this.settings.controller}`,
@@ -81,29 +107,21 @@ export class CustomForm extends BasePage {
         this.successText = this.settings.successText;
       }
     );
-    const message: IMessage = MessageFactory.clientMessage(
-      this.settings.messageType,
-      this.settings.controller,
-      this.result
-    );
-    if (this.onSubmit) this.onSubmit();
-    message.validatorName = (this.settings as BaseForm).constructor.name;
-    this.client.send(message);
   }
-  @bindable onInputClick(settings: IInputSettings, result: any):void{
-    if(!this.settings.onInputClick) return;
+  @bindable onInputClick(settings: IInputSettings, result: any): void {
+    if (!this.settings.onInputClick) return;
     this.settings.onInputClick(settings, result);
   }
-  @bindable onInputContext(settings: IInputSettings, result: any):void{
-    if(!this.settings.onInputContext) return;
+  @bindable onInputContext(settings: IInputSettings, result: any): void {
+    if (!this.settings.onInputContext) return;
     this.settings.onInputContext(settings, result);
   }
-  @bindable onLabelClick(settings: IInputSettings, result: any):void{
-    if(!this.settings.onLabelClick) return;
+  @bindable onLabelClick(settings: IInputSettings, result: any): void {
+    if (!this.settings.onLabelClick) return;
     this.settings.onLabelClick(settings, result);
   }
-  @bindable onLabelContext(settings: IInputSettings, result: any):void{
-    if(!this.settings.onLabelContext) return;
+  @bindable onLabelContext(settings: IInputSettings, result: any): void {
+    if (!this.settings.onLabelContext) return;
     this.settings.onLabelContext(settings, result);
   }
 }

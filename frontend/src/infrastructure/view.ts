@@ -1,6 +1,5 @@
 import { MessageFactory } from './../../../contracts/message';
 import { Client } from './client';
-import { EventAggregator, inject } from "aurelia";
 
 export enum ModelViewState {
   LIST = "list",
@@ -41,4 +40,6 @@ export class BasePage{
       this.client.send(MessageFactory.unsubscribe(sub.handlerName, sub.id));
     });
   }
+  public async setProvided():Promise<void>{return}
+  public async setNewProvided():Promise<void>{return}
 }

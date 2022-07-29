@@ -14,6 +14,7 @@ export interface IAsset extends IModel{
 }
 export interface IVehicle extends IAsset, IGameEntity {
     itemSlots: IItemSlot[],
+    hardpoints?: IItemSlot[],
     integrity: number;
     maxFuel: number;
     fuel?: number;

@@ -7,10 +7,13 @@ export class ItemSlotsSetter extends BasePage {
   @bindable public value: IItemSlot[];
   @bindable index: number;
 
-  public getItem(): IItem {
+  public getItemSlot(): IItemSlot {
     if (this.value == null) return null;
     if (this.value[this.index] == null) return null;
-    return this.value[this.index].item;
+    return this.value[this.index];
+  }
+  public getItem(): IItem {
+    return this.getItemSlot().item;
   }
   public setItem(item: IItem): void {
     this.value[this.index].item = item;

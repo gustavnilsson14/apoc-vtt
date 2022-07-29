@@ -1,21 +1,36 @@
 import { IFormSettings } from './../../../../../../contracts/form';
 import { bindable } from "aurelia";
-import { ICustomListIndex, ICustomListSettings } from "../../../../../../contracts/list";
+import { ICustomListSettings } from "../../../../../../contracts/list";
 import { getValueFromPath } from "../../../../../../shared/object-parser"
 
 export class CustomListItem {
   @bindable item: any;
-  @bindable displayData: any;
+  @bindable data: any[];
+  @bindable cellValues: string[];
   @bindable index: number;
   @bindable settings: ICustomListSettings;
   @bindable tooltipVisible = false;
   @bindable expandedIds: string[] = [];
   isExpanded: boolean;
+  @bindable toolTipData: any;
   attached() {
     this.setExpanded();
   }
-  getCellValue(index: ICustomListIndex) {
-    return getValueFromPath(this.displayData, index.path);
+  binding():void{
+    this.itemChanged();
+  }
+  itemChanged(): void {
+    this.cellValues = [];
+    this.settings.indexes.forEach(index => {
+      this.cellValues.push(getValueFromPath(this.item, index.path));
+    });
+    
+    this.cellValues = [...this.cellValues];
+    this.toolTipData = this.getTooltipData();
+  }
+  getTooltipData(): any {
+    if(!this.settings.tooltipDataFunction) return this.item;
+    return this.settings.tooltipDataFunction(this.item);
   }
   onClick(): void {
     this.handleExpand();

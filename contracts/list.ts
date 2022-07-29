@@ -3,6 +3,9 @@ import { IHasToolTip } from './../frontend/src/infrastructure/tooltip';
 interface IGetExpansionFormSettings{
   (value: any): IFormSettings;
 }
+interface IGetTooltipData{
+  (item: any): any;
+}
 export interface ICustomListSettings extends IHasToolTip {
   indexes: ICustomListIndex[];
   headers?: boolean;
@@ -12,9 +15,9 @@ export interface ICustomListSettings extends IHasToolTip {
   ignoreLoadOnAttached?: boolean;
   expandable?: boolean;
   noProvision?: boolean;
-  valueConverter?: Function;
   itemClassKey?: string;
   alwaysUpdate?: boolean;
+  tooltipDataFunction?: IGetTooltipData;
   getExpansionFormSettings?: IGetExpansionFormSettings;
 }
 export interface ICustomListIndex {

@@ -9,7 +9,6 @@ import { ICustomListSettings } from "../../../../../contracts/list";
 @inject(Client, EventAggregator)
 export class CustomList extends BasePage {
   @bindable data: any[] = [];
-  @bindable displayData: any[] = [];
   @bindable batchIds: string[];
   @bindable expandedIds: string[] = [];
   @bindable settings: ICustomListSettings;
@@ -18,21 +17,10 @@ export class CustomList extends BasePage {
   }
   binding(){
     this.registerSubscriptions();
-    this.setDisplayData();
     if (this.settings.controller == null) return;
     if (this.settings.ignoreLoadOnAttached == true) return;
     const message: IMessage = this.getRequestMessage();
     this.client.send(message);
-  }
-  async dataChanged():Promise<void>{
-    this.setDisplayData();
-  }
-  async setDisplayData(){
-    if(!this.settings.valueConverter){
-      this.displayData = this.data;
-      return;
-    }
-    this.displayData = this.settings.valueConverter(this.data);
   }
   getRequestMessage():IMessage{
     if (this.batchIds != null) return MessageFactory.batchRequest(this.settings.controller, { id: null, ids: this.batchIds } as IBatchRequest);
@@ -54,6 +42,8 @@ export class CustomList extends BasePage {
     }));
   }
   setData(newData: any[]) {
+    console.log("HEY");
+    
     if(this.settings.alwaysUpdate == true || this.data == undefined){
       this.data = newData;
       return;

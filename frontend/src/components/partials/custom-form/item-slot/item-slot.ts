@@ -7,6 +7,8 @@ import {
 import {
   IItem,
   ItemType,
+  mentalItemTypes,
+  physicalItemTypes,
   StatType,
   unMoveableItems,
 } from "./../../../../../../collections/items";
@@ -59,6 +61,7 @@ export class ItemSlot extends ItemSlotsSetter implements ISelectable {
       this.handleMoveItem();
     if (this.selectionHandler.getSelected()?.selectionGroup == "AllItems")
       this.handleNewItem();
+    
     if (this.getItem()) this.selectionHandler.select(this);
   }
   public onContext(e): void {
@@ -66,11 +69,8 @@ export class ItemSlot extends ItemSlotsSetter implements ISelectable {
     if (this.getItem() == null) return;
     e.preventDefault();
     if (!this.onContextCallback) return;
-    console.log("this.getItem()", this.getItem());
     
     this.onContextCallback({ settings: this.settings, result: this.getItem() });
-
-    //this.handleRollable();
   }
   equals(otherSlot: ItemSlot): boolean {
     if (!otherSlot) return false;
@@ -105,6 +105,15 @@ export class ItemSlot extends ItemSlotsSetter implements ISelectable {
   }
   public validateItemType(item: IItem): boolean {
     if (item == null) return true;
+    const itemSlot: IItemSlot = this.getItemSlot();
+    let result: boolean = false;
+    itemSlot.allowedTypes.forEach(allowedType => {
+      if (item.type == allowedType) result = true;
+      if (allowedType == ItemType.PHYSICAL && physicalItemTypes.includes(item.type)) result = true;
+      if (allowedType == ItemType.MENTAL && mentalItemTypes.includes(item.type)) result = true;
+      if (allowedType == ItemType.ANY) result = true;
+    });
+    return result;
     return (
       this.value[this.index].allowedTypes.find(
         (x) => x == item.type || x == ItemType.ANY

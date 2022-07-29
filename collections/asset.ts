@@ -3,12 +3,19 @@ import { physicalItemTypes } from './items';
 import { AssetType, IVehicle } from '../contracts/models/asset';
 import { GameEntityType } from '../contracts/models/entity';
 import { bodies, BodySize, IBodyTemplate } from './body';
+import { getRandomWeaknesses } from '../contracts/models/character';
 export const vehicleList: IVehicle[] = [
     {
         id: "",
         gameEntityType: GameEntityType.VEHICLE,
         name: "Sedan Car",
         type: AssetType.VEHICLE,
+        hardpoints: [
+            {
+                name: "Trunk hardpoint",
+                allowedTypes: physicalItemTypes,
+            },
+        ],
         itemSlots: [
             {
                 name: "Roof",
@@ -281,7 +288,7 @@ export const henchmanList: IHenchman[] = [
         experience: 0,
         endurance: 50,
         maxEndurance: 50,
-        weaknesses: [],
+        weaknesses: getRandomWeaknesses(),
         ...(bodies.find((x) => x.bodyName == "HumanHenchman") as IBodyTemplate)
     }
 ];

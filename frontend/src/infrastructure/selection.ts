@@ -15,6 +15,7 @@ export class SelectionHandler {
   }
   public select(selectable: ISelectable): void {
     const newSelectedPath = this.getCssPath(selectable);
+    
     if (this.selectedPath != newSelectedPath) {
       this.setSelected(selectable);
       return;

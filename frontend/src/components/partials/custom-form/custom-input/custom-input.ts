@@ -68,7 +68,6 @@ export class CustomInput {
   }
   private onItemSlotInputContext(e): void {
     if (!this.onInputContextCallback) return;
-    console.log("private onItemSlotInputContext(e): void {");
     
     this.onInputContextCallback({
       settings: this.settings,

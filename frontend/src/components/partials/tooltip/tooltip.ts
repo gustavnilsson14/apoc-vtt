@@ -16,6 +16,7 @@ export class Tooltip {
   setTooltipText():void{
     if (this.tooltip.tooltipSource != TooltipSourceType.PATH) return;
     if (!this.tooltip.tooltipPaths) return;
+    
     this.tooltipTextsFromPath = [];
     this.tooltip.tooltipPaths.forEach(tooltipPath=>{
       this.tooltipTextsFromPath.push(getValueFromPath(this.data, tooltipPath));

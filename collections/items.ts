@@ -16,7 +16,10 @@ export enum ItemType {
   ANY = "ANY",
   GOODS = "GOODS",
   AFFLICTION = "AFFLICTION",
+  PHYSICAL = "PHYSICAL",
+  MENTAL = "MENTAL"
 }
+
 export const physicalItemTypes: ItemType[] = [
   ItemType.MELEE,
   ItemType.RANGED,
@@ -31,6 +34,10 @@ export const physicalItemTypes: ItemType[] = [
   ItemType.CYBERNETICS,
   ItemType.INJURY,
   ItemType.GOODS,
+];
+export const mentalItemTypes: ItemType[] = [
+  ItemType.AFFLICTION,
+  ItemType.MAGIC
 ];
 export const unMoveableItems: ItemType[] = [
   ItemType.INJURY,
@@ -60,6 +67,37 @@ export interface IItem {
   size: ItemSize;
   horizontal: boolean;
   image: string;
+}
+
+export function getItemValue(item: IItem):number {
+  let baseValue = 0;
+  item.stats.forEach(stat => {
+    baseValue += getItemStatValue(stat);
+  });
+  return getValueOnItemType(item, baseValue);
+}
+export function getValueOnItemType(item: IItem, baseValue: number): number {
+  const val = item.damageTypes ? item.damageTypes.length : 0;
+  if(item.type == ItemType.STUFF) return 2;
+  if(item.type == ItemType.TOOL) return 4;
+  if(item.type == ItemType.EXPLOSIVE) return Math.floor(baseValue / 2) + (val * 2);
+  if(item.type == ItemType.CONSUMABLE) return Math.floor(baseValue / 2);
+  if(item.type == ItemType.MELEE) return baseValue + val;
+  if(item.type == ItemType.RANGED) return baseValue + val + 2;
+  if(item.type == ItemType.MAGIC) return 10 + (val * 3);
+  if(item.type == ItemType.ARMOR) return baseValue + (val * 2);
+  if(item.type == ItemType.HEADGEAR) return baseValue + (val * 2);
+  if(item.type == ItemType.SHIELD) return baseValue + (val * 1);
+  if(item.type == ItemType.GOODS) return 5 + (baseValue * 2);
+  if(item.type == ItemType.CYBERNETICS) return 10 + (baseValue * 3) + (val * 2);
+  if(item.type == ItemType.ARTIFACT) return 20 + (baseValue * 5);
+  return baseValue + val;
+}
+export function getItemStatValue(stat: StatType): number {
+  if(stat == StatType.DURABILITY) return 1;
+  if(stat == StatType.EFFECT) return 3;
+  if(stat == StatType.QUALITY) return 4;
+  return 0;
 }
 
 export const itemList: IItem[] = [

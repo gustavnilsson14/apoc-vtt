@@ -43,6 +43,7 @@ import { ICustomListSettings } from "../../../../../contracts/list";
 import { bodies } from "../../../../../collections/body";
 import { DiceHelper } from "../../../infrastructure/helpers/diceHelper";
 import { IItem } from "../../../../../collections/items";
+import { asyncTimeout } from "../../../../../shared/async-timeout";
 
 @inject(Client, EventAggregator, ContextMenu, DiceHelper)
 export class Character extends BasePage {
@@ -96,11 +97,10 @@ export class Character extends BasePage {
   ) {
     super(client);
   }
-  binding() {
-    setTimeout(() => {
-      if (!this.client.user?.selectedCharacterId) return;
-      this.displayCharacter(this.client.user.selectedCharacterId);
-    }, 50);
+  async binding() {
+    await asyncTimeout(50);
+    if (!this.client.user?.selectedCharacterId) return;
+    this.displayCharacter(this.client.user.selectedCharacterId);
   }
   private displayCharacter(id: string): void {
     this.eventAggregator.subscribeOnce(
@@ -141,11 +141,10 @@ export class Character extends BasePage {
     this.operation = MessageType.ADD;
     this.modelViewState = ModelViewState.FORM;
   }
-  private onSave(): void {
+  private async onSave(): Promise<void> {
     this.saveCharacter(MessageType.ADD, this.characterFormResult);
-    setTimeout(() => {
-      this.clearSelected();
-    }, 1);
+    await asyncTimeout(1);
+    this.clearSelected();
   }
   private onCancel(): void {
     this.clearSelected();

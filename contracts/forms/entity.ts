@@ -100,6 +100,10 @@ const gmCreatureFields: IInputSettings[] = [
     key: "endurance",
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
+    getInputValue: (data: any): any => {
+      if(data.endurance > data.maxEndurance) return data.maxEndurance;
+      return data.endurance;
+    }
   }),
   InputFactory.createDefaultInput({
     label: "weaknesses",

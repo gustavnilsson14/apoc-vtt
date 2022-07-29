@@ -49,11 +49,19 @@ assets {
       }
     }
     .henchman {
-      inner {
-        &.itemslots {
-          grid-template-rows: 1fr 1fr;
+      custom-input{
+        &.weaknesses{
+          
+          grid-column: 1 / -1;
+          grid-template-columns: 1fr 3fr;
+        }
+        inner {
+          &.itemslots {
+            grid-template-rows: 1fr 1fr;
+          }
         }
       }
+      
     }
   }
 }

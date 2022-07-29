@@ -12,6 +12,7 @@ export class ContextMenu {
   @bindable buttons: IContextMenuButton[] = [];
   @bindable position: Vector2 = new Vector2(0, 0);
   timeout: NodeJS.Timeout;
+  visible: boolean;
   constructor(
     private eventAggregator: EventAggregator,
     private mouseHandler: MouseHandler
@@ -27,13 +28,17 @@ export class ContextMenu {
   }
   public setContextMenu(buttons: IContextMenuButton[]): void {
     this.buttons = [...buttons];
+    if (this.buttons.length == 0) {
+      this.visible = false;
+      return;
+    }
+    this.visible = true;
     this.position = {
       x: this.mouseHandler.position.x - 40,
       y: this.mouseHandler.position.y - 20,
     };
   }
   onMouseOut():void{
-    
     this.timeout = setTimeout(() => {
       this.remove();
     }, 500);

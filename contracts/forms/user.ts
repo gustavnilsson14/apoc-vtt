@@ -112,6 +112,15 @@ const notesFields: IInputSettings[] = [
   InputFactory.createDefaultInput({
     label: "Notes",
     placeholder: "",
+    key: "id",
+    dataField: true,
+    type: InputType.INPUT,
+    subType: InputSubType.TEXTAREA,
+    hasLabel: false
+  }),
+  InputFactory.createDefaultInput({
+    label: "Notes",
+    placeholder: "",
     key: "notes",
     type: InputType.INPUT,
     subType: InputSubType.TEXTAREA,

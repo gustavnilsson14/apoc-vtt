@@ -3,10 +3,10 @@
   <require from="../../tooltip/tooltip"></require>
   <require from="./custom-list-cell/custom-list-cell"></require>
   <custom-list-cell
-    repeat.for="index of settings.indexes"
+    repeat.for="value of cellValues"
     mouseover.delegate="setTooltipVisibility(true)"
     mouseout.delegate="setTooltipVisibility(false)"
-    value.bind="getCellValue(index)"
+    value.bind="value"
     click.delegate="onClick()"
     contextmenu.delegate="onContext($event)"
   ></custom-list-cell>
@@ -15,12 +15,12 @@
     if.bind="settings.expandable"
     show.bind="isExpanded"
     settings.bind="getExpansionFormSettings()"
-    data.two-way="item"
+    data.bind="item"
   ></custom-form>
   <tooltip
     if.bind="!!settings.tooltipSource"
     tooltip.bind="settings"
     visible.bind="tooltipVisible"
-    data.bind="displayData"
+    data.bind="toolTipData"
   ></tooltip>
 </template>

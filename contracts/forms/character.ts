@@ -94,7 +94,7 @@ const fields: IInputSettings[] = [
     readonly: true,
     getInputValue: (data: any): any => {
       let av = 0;
-      data.itemSlots.forEach((slot) => {
+      data.itemSlots.forEach((slot: any) => {
         if (slot.item == null) return;
         const item = slot.item as IItem;
         const armorSlots = [
@@ -162,12 +162,12 @@ const fields: IInputSettings[] = [
     group: "traits",
     listSettings: {
       headers: false,
-      indexes: [{ label: "weakness", path: "name" }],
+      indexes: [{ label: "weakness", path: "." }],
       tooltipPaths: ["description"],
       tooltipSource: TooltipSourceType.PATH,
-      valueConverter: (damageTypeIdentifiers: DamageType[]): IDamageType[] => {
-        return damageTypes.filter(
-          (x) => damageTypeIdentifiers.indexOf(x.damageType) != -1
+      tooltipDataFunction: (damageTypeIdentifier: DamageType): IDamageType | undefined => {
+        return damageTypes.find(
+          (x) => damageTypeIdentifier == x.damageType
         );
       },
     },

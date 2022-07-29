@@ -8,6 +8,7 @@ import {
   InputSubType,
   InputType,
 } from "../input";
+import { IItem, ItemType, StatType } from "../../collections/items";
 
 const addAssetFields: IInputSettings[] = [
   InputFactory.createSelectInput({
@@ -63,9 +64,19 @@ const editVehicleFields: IInputSettings[] = [
   }),
   InputFactory.createItemSlotsInput({
     label: "",
-    key: "itemSlots",
+    key: "hardpoints",
+    hasLabel: false,
     type: InputType.ITEMSLOTS,
-    itemSlots: []
+    itemSlots: [],
+    group: "hardpoints",
+  }),
+  InputFactory.createItemSlotsInput({
+    label: "",
+    key: "itemSlots",
+    hasLabel: false,
+    type: InputType.ITEMSLOTS,
+    itemSlots: [],
+    group: "itemSlots",
   })
 ];
 const editHenchmanFields: IInputSettings[] = [
@@ -92,13 +103,6 @@ const editHenchmanFields: IInputSettings[] = [
     group: "",
   }),
   InputFactory.createDefaultInput({
-    label: "experience",
-    key: "experience",
-    type: InputType.INPUT,
-    subType: InputSubType.NUMBER,
-    group: ""
-  }),
-  InputFactory.createDefaultInput({
     label: "strength",
     key: "strength",
     type: InputType.INPUT,
@@ -107,16 +111,15 @@ const editHenchmanFields: IInputSettings[] = [
     hasLabelContextCallback: true
   }),
   InputFactory.createDefaultInput({
-    label: "dexterity",
-    key: "dexterity",
+    label: "experience",
+    key: "experience",
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
-    group: "",
-    hasLabelContextCallback: true
+    group: ""
   }),
   InputFactory.createDefaultInput({
-    label: "will",
-    key: "will",
+    label: "dexterity",
+    key: "dexterity",
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
     group: "",
@@ -128,13 +131,18 @@ const editHenchmanFields: IInputSettings[] = [
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
     group: "",
+    getInputValue: (data: any): any => {
+      if(data.endurance > data.maxEndurance) return data.maxEndurance;
+      return data.endurance;
+    }
   }),
   InputFactory.createDefaultInput({
-    label: "maxEndurance",
-    key: "maxEndurance",
+    label: "will",
+    key: "will",
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
     group: "",
+    hasLabelContextCallback: true
   }),
   InputFactory.createDefaultInput({
     label: "av",
@@ -142,17 +150,36 @@ const editHenchmanFields: IInputSettings[] = [
     type: InputType.INPUT,
     subType: InputSubType.NUMBER,
     group: "",
-  }),
-  InputFactory.createDefaultInput({
-    label: "health",
-    key: "health",
-    type: InputType.INPUT,
-    subType: InputSubType.NUMBER,
-    group: "",
+    readonly: true,
+    getInputValue: (data: any): any => {
+      let av = 0;
+      data.itemSlots.forEach((slot: any) => {
+        if (slot.item == null) return;
+        const item = slot.item as IItem;
+        const armorSlots = [
+          "Upper Body",
+          "Lower Body",
+        ];
+        const shieldSlots = [
+          "Main hand",
+          "Off hand",
+        ];
+        if (armorSlots.indexOf(slot.name) != -1) {
+          if (item.type != ItemType.ARMOR && item.type != ItemType.HEADGEAR) return;
+          av += item.stats.filter(x=>x!=StatType.DURABILITY).length;
+        }
+        if (shieldSlots.indexOf(slot.name) != -1) {
+          if (item.type != ItemType.SHIELD) return;
+          av += item.stats.filter(x=>x!=StatType.DURABILITY).length;
+        }
+      });
+      return av;
+    },
   }),
   InputFactory.createDefaultInput({
     label: "weaknesses",
     key: "weaknesses",
+    readonly: true,
     type: InputType.INPUT,
     subType: InputSubType.TEXT,
     group: "",

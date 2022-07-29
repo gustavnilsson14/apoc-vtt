@@ -1,3 +1,4 @@
+import { IVehicle } from './../models/asset';
 import { ICharacter } from './../models/character';
 import { ISession } from '../../shared/session';
 import { LoaderModuleType } from '../loader';

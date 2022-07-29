@@ -56,7 +56,7 @@ export const damageTypes: IDamageType[] = [
     description: "Multiple rapid bullet shocks",
   },
   {
-    id: "",
+    id: "BLAST",
     damageType: DamageType.BLAST,
     name: "Blast",
     description: "Wide area or explosive",
