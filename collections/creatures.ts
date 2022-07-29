@@ -1,6 +1,6 @@
-import { BiomeType } from './biomes';
-import { ITacticalAction } from './tacticalAction';
-import { INamedObject } from './../contracts/stats';
+import { BiomeType } from "./biomes";
+import { ITacticalAction } from "./tacticalAction";
+import { INamedObject } from "./../contracts/stats";
 import { GameEntityType, IGameEntity } from "./../contracts/models/entity";
 import { DiceType } from "./../contracts/models/dice";
 import { DamageType } from "./damageType";
@@ -33,10 +33,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 90,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
-    habitats: [
-      BiomeType.SUBTERRANEAN,
-      BiomeType.METRO,
-    ],
+    habitats: [BiomeType.SUBTERRANEAN, BiomeType.METRO],
     weaknesses: [
       DamageType.LIGHT,
       DamageType.CUT,
@@ -71,7 +68,8 @@ export const creaturesList: ICreature[] = [
       {
         id: "",
         name: "Teleportation",
-        description: "Move to any tile. On a failed WIL, cannot teleport again.",
+        description:
+          "Move to any tile. On a failed WIL, cannot teleport again.",
       },
       {
         id: "",
@@ -94,11 +92,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 40,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
-    habitats: [
-      BiomeType.SUBTERRANEAN,
-      BiomeType.METRO,
-      BiomeType.RIVER,
-    ],
+    habitats: [BiomeType.SUBTERRANEAN, BiomeType.METRO, BiomeType.RIVER],
     weaknesses: [
       DamageType.LIGHT,
       DamageType.SMASH,
@@ -151,10 +145,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 42,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
-    habitats: [
-      BiomeType.CITY_RUINS,
-      BiomeType.ZONE,
-    ],
+    habitats: [BiomeType.CITY_RUINS, BiomeType.ZONE],
     weaknesses: [
       DamageType.SMASH,
       DamageType.BLAST,
@@ -211,11 +202,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 30,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
-    habitats: [
-      BiomeType.CITY_RUINS,
-      BiomeType.METRO,
-      BiomeType.SWAMP,
-    ],
+    habitats: [BiomeType.CITY_RUINS, BiomeType.METRO, BiomeType.SWAMP],
     weaknesses: [
       DamageType.CUT,
       DamageType.PAIN,
@@ -262,11 +249,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 60,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
-    habitats: [
-      BiomeType.CITY_RUINS,
-      BiomeType.ZONE,
-      BiomeType.SWAMP,
-    ],
+    habitats: [BiomeType.CITY_RUINS, BiomeType.ZONE, BiomeType.SWAMP],
     weaknesses: [
       DamageType.STAB,
       DamageType.GUN,
@@ -415,7 +398,8 @@ export const creaturesList: ICreature[] = [
       {
         id: "",
         name: "Shield",
-        description: "Ranged attacks against the gun hag deal only the damage die",
+        description:
+          "Ranged attacks against the gun hag deal only the damage die",
       },
       {
         id: "",
@@ -471,7 +455,8 @@ export const creaturesList: ICreature[] = [
       {
         id: "",
         name: "Slither",
-        description: "Move twice when charging if at least one opponent retreats",
+        description:
+          "Move twice when charging if at least one opponent retreats",
       },
       {
         id: "",
@@ -910,7 +895,11 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 74,
     av: 2,
     gameEntityType: GameEntityType.ENEMY,
-    habitats: [],
+    habitats: [
+      BiomeType.SALT_FLATS,
+      BiomeType.DESERT,
+      BiomeType.CITY_RUINS
+    ],
     weaknesses: [DamageType.CUT, DamageType.LIGHT],
     attacks: [
       {
@@ -1511,9 +1500,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 34,
     av: 0,
     gameEntityType: GameEntityType.ENEMY,
-    habitats: [
-      BiomeType.SALT_FLATS
-    ],
+    habitats: [BiomeType.SALT_FLATS],
     weaknesses: [
       DamageType.CUT,
       DamageType.NEURAL,
@@ -1543,6 +1530,60 @@ export const creaturesList: ICreature[] = [
     ],
   },
   {
+    id: "Queen drinker",
+    name: "Queen drinker",
+    description:
+      "The queen drinker is the hivemind controlling her albino drinkers. She is a huge, slow, but powerful creature.",
+    image: "",
+    level: 3,
+    strength: 20,
+    dexterity: 3,
+    will: 15,
+    endurance: 160,
+    maxEndurance: 160,
+    av: 2,
+    gameEntityType: GameEntityType.ENEMY,
+    habitats: [BiomeType.SALT_FLATS],
+    weaknesses: [
+      DamageType.CUT,
+      DamageType.STAB,
+      DamageType.VOLT,
+      DamageType.LIGHT,
+    ],
+    attacks: [
+      {
+        name: "Chomp",
+        damage: [DiceType.D8, DiceType.D10, DiceType.D8],
+        damageTypes: [DamageType.OOZE, DamageType.PAIN],
+      },
+      {
+        name: "Thrash",
+        damage: [DiceType.D8, DiceType.D8, DiceType.D8],
+        damageTypes: [DamageType.SMASH],
+      },
+    ],
+    actions: [
+      {
+        id: "",
+        name: "Devour",
+        description:
+          "Any unconscious enemy of size medium or smaller who is in melee with the queen she will devour, killing them instantly and restoring 10 endurance to the queen.",
+      },
+      {
+        id: "",
+        name: "Siesmic shuffle",
+        description:
+          "The queen propels herself 2 tiles, and her first thrash attack this round deals damage to all adjacent creatures, including allies",
+      },
+      {
+        id: "",
+        name: "Move",
+        description:
+          "The queen cannot move regularly unless she takes this tactical action",
+      },
+    ],
+  },
+  {
     id: "Pilgrim hadad",
     name: "Pilgrim hadad",
     description:
@@ -1556,9 +1597,7 @@ export const creaturesList: ICreature[] = [
     maxEndurance: 51,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
-    habitats: [
-      BiomeType.SALT_FLATS
-    ],
+    habitats: [BiomeType.SALT_FLATS],
     weaknesses: [
       DamageType.CUT,
       DamageType.GUN,
@@ -1589,8 +1628,70 @@ export const creaturesList: ICreature[] = [
         name: "Vanish in the winds",
         description:
           "The pilgrim vanishes into the winds on successful DEX. Until the end of the round, or until they attack, they cannot be affected by any actions.",
-          resultRoll: [DiceType.D20,DiceType.D20,DiceType.D20]
+      },
+      {
+        id: "",
+        name: "Protect",
+        description:
+          "On successful DEX, the combatant stands in the way of an ally on the same tile, taking all damage directed at the ally.",
+      },
+    ],
+  },
+  {
+    id: "Pilgrim hadad padre",
+    name: "Pilgrim hadad padre",
+    description:
+      "Leaders of the pilgrims hadad, and connected to the forces of nuke.",
+    image: "",
+    level: 2,
+    strength: 9,
+    dexterity: 8,
+    will: 12,
+    endurance: 70,
+    maxEndurance: 70,
+    av: 1,
+    gameEntityType: GameEntityType.ENEMY,
+    habitats: [BiomeType.SALT_FLATS],
+    weaknesses: [
+      DamageType.CUT,
+      DamageType.SMASH,
+      DamageType.PAIN,
+      DamageType.VOLT,
+      DamageType.LIGHT,
+    ],
+    attacks: [
+      {
+        name: "Scorpion",
+        damage: [DiceType.D6, DiceType.D10, DiceType.D4],
+        damageTypes: [DamageType.GUN, DamageType.BURST],
+      },
+      {
+        name: "Machete",
+        damage: [DiceType.D6, DiceType.D8, DiceType.D6],
+        damageTypes: [DamageType.CUT, DamageType.STAB],
+      },
+    ],
+    actions: [
+      {
+        id: "",
+        name: "Vanish in the winds",
+        description:
+          "The pilgrim vanishes into the winds on successful DEX. Until the end of the round, or until they attack, they cannot be affected by any actions.",
         
+      },
+      {
+        id: "",
+        name: "Melt",
+        description:
+          "Casts the spell melt.",
+        resultRoll: [DiceType.D8,DiceType.D8,DiceType.D8,DiceType.D8,DiceType.D8]
+      },
+      {
+        id: "",
+        name: "Gravity",
+        description:
+          "Casts the spell gravity.",
+        resultRoll: [DiceType.D8,DiceType.D8,DiceType.D8,DiceType.D8,DiceType.D8]
       },
     ],
   },
@@ -1601,16 +1702,14 @@ export const creaturesList: ICreature[] = [
       "A winged serpent in dark green scales with bright orange details around its eyes.",
     image: "",
     level: 2,
-    strength: 7,
-    dexterity: 7,
-    will: 7,
-    endurance: 51,
-    maxEndurance: 51,
+    strength: 5,
+    dexterity: 14,
+    will: 4,
+    endurance: 76,
+    maxEndurance: 76,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
-    habitats: [
-      BiomeType.SALT_FLATS
-    ],
+    habitats: [BiomeType.SALT_FLATS],
     weaknesses: [
       DamageType.CUT,
       DamageType.STAB,
@@ -1630,33 +1729,32 @@ export const creaturesList: ICreature[] = [
         id: "",
         name: "Hallucinogenic spit",
         description:
-          "Targets one enemy at range. The victim suffers 2D6 NEURAL damage, and on a failed WIL starts hallucinating for the rest of the day.",
+          "Targets one enemy at range. The victim suffers 2D6 NEURAL damage, and on a failed WIL becomes drugged.",
+        resultRoll: [DiceType.D6, DiceType.D6],
       },
       {
         id: "",
-        name: "Fly",
+        name: "Soar",
         description:
-          "",
+          "Takes off into the air. While soaring, they have no position on the map, cannot be attacked by melee attacks, and their melee attacks are made once every other turn. Unless an attacker uses aim, they need a successful DEX for the attack to hit. When the round is over, they stop soaring, and can choose their position.",
       },
     ],
-  },  
+  },
   {
     id: "Wilted shambler",
     name: "Wilted shambler",
     description:
-      "A winged serpent in dark green scales with bright orange details around its eyes.",
+      "The wilted shambler is a human infected by dry ooze. They are bone dry, crack as they shuffle around, and grey of skin. They search for liquid of any kind, as the ooze craves it.",
     image: "",
-    level: 2,
-    strength: 12,
+    level: 1,
+    strength: 5,
     dexterity: 3,
-    will: 5,
-    endurance: 51,
-    maxEndurance: 51,
-    av: 1,
+    will: 7,
+    endurance: 14,
+    maxEndurance: 14,
+    av: 0,
     gameEntityType: GameEntityType.ENEMY,
-    habitats: [
-      BiomeType.SALT_FLATS
-    ],
+    habitats: [BiomeType.SALT_FLATS],
     weaknesses: [
       DamageType.CUT,
       DamageType.SMASH,
@@ -1665,23 +1763,35 @@ export const creaturesList: ICreature[] = [
     ],
     attacks: [
       {
-        name: "Bite",
-        damage: [DiceType.D6, DiceType.D6, DiceType.D6],
-        damageTypes: [DamageType.PAIN, DamageType.CUT],
+        name: "Drooling Bite",
+        damage: [DiceType.D4, DiceType.D4, DiceType.D4],
+        damageTypes: [DamageType.OOZE],
+      },
+      {
+        name: "Smack",
+        damage: [DiceType.D4, DiceType.D4],
+        damageTypes: [DamageType.SMASH],
       },
     ],
     actions: [
       {
         id: "",
-        name: "Hallucinogenic spit",
+        name: "Grapple",
         description:
-          "Targets one enemy at range. The victim suffers 2D6 NEURAL damage, and on a failed WIL starts hallucinating for the rest of the day.",
+          "This round, the combatant grapples a melee target on a failed STR, and they suffer damage equals to the grapplers STR. When grappling or grappled, both combatants cannot take action, or move.",
       },
       {
         id: "",
-        name: "Fly",
+        name: "Drink",
         description:
-          "",
+          "The wilted drinks from any source of liquid, including the blood of wounded creatures. After drinking, their endurance is restored to max, and they gain a level",
+      },
+      {
+        id: "",
+        name: "Ooze splatter",
+        description:
+          "When killed, the wilted explodes, dealing 2D6 ooze damage to all enemies in range",
+        resultRoll: [DiceType.D6, DiceType.D6],
       },
     ],
   },
@@ -1689,19 +1799,17 @@ export const creaturesList: ICreature[] = [
     id: "Wilted brute",
     name: "Wilted brute",
     description:
-      "A winged serpent in dark green scales with bright orange details around its eyes.",
+      "The wilted brute is a huge mutated human infected by dry ooze. They are bone dry, crack as they shuffle around, and grey of skin. They search for liquid of any kind, as the ooze craves it.",
     image: "",
     level: 2,
-    strength: 12,
-    dexterity: 3,
-    will: 5,
-    endurance: 51,
-    maxEndurance: 51,
+    strength: 15,
+    dexterity: 5,
+    will: 7,
+    endurance: 75,
+    maxEndurance: 75,
     av: 1,
     gameEntityType: GameEntityType.ENEMY,
-    habitats: [
-      BiomeType.SALT_FLATS
-    ],
+    habitats: [BiomeType.SALT_FLATS],
     weaknesses: [
       DamageType.CUT,
       DamageType.SMASH,
@@ -1710,23 +1818,41 @@ export const creaturesList: ICreature[] = [
     ],
     attacks: [
       {
-        name: "Bite",
-        damage: [DiceType.D6, DiceType.D6, DiceType.D6],
-        damageTypes: [DamageType.PAIN, DamageType.CUT],
+        name: "Drooling Bite",
+        damage: [DiceType.D4, DiceType.D4, DiceType.D4],
+        damageTypes: [DamageType.OOZE],
+      },
+      {
+        name: "Smack",
+        damage: [DiceType.D6, DiceType.D6, DiceType.D4],
+        damageTypes: [DamageType.SMASH],
       },
     ],
     actions: [
       {
         id: "",
-        name: "Hallucinogenic spit",
+        name: "Grapple",
         description:
-          "Targets one enemy at range. The victim suffers 2D6 NEURAL damage, and on a failed WIL starts hallucinating for the rest of the day.",
+          "This round, the combatant grapples a melee target on a failed STR, and they suffer damage equals to the grapplers STR. When grappling or grappled, both combatants cannot take action, or move.",
       },
       {
         id: "",
-        name: "Fly",
+        name: "Smash",
         description:
-          "",
+          "This round, the brutes melee attacks hit all adjacent opponents.",
+      },
+      {
+        id: "",
+        name: "Drink",
+        description:
+          "The wilted drinks from any source of liquid, including the blood of wounded creatures. After drinking, their endurance is restored to max, and they gain a level",
+      },
+      {
+        id: "",
+        name: "Ooze splatter",
+        description:
+          "When killed, the wilted explodes, dealing 2D10 ooze damage to all enemies in range",
+        resultRoll: [DiceType.D10, DiceType.D10],
       },
     ],
   },

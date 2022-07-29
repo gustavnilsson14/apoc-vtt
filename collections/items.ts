@@ -2669,6 +2669,20 @@ export const itemList: IItem[] = [
     image: "img/injury/drained.png",
   },
   {
+    name: "DRUGGED",
+    type: ItemType.AFFLICTION,
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/injury/drugged.png",
+  },
+  {
     name: "MUTATION",
     type: ItemType.AFFLICTION,
     stats: [

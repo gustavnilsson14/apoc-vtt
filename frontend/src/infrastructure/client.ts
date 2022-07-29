@@ -13,7 +13,6 @@ import { asyncTimeout } from '../../../shared/async-timeout';
 export class Client extends BasePage{
   private devHost: string = "localhost";
   private prodHost: string = "localhost";
-  //private host: string = "185.229.225.204";
   private port: number = 8080;
   private ignoreChanges: boolean = false;
   private webSocket: WebSocket;
@@ -61,7 +60,10 @@ export class Client extends BasePage{
   }
   attachSocket() {
     const cookie = getCookie('cookie');
-    this.webSocket = new WebSocket(`ws://${this.devHost}:${this.port}`);
+    
+    const host = this.devHost;
+    
+    this.webSocket = new WebSocket(`ws://${host}:${this.port}`);
     this.webSocket.onmessage = (event) => {
       const message: IMessage = JSON.parse(event.data);
       if (message.type == MessageType.ERROR) {
