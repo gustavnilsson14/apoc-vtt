@@ -6,6 +6,8 @@ import { MyLoader } from "./loader";
 import { ISession } from "../../shared/session";
 import { Guid } from "../../shared/guid";
 import { IFormSettings } from "../../contracts/form";
+import { BaseController } from '../../contracts/controller';
+import { IError } from '../../contracts/base';
 
 export class App {
   public clients: ISession[] = [];
@@ -15,7 +17,6 @@ export class App {
     const sessionHandler = MyLoader.I.getModule(LoaderModuleType.CONTROLLER, "UserController");
     if (sessionHandler == null) return;
     this.sessionHandler = sessionHandler;
-    
   }
 
   public addClient(ws: WebSocket) {
@@ -48,6 +49,17 @@ export class App {
     
     if (iLoaderModule == null) {
       console.log(`iLoaderModule == null, ${JSON.stringify(message)}`);
+      const error: IMessage = {
+        timestamp: new Date(),
+        type: message.type,
+        handlerName: message.handlerName,
+        data: {
+          id: Guid.newGuid(),
+          error: "No such module",
+          originalMessage: message,
+        } as IError,
+      };
+      await this.send(session, error);
       return;
     }
     const validationResult: IMessage | null = this.validate(message, iLoaderModule);

@@ -1,9 +1,9 @@
 import { IHenchman } from './../contracts/models/asset';
-import { physicalItemTypes } from './items';
 import { AssetType, IVehicle } from '../contracts/models/asset';
 import { GameEntityType } from '../contracts/models/entity';
-import { bodies, BodySize, IBodyTemplate } from './body';
+import { bodies, IBodyTemplate } from './body';
 import { getRandomWeaknesses } from '../contracts/models/character';
+import { ItemType } from './items';
 export const vehicleList: IVehicle[] = [
     {
         id: "",
@@ -13,57 +13,57 @@ export const vehicleList: IVehicle[] = [
         hardpoints: [
             {
                 name: "Trunk hardpoint",
-                allowedTypes: physicalItemTypes,
+                allowedTypes: [ItemType.PHYSICAL],
             },
         ],
         itemSlots: [
             {
                 name: "Roof",
-                allowedTypes: physicalItemTypes,
+                allowedTypes: [ItemType.PHYSICAL],
             },
             {
                 name: "Hood",
-                allowedTypes: physicalItemTypes,
+                allowedTypes: [ItemType.PHYSICAL],
             },
             {
                 name: "Bumper",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Backseat #1",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Backseat #2",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Backseat #3",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Backseat #4",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Trunk #1",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Trunk #2",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Trunk #3",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Trunk #4",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Trunk #5",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             }
         ],
         integrity: 7,
@@ -78,27 +78,27 @@ export const vehicleList: IVehicle[] = [
         itemSlots: [
             {
                 name: "Hood",
-                allowedTypes: physicalItemTypes,
+                allowedTypes: [ItemType.PHYSICAL],
             },
             {
                 name: "Bumper",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Backseat #1",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Backseat #2",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Backseat #3",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Backseat #4",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             }
         ],
         integrity: 4,
@@ -113,15 +113,15 @@ export const vehicleList: IVehicle[] = [
         itemSlots: [
             {
                 name: "Back axle",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Saddlebag #1",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Saddlebag #2",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
         ],
         integrity: 2,
@@ -136,11 +136,11 @@ export const vehicleList: IVehicle[] = [
         itemSlots: [
             {
                 name: "Saddlebag #1",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Saddlebag #2",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
         ],
         integrity: 3,
@@ -155,119 +155,119 @@ export const vehicleList: IVehicle[] = [
         itemSlots: [
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
             {
                 name: "Storage",
-                allowedTypes: physicalItemTypes
+                allowedTypes: [ItemType.PHYSICAL]
             },
         ],
         integrity: 20,

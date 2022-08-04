@@ -2,6 +2,19 @@
 
 item {
   .unselectable();
+  position: relative;
+  tooltip{
+    position: absolute;
+    display: block;
+    inner{
+      font-size: 14px;
+      line-height: 20px;
+      top: 30px !important;
+      left: 0px !important;
+      font-family: 'source';
+      height: auto;
+    }
+  }
   inner {
     font-family: "medula";
     width: 140px;
@@ -56,6 +69,8 @@ item {
         height: 20px;
         background-repeat: no-repeat;
         background-size: contain;
+        .selectable();
+        pointer-events: all;
       }
       
     stats-value{
@@ -84,7 +99,7 @@ item {
       font-size: 24px;
       margin-left: 2px;
       type {
-        line-height: 22px;
+        line-height: 18px;
       }
     }
     skill {

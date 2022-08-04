@@ -25,11 +25,12 @@ export class EntityController extends BaseController {
         CharacterController.name
       );
     const characters: ICharacter[] = [];
+    
     characterController.collection.forEach((model) => {
       const character = model as ICharacter;
       userController.collection.forEach((model2) => {
         const user = model2 as IUser;
-        if(!user.connected) return;
+        if (!user.connected) return;
         if (user.selectedCharacterId != character.id) return;
         characters.push(character);
       });

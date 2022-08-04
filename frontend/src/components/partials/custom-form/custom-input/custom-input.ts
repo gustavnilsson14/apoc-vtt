@@ -1,15 +1,17 @@
-import { bindable } from "aurelia";
+import { Bindable, bindable } from "aurelia";
 import {
   IInputSettings,
   InputType,
   ISelectInputSettings,
 } from "../../../../../../contracts/input";
+import { asyncTimeout } from "../../../../../../shared/async-timeout";
 import { getValueFromPath } from "../../../../../../shared/object-parser";
 
 export class CustomInput {
   @bindable settings: IInputSettings;
   @bindable result: any;
   @bindable value: any;
+  @bindable selected: any;
   @bindable data: any;
   @bindable tooltipVisible = false;
   @bindable onLabelClickCallback;
@@ -20,13 +22,25 @@ export class CustomInput {
   binding(): void {
     this.setValue();
   }
-  dataChanged(): void {
-    this.setValue();
+  async dataChanged(): Promise<void> {
+    await this.setValue();
   }
-  setValue(): void {
+  async setValue(): Promise<void> {
     this.ignoreChange = true;
     this.value = this.settings.getInputValue(this.data);
+    await asyncTimeout(1);
     this.ignoreChange = false;
+  }
+  selectedChanged():void{
+    const selectSettings: ISelectInputSettings = this.settings as ISelectInputSettings;
+    
+    if (selectSettings.labelIndex == ".") {
+      this.value = this.selected;
+      return;
+    }
+    this.value = selectSettings.options.find(x => {
+      return x[selectSettings.labelIndex] == this.selected;
+    });
   }
   valueChanged(): void {
     if (this.ignoreChange) return;
@@ -43,10 +57,10 @@ export class CustomInput {
     if (!this.settings.tooltipPaths && !this.settings.tooltipText) return;
     this.tooltipVisible = value;
   }
-  getSelectOptionValue(option: any) {
-    const selectInputSettings: ISelectInputSettings = this
+  getSelectOptionValue(item: any) {
+    const selectSettings: ISelectInputSettings = this
       .settings as ISelectInputSettings;
-    return getValueFromPath(option, selectInputSettings.labelIndex);
+    return getValueFromPath(item, selectSettings.labelIndex);
   }
   private onInputClick(e): void {
     if (!this.settings.hasInputClickCallback) return;

@@ -2,6 +2,7 @@
   <require
     from="../../partials/custom-form/custom-input/custom-input"
   ></require>
+  <require from="../item-settings/item-settings"></require>
   <require from="../../partials/custom-list/custom-list"></require>
   <require from="../../partials/custom-form/custom-form"></require>
   <custom-input
@@ -11,6 +12,7 @@
     data.bind="enemyData"
   ></custom-input>
   <button class="btn btn-primary" click.delegate="addSelected()">ADD</button>
+  <item-settings if.bind="userType == 'GM'"></item-settings>
   <generator>
     <controls>
       <label for="generatorTemplate">Add template</label>

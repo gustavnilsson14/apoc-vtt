@@ -104,7 +104,7 @@ export function getRandomWeaknesses(): DamageType[] {
     raw.find((x) => x == index)
   );
 }
-function getRandomName(): string {
+export function getRandomName(): string {
   let firstNames = maleFirstNames;
   if (getRandomInt(1, 10) > 5) {
     firstNames = femaleFirstNames;

@@ -15,6 +15,7 @@ import { IMessage, MessageType } from "../message";
 import { damageTypes } from "../../collections/damageType";
 import { skillActions, gambitActions } from "../../collections/tacticalAction";
 import { TooltipSourceType } from "../../frontend/src/infrastructure/tooltip";
+import { ItemSlot } from '../../frontend/src/components/partials/custom-form/item-slot/item-slot';
 
 const fields: IInputSettings[] = [
   InputFactory.createDefaultInput({
@@ -106,7 +107,9 @@ const fields: IInputSettings[] = [
           "Off hand",
         ];
         if (armorSlots.indexOf(slot.name) != -1) {
-          if (item.type != ItemType.ARMOR && item.type != ItemType.HEADGEAR) return;
+          if (item.type != ItemType.ARMOR && item.type != ItemType.HEADGEAR && item.type != ItemType.RELIC) return;
+          if (item.hasSkill) return;
+          if (item.damageTypes?.length == 0) return;
           av += item.stats.filter(x=>x!=StatType.DURABILITY).length;
         }
         if (shieldSlots.indexOf(slot.name) != -1) {

@@ -15,9 +15,8 @@ const addAssetFields: IInputSettings[] = [
     label: "Asset",
     labelIndex: "name",
     key: "asset",
-    options: ["VEHICLES",...vehicleList, "HENCHMEN", ...henchmanList],
+    options: [{name:"VEHICLES"}, ...vehicleList, {name:"HENCHMEN"}, ...henchmanList],
     type: InputType.SELECT,
-    group: "",
     isTemplate: true,
   }),
 ];

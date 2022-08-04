@@ -76,7 +76,7 @@ export class MyLoader {
     if (data == null) return;
     this.getAllModulesOfType(LoaderModuleType.CONTROLLER).forEach((module) => {
       const controller: IController = module as IController;
-      controller.collection = data[controller.constructor.name];
+      controller.setCollection(data[controller.constructor.name]);
     });
   }
 }

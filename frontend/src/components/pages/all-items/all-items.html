@@ -2,6 +2,6 @@
   <require from="../../partials/custom-form/item-slot/item/item"></require>
   <input value.bind="searchText" type="text" placeholder="Search">
   <container>
-    <item repeat.for="item of visibleItems" value.bind="item"></item>
+    <item repeat.for="item of visibleItems" if.bind="itemAllowed(item)" value.bind="item"></item>
   </container>
 </template>

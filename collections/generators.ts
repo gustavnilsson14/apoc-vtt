@@ -1,8 +1,9 @@
-import { BodySize } from './body';
+import { BodySize } from "./body";
 import { creaturesList } from "./creatures";
 import { getRandomFrom } from "../shared/random";
-import { getItemValue, itemList, ItemType } from "./items";
-import { BiomeType } from './biomes';
+import { itemList, ItemType } from "./items";
+import { BiomeType } from "./biomes";
+import { getItemValue, matchItemType } from "../contracts/models/item";
 
 export class GeneratorsCollection {
   public engagements: string[];
@@ -47,8 +48,13 @@ export class GeneratorsCollection {
   public traps: string[];
   public rangedWeapons: string[];
   public mechanicalTriggers: string[];
+  public magicDevices: string[];
+  public causeTypes: string[];
+  public sins: string[];
+  public weathers: string[];
   constructor() {
-    this.sizes = Object.values(BodySize).map(x=>x.toLowerCase());
+    this.setScriptedProperties();
+    this.sizes = Object.values(BodySize).map((x) => x.toLowerCase());
     this.people = [
       "outsiders",
       "locals",
@@ -69,6 +75,7 @@ export class GeneratorsCollection {
       "digging for [objectives]",
       "scavenging for [itemTypes]",
       "searching for [objectives]",
+      "protecting [objectives] from incoming [people,enemies]",
       "dying from [ailments]",
       "fighting [people,enemies]",
       "hiding from [people,enemies]",
@@ -78,8 +85,17 @@ export class GeneratorsCollection {
       "looting a [structures]",
       "eating [food]",
       "travelling",
-      "participating in traditional",
-      "upholding tradition",
+      "upholding [causeTypes] tradition",
+      "holding trial for [people] on the account of [sins]"
+    ];
+    this.sins = [
+      "lust",
+      "gluttony",
+      "greed",
+      "sloth",
+      "wrath",
+      "envy",
+      "pride",
     ];
     this.food = [
       "rations",
@@ -203,7 +219,7 @@ export class GeneratorsCollection {
     ];
     this.habitats = [
       "[people] living in a [structures]",
-      "[enemies]s who made a lair in [structures]"
+      "[enemies]s who made a lair in [structures]",
     ];
     this.gyms = [
       "boxing gym",
@@ -292,18 +308,26 @@ export class GeneratorsCollection {
     ];
     this.urbanResidences = ["house", "apartment building", "villa", "mansion"];
     this.ruralResidences = ["cabin", "burrow", "treehouse", "grotto", "camp"];
-    this.otherResidences = ["house trailer", "caravan"];
-    this.enemies = [
-      ...creaturesList.map((x) => x.name.toLocaleLowerCase()),
-    ];
+    this.otherResidences = ["house trailer", "caravan home"];
+    this.enemies = [...creaturesList.map((x) => x.name.toLocaleLowerCase())];
     this.saltFlatsEnemies = [
-      ...creaturesList.filter(x=>x.habitats.indexOf(BiomeType.SALT_FLATS) != -1).map((x) => x.name.toLocaleLowerCase()),
+      ...creaturesList
+        .filter((x) => x.habitats.indexOf(BiomeType.SALT_FLATS) != -1)
+        .map((x) => x.name.toLocaleLowerCase()),
     ];
     this.tribalCreatures = ["gators", "city-bears", "sluggan"];
     this.magic = ["light", "volt", "neural", "ooze", "nuke"];
     this.items = [...itemList.map((x) => x.name.toLocaleLowerCase())];
-    this.valuableItems = [...itemList.filter(x=>getItemValue(x) > 20).map((x) => x.name.toLocaleLowerCase())];
-    this.rangedWeapons = [...itemList.filter(x=>x.type == ItemType.RANGED).map((x) => x.name.toLocaleLowerCase())];
+    this.valuableItems = [
+      ...itemList
+        .filter((x) => getItemValue(x) > 20)
+        .map((x) => x.name.toLocaleLowerCase()),
+    ];
+    this.rangedWeapons = [
+      ...itemList
+        .filter((x) => x.type == ItemType.RANGED)
+        .map((x) => x.name.toLocaleLowerCase()),
+    ];
     this.volatilities = [
       "stable",
       "unstable",
@@ -311,14 +335,7 @@ export class GeneratorsCollection {
       "volatile",
       "erupting",
     ];
-    this.emotions = [
-      "joyful", 
-      "sad", 
-      "anger", 
-      "repugnant",
-      "horror",
-      "guilt"
-    ];
+    this.emotions = ["joyful", "sad", "anger", "repugnant", "horror", "guilt"];
     this.entrances = [
       "door",
       "arch",
@@ -332,8 +349,36 @@ export class GeneratorsCollection {
       ...Array(10).fill("layline"),
       "comet-fragment of [magic]",
       "[volatilities] rift of [magic]",
-      "spell vault",
-      "[constructionMaterials] [entrances] to a [volatilities] [emotions] dimension"
+      ...Array(3).fill("spell vault, containing [magicDevices*3]"),
+      "[constructionMaterials] [entrances] to a [volatilities] [emotions] dimension",
+    ];
+    this.magicDevices = [
+      "a scroll hard to decipher",
+      "a book requiring diligent study",
+      "a brand requiring [causeTypes]",
+      "a dagger thirsting for blood",
+      "a frail skeleton key searching for a worthy lock",
+      "a sick critter in need of care",
+      "a lost letter to deliver",
+      "a holy symbol wishing for ritual a shrine",
+      "a pile of bones in need of proper burial",
+      "a seed which would grow into a fruit tree",
+      "a discharged energy cell thirsting for energy",
+      "a broken handheld device needing repairs",
+      "an ember which cannot burn unless handled by a master",
+      "a tiny robot with corrupt data in need of debugging",
+      "a capsule of uranium-235 in need of a reactor",
+      "a cybernetic extremity craving to be installed",
+      "a talking bullet with a name on it",
+    ];
+    this.causeTypes = [
+      "charity",
+      "cruelty",
+      "forgiveness",
+      "vengeance",
+      "sacrifice",
+      "acquisition",
+      "reformation",
     ];
     this.vegetationCluster = ["shaw of", "grove of", "forest of", "canop ofy"];
     this.saltFlatsVegetation = [
@@ -359,12 +404,7 @@ export class GeneratorsCollection {
       "a lone [urbanResidences]",
       "a lone [otherResidences]",
     ];
-    this.visibilities = [
-      "obvious",
-      "visible",
-      "covered",
-      "hidden",
-    ];
+    this.visibilities = ["obvious", "visible", "covered", "hidden"];
     this.saltFlatsEncounters = [
       "[saltFlatsLocations] infested by [visibilities] [saltFlatsEnemies]",
       "[saltFlatsLocations] with a [visibilities] [valuableItems]",
@@ -379,7 +419,7 @@ export class GeneratorsCollection {
       "pressure plate",
       "chest",
       "door",
-      "hatch"
+      "hatch",
     ];
     this.traps = [
       "snare connected to [mechanicalTriggers]",
@@ -389,9 +429,20 @@ export class GeneratorsCollection {
       "trapdoor to a pit filled with [naturalLiquids,wierdLiquids,enemies] connected to [mechanicalTriggers]",
       "trapping grate connected to [mechanicalTriggers]",
     ];
+    this.weathers = [
+      "clear",
+    ];
+  }
+  setScriptedProperties() {
+    const itemTypes = Object.values(ItemType).filter((x) => x != ItemType.NONE);
+    itemTypes.forEach((type) => {
+      this[`${type.toLowerCase()}Items`] = itemList
+        .filter((item) => matchItemType(item, type))
+        .map((item) => item.name.toLowerCase());
+    });
   }
   public getProperties(): string[] {
-    return Object.keys(this);
+    return [...Object.keys(this)];
   }
   public generateFrom(value: string, recurse: boolean = true): string {
     const matches = value.match(/\[(.*?)\]/g);

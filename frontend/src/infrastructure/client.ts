@@ -9,10 +9,16 @@ import { ICookieLogin } from "../../../contracts/models/user";
 import { getCookie, setCookie } from "../../../shared/session";
 import { asyncTimeout } from '../../../shared/async-timeout';
 
+export enum ENV{
+  "DEVELOPMENT",
+  "PRODUCTION"
+}
+
 @inject(EventAggregator)
 export class Client extends BasePage{
+  public environment: ENV = ENV.DEVELOPMENT;
   private devHost: string = "localhost";
-  private prodHost: string = "localhost";
+  private prodHost: string = "http://185.229.225.204/";
   private port: number = 8080;
   private ignoreChanges: boolean = false;
   private webSocket: WebSocket;
@@ -58,10 +64,14 @@ export class Client extends BasePage{
       },1000);
     }
   }
+  getHost():string{
+    if(this.environment == ENV.DEVELOPMENT) return this.devHost;
+    return this.prodHost;
+  }
   attachSocket() {
     const cookie = getCookie('cookie');
     
-    const host = this.devHost;
+    const host = this.getHost();
     
     this.webSocket = new WebSocket(`ws://${host}:${this.port}`);
     this.webSocket.onmessage = (event) => {
@@ -69,8 +79,6 @@ export class Client extends BasePage{
       if (message.type == MessageType.ERROR) {
         console.error(message);
       }
-      console.log(`${message.type}_${message.handlerName}`);
-      
       this.eventAggregator.publish(`${message.type}_${message.handlerName}`, message);
     };
     this.webSocket.onclose = () => {
@@ -79,7 +87,7 @@ export class Client extends BasePage{
     this.webSocket.onerror = function (event) {
       console.error("ERROR", event);
     };
-    if(!cookie) return;
+    if(!cookie) return;// || this.environment == ENV.DEVELOPMENT) return;
     this.webSocket.onopen = () => {
       this.send({
         timestamp: new Date(),

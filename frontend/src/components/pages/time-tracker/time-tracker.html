@@ -1,0 +1,8 @@
+<template>
+    <h5>${dateString}</h5>
+  <h3>${timeTitles[currentTime + 1]}</h3>
+  <time-slots>
+    <time-slot repeat.for="timeSlot of timeSlots" class="active-${($index <= currentTime)}" click.delegate="setTime($index)">
+    </time-slot>
+  </time-slots>
+</template>

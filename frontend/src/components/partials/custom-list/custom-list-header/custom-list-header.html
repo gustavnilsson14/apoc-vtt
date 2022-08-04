@@ -1,3 +1,4 @@
 <template>
   <header-cell repeat.for="index of settings.indexes">${index.label}</header-cell>
+  <header-cell if.bind="settings.hasDeleteButton">Delete</header-cell>
 </template>

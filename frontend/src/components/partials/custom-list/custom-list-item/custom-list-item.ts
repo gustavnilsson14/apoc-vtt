@@ -1,8 +1,11 @@
 import { IFormSettings } from './../../../../../../contracts/form';
-import { bindable } from "aurelia";
+import { bindable, inject } from "aurelia";
 import { ICustomListSettings } from "../../../../../../contracts/list";
 import { getValueFromPath } from "../../../../../../shared/object-parser"
+import { Client } from '../../../../infrastructure/client';
+import { MessageFactory } from '../../../../../../contracts/message';
 
+@inject(Client)
 export class CustomListItem {
   @bindable item: any;
   @bindable data: any[];
@@ -13,6 +16,7 @@ export class CustomListItem {
   @bindable expandedIds: string[] = [];
   isExpanded: boolean;
   @bindable toolTipData: any;
+  constructor(private client: Client){}
   attached() {
     this.setExpanded();
   }
@@ -41,6 +45,12 @@ export class CustomListItem {
     if (this.settings.onContext == null) return;
     e.preventDefault();
     this.settings.onContext(this.item, this.index);
+  }
+  onDelete(e: Event):void{
+    e.stopPropagation();
+    this.client.send(MessageFactory.remove(this.settings.controller,{
+      id: this.item.id
+    }));
   }
   handleExpand() {
     if (!this.settings.expandable) return;

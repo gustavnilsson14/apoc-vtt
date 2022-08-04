@@ -1,0 +1,1546 @@
+{
+    "BaseController": [],
+    "AssetController": [],
+    "CharacterController": [
+        {
+            "id": "923d09f9-e76e-45b1-9228-d232e7c36f39",
+            "name": "Alex Yarbrough",
+            "gameEntityType": "CHARACTER",
+            "background": {
+                "tribe": "Zone dweller",
+                "tribeDescription": "Traveling the radioactive, toxic, and barren zones of the new world is a dangerous life. Here you find the bravest explorers, most pious believers, and a lot of mentally deranged people, as well as mutants and dangerous artificial demigods of the old world. The zone has neither clean food or water, but the most valuable, and curious artifacts. Venture too deep and you will find the Deadlands, where you will die to heavy radiation, test dummies, or the feared Chrome pyramid.",
+                "occupation": "Cultist",
+                "occupationDescription": "Worships Pluton, god of extra appendages"
+            },
+            "level": 1,
+            "experience": "2",
+            "strength": 8,
+            "dexterity": 8,
+            "will": 10,
+            "endurance": 48,
+            "maxEndurance": 48,
+            "weaknesses": [
+                "CUT",
+                "BURST",
+                "OOZE",
+                "NUKE",
+                "LIGHT"
+            ],
+            "skills": [
+                {
+                    "id": "Hunker down",
+                    "name": "Hunker down",
+                    "description": "The combatant hunkers down, and cannot move during the round. During the round, the combatant takes no splash damage, and ranged attacks against them has no damage die."
+                }
+            ],
+            "gambits": [],
+            "assetIds": [],
+            "bodyName": "Human",
+            "size": "MEDIUM",
+            "itemSlots": [
+                {
+                    "name": "Main hand",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "rollable": true,
+                    "item": {
+                        "name": "MAKESHIFT PISTOL",
+                        "type": "RANGED",
+                        "stats": [
+                            "EFFECT",
+                            "EFFECT",
+                            "QUALITY"
+                        ],
+                        "damageTypes": [
+                            "GUN"
+                        ],
+                        "hasSkill": true,
+                        "size": "SMALL",
+                        "horizontal": true,
+                        "image": "img/items/makeshiftpistol.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Off hand",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "rollable": true,
+                    "item": {
+                        "name": "MACHETE",
+                        "type": "MELEE",
+                        "stats": [
+                            "QUALITY",
+                            "DURABILITY",
+                            "QUALITY",
+                            "DURABILITY",
+                            "QUALITY"
+                        ],
+                        "damageTypes": [
+                            "CUT",
+                            "STAB"
+                        ],
+                        "hasSkill": true,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/machete.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 1,
+                        "skill": 1
+                    }
+                },
+                {
+                    "name": "Belt #1",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": {
+                        "name": "WATER",
+                        "type": "CONSUMABLE",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/aqua.jpg",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 1
+                    }
+                },
+                {
+                    "name": "Upper Body",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": {
+                        "name": "BUSTED RIBCAGE",
+                        "type": "INJURY",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/injury/ribcage.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 2
+                    }
+                },
+                {
+                    "name": "Lower Body",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": {
+                        "name": "METAL PLATE",
+                        "type": "ARMOR",
+                        "stats": [
+                            "QUALITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [
+                            "CUT"
+                        ],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/metalplate-removebg-preview.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 2
+                    }
+                },
+                {
+                    "name": "Belt #2",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": null
+                },
+                {
+                    "name": "Pack #1",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried",
+                    "item": {
+                        "name": "RATIONS",
+                        "type": "CONSUMABLE",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/rations.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Pack #2",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried",
+                    "item": {
+                        "name": "TAPE",
+                        "type": "STUFF",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/tape.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 1
+                    }
+                },
+                {
+                    "name": "Pack #3",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried",
+                    "item": null
+                },
+                {
+                    "name": "Augment #1",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true,
+                    "item": {
+                        "name": "IRRADIATE",
+                        "type": "MAGIC",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [
+                            "NUKE"
+                        ],
+                        "hasSkill": true,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/Plutonium_pellet-removebg-preview.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 5,
+                        "skill": 2
+                    }
+                },
+                {
+                    "name": "Augment #2",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true,
+                    "item": {
+                        "name": "MADNESS",
+                        "type": "AFFLICTION",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/injury/madness.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 1
+                    }
+                },
+                {
+                    "name": "Augment #3",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true
+                }
+            ],
+            "gambit": [
+                {
+                    "id": "Suppression",
+                    "name": "Suppression",
+                    "description": "If the combatant is using the ranged attack action. This round, each turn, the ranged attack target loses their movement on a failed DEX"
+                }
+            ],
+            "health": "HEALTHY",
+            "userId": "21baaefb-80cc-4ced-b547-3f181a0d65d8",
+            "lastChanged": "2022-07-29T18:46:36.555Z",
+            "av": 1
+        },
+        {
+            "id": "d80a2291-f7b2-47e8-ab7a-1539ee16f7f7",
+            "name": "Maxine Greathouse",
+            "gameEntityType": "CHARACTER",
+            "background": {
+                "tribe": "Zone dweller",
+                "tribeDescription": "Traveling the radioactive, toxic, and barren zones of the new world is a dangerous life. Here you find the bravest explorers, most pious believers, and a lot of mentally deranged people, as well as mutants and dangerous artificial demigods of the old world. The zone has neither clean food or water, but the most valuable, and curious artifacts. Venture too deep and you will find the Deadlands, where you will die to heavy radiation, test dummies, or the feared Chrome pyramid.",
+                "occupation": "Spongewood squeezer",
+                "occupationDescription": "Extracts water from spongewood, without rousing the vines."
+            },
+            "level": 1,
+            "experience": "1",
+            "strength": 11,
+            "dexterity": 8,
+            "will": 4,
+            "endurance": 53,
+            "maxEndurance": "53",
+            "weaknesses": [
+                "STAB",
+                "OOZE",
+                "VOLT",
+                "NUKE",
+                "NEURAL",
+                "PAIN"
+            ],
+            "skills": [
+                {
+                    "id": "Careful usage",
+                    "name": "Careful usage",
+                    "description": "Reduces chance of armor and weapon breakage"
+                }
+            ],
+            "gambits": [],
+            "assetIds": [],
+            "bodyName": "Human",
+            "size": "MEDIUM",
+            "itemSlots": [
+                {
+                    "name": "Main hand",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "rollable": true,
+                    "item": {
+                        "name": "TEC 9",
+                        "type": "RANGED",
+                        "stats": [
+                            "EFFECT",
+                            "EFFECT",
+                            "EFFECT",
+                            "QUALITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [
+                            "GUN",
+                            "BURST"
+                        ],
+                        "hasSkill": true,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/tec9.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Off hand",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "rollable": true
+                },
+                {
+                    "name": "Belt #1",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped"
+                },
+                {
+                    "name": "Upper Body",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": {
+                        "name": "TINFOIL HAT",
+                        "type": "HEADGEAR",
+                        "stats": [
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [
+                            "NEURAL"
+                        ],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/tinfoilhat.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Lower Body",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": {
+                        "name": "HAZMAT SUIT",
+                        "type": "ARMOR",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [
+                            "*",
+                            "OOZE",
+                            "NUKE",
+                            "VOLT"
+                        ],
+                        "hasSkill": false,
+                        "size": "LARGE",
+                        "horizontal": false,
+                        "image": "img/items/hazmat.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Belt #2",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped"
+                },
+                {
+                    "name": "Pack #1",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried",
+                    "item": {
+                        "name": "WATER",
+                        "type": "CONSUMABLE",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/aqua.jpg",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Pack #2",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried",
+                    "item": {
+                        "name": "RATIONS",
+                        "type": "CONSUMABLE",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/rations.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Pack #3",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried"
+                },
+                {
+                    "name": "Augment #1",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true
+                },
+                {
+                    "name": "Augment #2",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true
+                },
+                {
+                    "name": "Augment #3",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true
+                }
+            ],
+            "gambit": [
+                {
+                    "id": "Disarm",
+                    "name": "Disarm",
+                    "description": "The combatant targets a melee opponent. On a failed STR, the combatant chooses an item held by the target that they drop."
+                }
+            ],
+            "health": "HEALTHY",
+            "userId": "6b6c9934-9a36-403a-9825-2cfd28bb6427",
+            "lastChanged": "2022-07-14T19:07:08.887Z"
+        },
+        {
+            "id": "3749b671-dcc5-4199-bf54-4acfca23aad3",
+            "name": "Amari Boone",
+            "gameEntityType": "CHARACTER",
+            "background": {
+                "tribe": "Zone dweller",
+                "tribeDescription": "Traveling the radioactive, toxic, and barren zones of the new world is a dangerous life. Here you find the bravest explorers, most pious believers, and a lot of mentally deranged people, as well as mutants and dangerous artificial demigods of the old world. The zone has neither clean food or water, but the most valuable, and curious artifacts. Venture too deep and you will find the Deadlands, where you will die to heavy radiation, test dummies, or the feared Chrome pyramid.",
+                "occupation": "Hag",
+                "occupationDescription": "Explores the possibilities of magic, using radiation and toxins."
+            },
+            "level": 1,
+            "experience": "1",
+            "strength": "5",
+            "dexterity": "9",
+            "will": "9",
+            "endurance": 53,
+            "maxEndurance": 53,
+            "weaknesses": [
+                "CUT",
+                "STAB",
+                "PAIN",
+                "BURST",
+                "NUKE",
+                "VOLT"
+            ],
+            "skills": [
+                {
+                    "id": "Pierce",
+                    "name": "Pierce",
+                    "description": "For each attack this round, if any or more attack dice are blocked by armor, choose one die to ignore armor"
+                }
+            ],
+            "gambits": [],
+            "assetIds": [],
+            "bodyName": "Human",
+            "size": "MEDIUM",
+            "itemSlots": [
+                {
+                    "name": "Main hand",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "rollable": true,
+                    "item": {
+                        "name": "THROWING KNIVES",
+                        "type": "RANGED",
+                        "stats": [
+                            "QUALITY",
+                            "QUALITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [
+                            "STAB"
+                        ],
+                        "hasSkill": true,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/knives.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 2,
+                        "skill": 1
+                    }
+                },
+                {
+                    "name": "Off hand",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "rollable": true,
+                    "item": {
+                        "name": "SHOVEL",
+                        "type": "MELEE",
+                        "stats": [
+                            "QUALITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [
+                            "CUT",
+                            "SMASH"
+                        ],
+                        "hasSkill": true,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/shovel.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0,
+                        "skill": 1
+                    }
+                },
+                {
+                    "name": "Belt #1",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": {
+                        "name": "GEIGER COUNTER",
+                        "type": "TOOL",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/geiger.jpg",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Upper Body",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": null
+                },
+                {
+                    "name": "Lower Body",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": null
+                },
+                {
+                    "name": "Belt #2",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": null
+                },
+                {
+                    "name": "Pack #1",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried",
+                    "item": {
+                        "name": "NAILS",
+                        "type": "TOOL",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/nails.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Pack #2",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried",
+                    "item": {
+                        "name": "WATER",
+                        "type": "CONSUMABLE",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/aqua.jpg",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Pack #3",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried",
+                    "item": null
+                },
+                {
+                    "name": "Augment #1",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true,
+                    "item": {
+                        "name": "VOICES",
+                        "type": "MAGIC",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [
+                            "NEURAL"
+                        ],
+                        "hasSkill": true,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/voices.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 4,
+                        "skill": 2
+                    }
+                },
+                {
+                    "name": "Augment #2",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true
+                },
+                {
+                    "name": "Augment #3",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true
+                }
+            ],
+            "gambit": [
+                {
+                    "id": "Feign death",
+                    "name": "Feign death",
+                    "description": "On a successful DEX the combatant appears dead, and will appear so until moving, taking tactical, or regular action"
+                }
+            ],
+            "health": "HEALTHY",
+            "userId": "ad78b78e-caec-4a58-bef6-f3bbac2a7698",
+            "lastChanged": "2022-07-29T18:47:59.591Z"
+        },
+        {
+            "id": "f8cef3e4-b534-4405-9143-8f31038ebc0e",
+            "name": "Warren Alvin",
+            "gameEntityType": "CHARACTER",
+            "background": {
+                "tribe": "Wastelander",
+                "tribeDescription": "Life is difficult across the desert wastes of the new world, yet finds a way. The few resources here are under constant threat from brigands and bandits, due to their difficulty to protect, but also their value. Apart from raids, denizens of the wastes also have to deal with feral cacti, great antlions, and shellslugs, all dangerous wildlife. Old, heavily custom built motorized vehicles are the common way of transportation here.They are sturdy and can take the sand without a problem.",
+                "occupation": "Purifier",
+                "occupationDescription": "Cleans food and water, treats wounds"
+            },
+            "level": 1,
+            "experience": "3",
+            "strength": 7,
+            "dexterity": 8,
+            "will": 8,
+            "endurance": 23,
+            "maxEndurance": 45,
+            "weaknesses": [
+                "PAIN",
+                "BURST",
+                "OOZE",
+                "NEURAL"
+            ],
+            "skills": [
+                {
+                    "id": "Action man",
+                    "name": "Action man",
+                    "description": "The combatant takes two tactical actions this round. Usable once each combat."
+                }
+            ],
+            "gambits": [],
+            "assetIds": [],
+            "bodyName": "Human",
+            "size": "MEDIUM",
+            "itemSlots": [
+                {
+                    "name": "Main hand",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "rollable": true,
+                    "item": {
+                        "name": "KNIFE",
+                        "type": "MELEE",
+                        "stats": [
+                            "QUALITY",
+                            "QUALITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [
+                            "CUT",
+                            "STAB"
+                        ],
+                        "hasSkill": true,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/knife.jpg",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Off hand",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "rollable": true,
+                    "item": {
+                        "name": "PIPE GUN",
+                        "type": "RANGED",
+                        "stats": [
+                            "EFFECT",
+                            "QUALITY"
+                        ],
+                        "damageTypes": [
+                            "GUN"
+                        ],
+                        "hasSkill": true,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/pipegun.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Belt #1",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": {
+                        "name": "GASOLINE",
+                        "type": "TOOL",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/gasoline.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Upper Body",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": {
+                        "name": "BUSTED RIBCAGE",
+                        "type": "INJURY",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/injury/ribcage.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 1
+                    }
+                },
+                {
+                    "name": "Lower Body",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": {
+                        "name": "NAILS",
+                        "type": "TOOL",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/nails.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Belt #2",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": {
+                        "name": "ROPE",
+                        "type": "MELEE",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [
+                            "PAIN"
+                        ],
+                        "hasSkill": true,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/rope.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Pack #1",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried",
+                    "item": {
+                        "name": "FIRST AID KIT",
+                        "type": "TOOL",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/aidkit.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 1
+                    }
+                },
+                {
+                    "name": "Pack #2",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried",
+                    "item": null
+                },
+                {
+                    "name": "Pack #3",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried",
+                    "item": {
+                        "name": "MEDICINE",
+                        "type": "TOOL",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/meds.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 1
+                    }
+                },
+                {
+                    "name": "Augment #1",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true,
+                    "item": {
+                        "name": "ENFLAME",
+                        "type": "MAGIC",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [
+                            "LIGHT"
+                        ],
+                        "hasSkill": true,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/enflame.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 5,
+                        "skill": 2
+                    }
+                },
+                {
+                    "name": "Augment #2",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true
+                },
+                {
+                    "name": "Augment #3",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true
+                }
+            ],
+            "gambit": [
+                {
+                    "id": "Feign death",
+                    "name": "Feign death",
+                    "description": "On a successful DEX the combatant appears dead, and will appear so until moving, taking tactical, or regular action"
+                }
+            ],
+            "userId": "27013b95-4b51-4abe-b3d9-8598f5868e24",
+            "lastChanged": "2022-07-29T18:31:36.257Z",
+            "health": "WOUNDED"
+        },
+        {
+            "id": "b9496898-4eb7-42bd-909b-c38c7df7b6cc",
+            "name": "Vito 'Mr Big' Diamond",
+            "background": {
+                "tribe": "Zone dweller",
+                "tribeDescription": "Traveling the radioactive, toxic, and barren zones of the new world is a dangerous life. Here you find the bravest explorers, most pious believers, and a lot of mentally deranged people, as well as mutants and dangerous artificial demigods of the old world. The zone has neither clean food or water, but the most valuable, and curious artifacts. Venture too deep and you will find the Deadlands, where you will die to heavy radiation, test dummies, or the feared Chrome pyramid.",
+                "occupation": "Moneybags",
+                "occupationDescription": "Parish and outlaw, criminal kingpin."
+            },
+            "level": 1,
+            "experience": "1",
+            "strength": 9,
+            "dexterity": 10,
+            "will": 9,
+            "endurance": 50,
+            "maxEndurance": 50,
+            "weaknesses": [
+                "STAB",
+                "PAIN",
+                "BURST",
+                "BLAST"
+            ],
+            "skills": [
+                {
+                    "id": "Careful usage",
+                    "name": "Careful usage",
+                    "description": "Reduces chance of armor and weapon breakage"
+                }
+            ],
+            "gambits": [],
+            "assetIds": [],
+            "bodyName": "Human",
+            "size": "MEDIUM",
+            "itemSlots": [
+                {
+                    "name": "Main hand",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "rollable": true,
+                    "item": {
+                        "name": "MAKESHIFT PISTOL",
+                        "type": "RANGED",
+                        "stats": [
+                            "EFFECT",
+                            "EFFECT",
+                            "QUALITY"
+                        ],
+                        "damageTypes": [
+                            "GUN"
+                        ],
+                        "hasSkill": true,
+                        "size": "SMALL",
+                        "horizontal": true,
+                        "image": "img/items/makeshiftpistol.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0,
+                        "skill": 1
+                    }
+                },
+                {
+                    "name": "Off hand",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "rollable": true,
+                    "item": {
+                        "name": "TORCH",
+                        "type": "MELEE",
+                        "stats": [
+                            "QUALITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [
+                            "LIGHT",
+                            "SMASH"
+                        ],
+                        "hasSkill": true,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/torch.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Belt #1",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": {
+                        "name": "NECRO CLEAVER",
+                        "type": "MELEE",
+                        "stats": [
+                            "QUALITY",
+                            "QUALITY",
+                            "DURABILITY",
+                            "QUALITY"
+                        ],
+                        "damageTypes": [
+                            "CUT",
+                            "PAIN"
+                        ],
+                        "hasSkill": true,
+                        "size": "SMALL",
+                        "horizontal": true,
+                        "image": "img/items/chainaxe.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 1,
+                        "skill": 1
+                    }
+                },
+                {
+                    "name": "Upper Body",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": {
+                        "name": "LEATHER VEST",
+                        "type": "ARMOR",
+                        "stats": [
+                            "QUALITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [
+                            "PAIN"
+                        ],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/leather.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 0
+                    }
+                },
+                {
+                    "name": "Lower Body",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": {
+                        "name": "BUSTED RIBCAGE",
+                        "type": "INJURY",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/injury/ribcage.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 1
+                    }
+                },
+                {
+                    "name": "Belt #2",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Equipped",
+                    "item": null
+                },
+                {
+                    "name": "Pack #1",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried",
+                    "item": {
+                        "name": "TAPE",
+                        "type": "STUFF",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/tape.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 2
+                    }
+                },
+                {
+                    "name": "Pack #2",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried",
+                    "item": {
+                        "name": "WATER",
+                        "type": "CONSUMABLE",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/aqua.jpg",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 1
+                    }
+                },
+                {
+                    "name": "Pack #3",
+                    "allowedTypes": [
+                        "PHYSICAL"
+                    ],
+                    "group": "Carried",
+                    "item": {
+                        "name": "RATIONS",
+                        "type": "CONSUMABLE",
+                        "stats": [
+                            "DURABILITY",
+                            "DURABILITY",
+                            "DURABILITY"
+                        ],
+                        "damageTypes": [],
+                        "hasSkill": false,
+                        "size": "SMALL",
+                        "horizontal": false,
+                        "image": "img/items/rations.png",
+                        "isSelected": false,
+                        "selectionGroup": "AllItems",
+                        "filledSlots": 1
+                    }
+                },
+                {
+                    "name": "Augment #1",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true
+                },
+                {
+                    "name": "Augment #2",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true
+                },
+                {
+                    "name": "Augment #3",
+                    "allowedTypes": [
+                        "MENTAL"
+                    ],
+                    "group": "Augment",
+                    "rollable": true
+                }
+            ],
+            "gameEntityType": "CHARACTER",
+            "health": "HEALTHY",
+            "gambit": [
+                {
+                    "id": "Steal",
+                    "name": "Steal",
+                    "description": "The combatant may steal a belt, or pack item from a melee target on a failed DEX"
+                }
+            ],
+            "userId": "752fdc1f-be1f-4754-8e8d-d25e0635e37e",
+            "lastChanged": "2022-07-29T18:47:54.744Z"
+        }
+    ],
+    "DiceController": [
+        {
+            "rollable": {
+                "name": "Alex Yarbrough will",
+                "difficulty": 10
+            },
+            "dieResults": [
+                {
+                    "result": 1,
+                    "diceType": "D20"
+                }
+            ],
+            "totalResult": 1,
+            "userId": "21baaefb-80cc-4ced-b547-3f181a0d65d8",
+            "userName": "Maya",
+            "id": "477a50b8-fa47-457f-bcd8-0490398b4584",
+            "lastChanged": "2022-07-29T18:44:08.351Z"
+        },
+        {
+            "rollable": {
+                "name": "Alex Yarbrough will",
+                "difficulty": 10
+            },
+            "dieResults": [
+                {
+                    "result": 18,
+                    "diceType": "D20"
+                },
+                {
+                    "result": 6,
+                    "diceType": "D20"
+                }
+            ],
+            "totalResult": 18,
+            "userId": "21baaefb-80cc-4ced-b547-3f181a0d65d8",
+            "userName": "Maya",
+            "id": "cc444963-8b12-45b5-a0bc-75c17bd33dfd",
+            "lastChanged": "2022-07-29T18:45:50.181Z"
+        }
+    ],
+    "EntityController": [],
+    "MyController": [],
+    "UserController": [
+        {
+            "email": "gustav",
+            "password": "gustav",
+            "invite": "g",
+            "userType": "GM",
+            "id": "2f5eb7d9-7fd5-4c94-968a-bbd6fa495a10",
+            "lastChanged": "2022-07-29T18:21:42.420Z",
+            "cookie": "eb0a9c44-db58-4699-93ce-96e3220ed0d1",
+            "cookieExpiry": "2022-07-30T16:16:01.919Z",
+            "selectedCharacterId": "",
+            "notes": "the pilgrims Hadad\n\nprofessor zuban bart\nintelligent, runs a artifact \nhunters company, where the artifact hunters\nare all dead, this is the first encounter\n\nzuban has a robot, an old mr micro\n\n\nordo, great salt flats. homestead in the native \ntounge of hadad\n\tephle, hadad holy site\n\tfryhk, lair of the juggernaught\n\t\njungles of K-C, contested grounds between swamp people and gator\nold kremlin, minor city ruins in the borderlands, \n\thome to a saurian tribe\n\tand a caravansery\n\nmoscow treasure hunters\n\tbinary grammar enhancer\n\tnoseophone\n\tparasite peeling gel\n\todor spectrum amplifier\n\tinstant transmission ring\n\thorror recoiler\n\tdisharmony aggregator\n\n\ncaravan visiting from drill city\ncaravan owner is Mothman Cody, accompanied by Captain Champ\ncaravan is guarded by pilgrims hadad, led by Pablo, just Pablo\n\nMothman Cody, caravan guy\n\n\nCaravan stays overnight, during the next day mr micro\nis gone, together with Kamdyn\n\nkamdyn has fled west in to the \nordo hadad shrine to ephle, a cave riddled with pilgrims\n\n\ncaptives in the shrine to ephle\n\nthere is two prison \"barracks\" on either side of the tunnel. one is barred, the other one solid. Breaking \nthe door on the barred one will cause the other to open, and the 6-9 wilted shamblers therein to emerge in\ngroups of 4\n\nHämis and lukki, spider legged swamp people from Garden in the k-c jungle\nboth are drugged and groggy from the ooze in the cell, and they protest opening the door without the proper\nkey. they are both hanging suspended from their webs\n\nthere is is chasm just after the prison cell, 4 meters across. a mobile bridge on the other side has been \nretracted and fastened on the other side\n\n3-9 pilgrims, in groups of 3 on an elevated platform will ambush using cover. there is a path up the \nplatform on either side.\n\nHarry Hazard. a pilgrims hadad priest\n2-6 pilgrims hadad, in groups of 2\nKamdyn, by a stationary lmg, on a vantagepoint and by a rope ladder. will escape if it goes bad\nthere are a heap of barrels with explosives by the side. if these explode a saltslide occurs, forcing dex\nsaves to all, and/or dealing 4d8 damage to those in the blast\n\nthe inner shrine contains a large statue of the juggernaught ephle, encircled by flaming braziers,\nthere are also 8 long cloth drapes hanging from the ceiling\n\n4 days until bomb leaves the shrine\n\naim, shoot, stand ground\n\namari, equipment, charge, melee\nalex, catch breath, shoot, charge\n\nnails, hammer, \n\nidentified by the pilgrims, they are hostile\n\nsalt flats caves, albino drinkers",
+            "connected": true
+        },
+        {
+            "invite": "p",
+            "email": "sanna.m.blomdahl@gmail.com",
+            "password": "1ledaXX00",
+            "userType": "PLAYER",
+            "id": "21baaefb-80cc-4ced-b547-3f181a0d65d8",
+            "lastChanged": "2022-07-29T18:46:36.595Z",
+            "name": "Maya",
+            "selectedCharacterId": "923d09f9-e76e-45b1-9228-d232e7c36f39",
+            "cookie": "c0d52e73-7ed4-430b-98c9-e3f63e4d3401",
+            "cookieExpiry": "2022-07-30T17:13:43.058Z",
+            "notes": "Car parts, car battery, 2xrations, waterbottle with 1 liter, cigarettes left in salttrain\n",
+            "connected": false
+        },
+        {
+            "email": "christian.jarenfors@gmail.com",
+            "password": "Balin",
+            "invite": "p",
+            "userType": "PLAYER",
+            "id": "ad78b78e-caec-4a58-bef6-f3bbac2a7698",
+            "lastChanged": "2022-07-29T18:48:53.202Z",
+            "name": "Balin",
+            "selectedCharacterId": "3749b671-dcc5-4199-bf54-4acfca23aad3",
+            "cookie": "0bb6b4ed-dce0-4bf3-9506-543de39850b2",
+            "cookieExpiry": "2022-07-30T15:59:04.834Z",
+            "notes": "Amari Bonne\nBonds:9  Children\n\nkommer från wester\nthrough salt flat Ordo \nencountered carvans\nno contakt\ninfested by nomads, dangerous\nfreaks of nature\n\nMaja: Alex\nJesper: Warren\nPontus: Maxime\nErik: Vito 'Mr Big' Diamond\n\nMr micro\nproffessor supa\nold kremlin\n\nalbino drinkers\n\nmoskau\n\nKremlin\n\nAttacks\nSample\nSalttrain: (1x Knife, Full durability), (2 x Knife, One durability gone), (1 x rations), (1 x Hammer), \n\n1 sample left to experiment",
+            "connected": true
+        },
+        {
+            "email": "jesper.becklin@hotmail.com",
+            "password": "A",
+            "invite": "p",
+            "userType": "PLAYER",
+            "id": "27013b95-4b51-4abe-b3d9-8598f5868e24",
+            "lastChanged": "2022-07-29T18:31:36.227Z",
+            "name": "Jesper",
+            "selectedCharacterId": "f8cef3e4-b534-4405-9143-8f31038ebc0e",
+            "cookie": "18bb23a8-36f1-43b9-aae3-f27a5523c215",
+            "cookieExpiry": "2022-07-30T17:02:06.112Z",
+            "notes": "PCs\nVito Diamond, aka Mr Big. - \n\nNPCs\nMr Micro - Robot buttler\n\nThe Professor - cooky inventor. \n\nStuff to get\nStill + Chemicals = Cleansing water\n\nExtra stuff in the train \nWater (full)\nGoggles\nRations \nAmmo",
+            "connected": true
+        },
+        {
+            "email": "pontus.karlgard@gmail.com",
+            "password": "Knasboll123",
+            "invite": "p",
+            "userType": "PLAYER",
+            "id": "6b6c9934-9a36-403a-9825-2cfd28bb6427",
+            "lastChanged": "2022-07-14T16:39:35.478Z",
+            "name": "Wheelbarrow",
+            "selectedCharacterId": "d80a2291-f7b2-47e8-ab7a-1539ee16f7f7"
+        },
+        {
+            "email": "q",
+            "password": "q",
+            "invite": "p",
+            "userType": "PLAYER",
+            "id": "1cfad3ea-4287-4d72-baec-8550cfe28a9d",
+            "lastChanged": "2022-07-22T15:03:12.984Z",
+            "cookie": "cc44c662-c2e9-49b2-ab66-1e8980f8146a",
+            "cookieExpiry": "2022-07-30T09:33:02.860Z",
+            "connected": true
+        },
+        {
+            "invite": "p",
+            "email": "waterskierboy@hotmail.com",
+            "password": "losenord",
+            "userType": "PLAYER",
+            "id": "752fdc1f-be1f-4754-8e8d-d25e0635e37e",
+            "lastChanged": "2022-07-29T18:47:54.782Z",
+            "cookie": "4a5bfc28-7b67-45d9-bd15-066c977f0387",
+            "cookieExpiry": "2022-07-30T16:09:15.607Z",
+            "selectedCharacterId": "b9496898-4eb7-42bd-909b-c38c7df7b6cc",
+            "notes": "bordus och bufflig\nförsöker övertala folk och lura dem på pengar\n\npilgrim hadad - offerplats\n\nSalttåget från mig\nwater dispenser 2x\n\nAmari - christian\nAlex - maya\nWarren - jesper\n\nalbino drinkers drog in något i en grotta påvägen hem",
+            "connected": false
+        }
+    ]
+}

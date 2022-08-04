@@ -1,8 +1,18 @@
 <template>
   <require from="./item-stat/item-stat"></require>
+  <require from="../../../tooltip/tooltip"></require>
+  <tooltip
+    if.bind="getItem().tooltipText"
+    tooltip.bind="getItem()"
+    visible.bind="tooltipVisible"
+    data.bind="getItem()"
+  ></tooltip>
   <inner click.delegate="onClick()" class="selected-${isSelected}">
     <background style="background-image: url(${image})"></background>
-    <header>
+    <header
+      mouseover.delegate="setTooltipVisibility(true)"
+      mouseout.delegate="setTooltipVisibility(false)"
+    >
       <icon style="background-image: url(${icon})"></icon>
       <label class="${getHeaderFontSize()}">${getItem().name}</label>
       <stats-value if.bind="statsValue">${statsValue}</stats-value>

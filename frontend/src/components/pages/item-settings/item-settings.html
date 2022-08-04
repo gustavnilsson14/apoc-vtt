@@ -1,0 +1,11 @@
+<template>
+  <require from="../../partials/custom-form/custom-form"></require>
+  <require from="../../partials/custom-list/custom-list"></require>
+  <custom-form
+    settings.bind="addItemSettingFormSettings"
+    result.two-way="addItemSettingFormResult"
+  ></custom-form>
+  <custom-list
+    settings.bind="itemSettingListSettings"
+  ></custom-list>
+</template>

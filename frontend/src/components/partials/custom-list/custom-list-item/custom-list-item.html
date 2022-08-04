@@ -10,6 +10,10 @@
     click.delegate="onClick()"
     contextmenu.delegate="onContext($event)"
   ></custom-list-cell>
+  <button
+    if.bind="settings.hasDeleteButton"
+    click.delegate="onDelete($event)"
+  >X</button>
   <custom-form
     class="list-expansion horizontal-fields expanded-${isExpanded}"
     if.bind="settings.expandable"

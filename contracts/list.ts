@@ -17,6 +17,7 @@ export interface ICustomListSettings extends IHasToolTip {
   noProvision?: boolean;
   itemClassKey?: string;
   alwaysUpdate?: boolean;
+  hasDeleteButton?: boolean;
   tooltipDataFunction?: IGetTooltipData;
   getExpansionFormSettings?: IGetExpansionFormSettings;
 }

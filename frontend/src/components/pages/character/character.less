@@ -1,176 +1,180 @@
-character-form {
-  font-family: "source";
-  > stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 5px;
-    grid-row-gap: 5px;
-    base-info {
-      grid-column-start: 1;
-      grid-column-end: 3;
-    }
-    health {
+character{
+  margin-bottom: 200px;
+  character-form {
+    font-family: "source";
+    > stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      endurance {
-        background-image: url(../../../assets/img/icons/endurance.png);
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        align-items: center;
-        display: grid;
-        grid-template-rows: 2fr 4fr;
-        grid-template-columns: 1fr 1fr;
-        custom-input {
-          display: contents;
-          inner {
-            display: contents;
-            input.form-control {
-              background-color: transparent;
-              display: block;
-              text-align: center;
-              padding: 0;
-              border: 0px;
-              width: 60px;
-              height: 50%;
-              font-size: 22px;
-              justify-self: left;
-              align-self: flex-start;
-              padding-left: 7px;
-              &[readonly],
-              &:disabled {
-                background-color: transparent;
-              }
-              &:focus {
-                background-color: transparent;
-                border: 0px;
-                box-shadow: 0 0 0;
-                outline: 0 none;
-              }
-            }
-            &.av {
-              input.form-control {
-                display: grid;
-                grid-column: 1 / -1;
-                justify-self: center;
-                text-align: center;
-                align-self: flex-end;
-                padding-bottom: 10px;
-                padding-left: 11px;
-              }
-            }
-          }
-          inner.endurance {
-            input.form-control {
-              justify-self: right;
-              padding-left: 5px;
-              &::-webkit-outer-spin-button,
-              &::-webkit-inner-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
-              }
-            }
-          }
-        }
+      grid-column-gap: 5px;
+      grid-row-gap: 5px;
+      base-info {
+        grid-column-start: 1;
+        grid-column-end: 3;
       }
-
-      wound {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        cursor: pointer;
-        label {
-          font-family: "medula";
-          font-size: 38px;
-          text-align: center;
-          width: 100%;
-          margin-top: 10px;
-        }
-        background {
-          background-color: black;
-          -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-          position: absolute;
-          top: 0px;
-          left: 0px;
-          width: 50%;
-          height: 50%;
-          transform: translate(50%, 75%);
-          &.wound-state- {
-            &HEALTHY {
-              -webkit-mask-image: url(../../../assets/img/icons/healthy.svg);
-              mask-image: url(../../../assets/img/icons/healthy.svg);
+      health {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        endurance {
+          background-image: url(../../../assets/img/icons/endurance.png);
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+          align-items: center;
+          display: grid;
+          grid-template-rows: 2fr 4fr;
+          grid-template-columns: 1fr 1fr;
+          custom-input {
+            display: contents;
+            inner {
+              display: contents;
+              input.form-control {
+                background-color: transparent;
+                display: block;
+                text-align: center;
+                padding: 0;
+                border: 0px;
+                width: 60px;
+                height: 50%;
+                font-size: 22px;
+                justify-self: left;
+                align-self: flex-start;
+                padding-left: 7px;
+                &[readonly],
+                &:disabled {
+                  background-color: transparent;
+                }
+                &:focus {
+                  background-color: transparent;
+                  border: 0px;
+                  box-shadow: 0 0 0;
+                  outline: 0 none;
+                }
+              }
+              &.av {
+                input.form-control {
+                  display: grid;
+                  grid-column: 1 / -1;
+                  justify-self: center;
+                  text-align: center;
+                  align-self: flex-end;
+                  padding-bottom: 10px;
+                  padding-left: 11px;
+                }
+              }
             }
-            &WOUNDED {
-              -webkit-mask-image: url(../../../assets/img/icons/wounded.svg);
-              mask-image: url(../../../assets/img/icons/wounded.svg);
-            }
-            &UNCONSCIOUS {
-              -webkit-mask-image: url(../../../assets/img/icons/unconscious.svg);
-              mask-image: url(../../../assets/img/icons/unconscious.svg);
-            }
-            &DEAD {
-              -webkit-mask-image: url(../../../assets/img/icons/death.svg);
-              mask-image: url(../../../assets/img/icons/death.svg);
+            inner.endurance {
+              input.form-control {
+                justify-self: right;
+                padding-left: 5px;
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                  -webkit-appearance: none;
+                  margin: 0;
+                }
+              }
             }
           }
         }
-        /*
-        &:hover {
+  
+        wound {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          cursor: pointer;
           label {
-            margin-top: 80px;
-            font-size: 48px;
+            font-family: "medula";
+            font-size: 38px;
+            text-align: center;
+            width: 100%;
+            margin-top: 10px;
           }
           background {
-            top: -40px;
+            background-color: black;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 50%;
+            height: 50%;
+            transform: translate(50%, 75%);
+            &.wound-state- {
+              &HEALTHY {
+                -webkit-mask-image: url(../../../assets/img/icons/healthy.svg);
+                mask-image: url(../../../assets/img/icons/healthy.svg);
+              }
+              &WOUNDED {
+                -webkit-mask-image: url(../../../assets/img/icons/wounded.svg);
+                mask-image: url(../../../assets/img/icons/wounded.svg);
+              }
+              &UNCONSCIOUS {
+                -webkit-mask-image: url(../../../assets/img/icons/unconscious.svg);
+                mask-image: url(../../../assets/img/icons/unconscious.svg);
+              }
+              &DEAD {
+                -webkit-mask-image: url(../../../assets/img/icons/death.svg);
+                mask-image: url(../../../assets/img/icons/death.svg);
+              }
+            }
+          }
+          /*
+          &:hover {
+            label {
+              margin-top: 80px;
+              font-size: 48px;
+            }
+            background {
+              top: -40px;
+            }
+          }
+          */
+        }
+      }
+      custom-input {
+        display: flex;
+        width: 100%;
+        label.form-label {
+          text-transform: uppercase;
+          display: flex;
+          flex-direction: column;
+          justify-self: center;
+          align-self: center;
+          margin-bottom: 0;
+          background-color: #ccc;
+          padding: 3px 8px;
+          flex: 0.75;
+          border-right: 1px solid black;
+          border: 1px solid black;
+        }
+        inner {
+          display: flex;
+          flex-direction: row;
+          border: 1px solid black;
+          border-left: 0px;
+          flex: 1;
+          input.form-control {
+            display: flex;
+            padding: 0px 8px;
+            background-color: #eee;
+            flex: 1;
+          }
+          &:focus {
+            border: 0px;
+            box-shadow: 0 0 0;
+            outline: 0 none;
           }
         }
-        */
       }
     }
-    custom-input {
-      display: flex;
-      width: 100%;
-      label.form-label {
-        text-transform: uppercase;
+    traits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 2px;
+      multiple-select {
         display: flex;
         flex-direction: column;
-        justify-self: center;
-        align-self: center;
-        margin-bottom: 0;
-        background-color: #ccc;
-        padding: 3px 8px;
-        flex: 0.75;
-        border-right: 1px solid black;
-        border: 1px solid black;
       }
-      inner {
-        display: flex;
-        flex-direction: row;
-        border: 1px solid black;
-        border-left: 0px;
-        flex: 1;
-        input.form-control {
-          display: flex;
-          padding: 0px 8px;
-          background-color: #eee;
-          flex: 1;
-        }
-        &:focus {
-          border: 0px;
-          box-shadow: 0 0 0;
-          outline: 0 none;
-        }
-      }
-    }
-  }
-  traits {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 2px;
-    multiple-select {
-      display: flex;
-      flex-direction: column;
     }
   }
 }
+

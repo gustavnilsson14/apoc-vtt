@@ -34,6 +34,10 @@ export class BaseController
     super(loaderObject);
     this.name = this.constructor.name;
   }
+  public setCollection(collection: any[]): void {
+    this.collection = collection;
+    if(this.collection == undefined) this.collection = [];
+  }
   public handleMessage(message: IMessage, session: ISession): IMessage {
     let response: IMessage | null = null;
     switch (message.type) {
@@ -113,7 +117,7 @@ export class BaseController
     this.collection = this.collection.filter(
       (item) => item.id != message.data.id
     );
-    return MessageFactory.response(this, existing);
+    return MessageFactory.success(this);
   }
   public request(session: ISession, message: IMessage): IMessage {
     const responseCollection: IBase[] = this.getItemsForRequest(
@@ -165,11 +169,11 @@ export class BaseController
     return MessageFactory.success(this);
   }
   public unsubscribe(session: ISession, message: IMessage): IMessage | null {
-    /*const key = this.getSubscriptionKey(session, message.data.id);
+    const key = this.getSubscriptionKey(session, message.data.id);
     const existing = this.subscriptions.find(x=> x.key == key);
     if (!existing) return MessageFactory.error(`Subscription ${key} does not exist`, message, this);
     this.subscriptions = this.subscriptions.filter(x => x.key != key);
-    */
+    
     return MessageFactory.success(this);
   }
   public broadcast(session: ISession | null, data: any, id: string = ""): void {

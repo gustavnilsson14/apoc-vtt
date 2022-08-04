@@ -1856,4 +1856,137 @@ export const creaturesList: ICreature[] = [
       },
     ],
   },
+  {
+    id: "Ooze Mutant",
+    name: "Ooze Mutant",
+    description:
+      "Ooze mutants are humans saturated by ooze, and overtaken by an ooze hivemind. They follow their masters wlll to the letter, which is sometimes quite incomprehensible. They are usually very aggressive",
+    image: "",
+    level: 2,
+    strength: 10,
+    dexterity: 10,
+    will: 15,
+    endurance: 85,
+    maxEndurance: 85,
+    av: 2,
+    gameEntityType: GameEntityType.ENEMY,
+    habitats: [BiomeType.SALT_FLATS, BiomeType.ZONE, BiomeType.CITY_RUINS, BiomeType.METRO],
+    weaknesses: [
+      DamageType.STAB,
+      DamageType.PAIN,
+      DamageType.LIGHT,
+      DamageType.VOLT,
+    ],
+    attacks: [
+      {
+        name: "Necro Cleaver",
+        damage: [DiceType.D6, DiceType.D8, DiceType.D6],
+        damageTypes: [DamageType.CUT, DamageType.PAIN],
+      },
+      {
+        name: "Necro Rifle",
+        damage: [DiceType.D6, DiceType.D8, DiceType.D6],
+        damageTypes: [DamageType.GUN, DamageType.STAB],
+      },
+    ],
+    actions: [
+      {
+        id: "",
+        name: "Hook and drag",
+        description:
+          "Choose an enemy in melee. On a failed STR, this round this victim cannot retreat. Also, if they fall unconscious during the round, they are dragged into the ooze mutants tile, and cannot be recovered unless pushing the mutant away or killing them.",
+      }
+    ],
+  },
+  {
+    id: "Ooze Taskmaster",
+    name: "Ooze Taskmaster",
+    description:
+      "Ooze taskmasters the humans whose genomes best embraced the ooze. These are conduits for the hivemind, and thus stronger, faster, and more dangerous.",
+    image: "",
+    level: 3,
+    strength: 12,
+    dexterity: 12,
+    will: 15,
+    endurance: 120,
+    maxEndurance: 120,
+    av: 2,
+    gameEntityType: GameEntityType.ENEMY,
+    habitats: [BiomeType.SALT_FLATS, BiomeType.ZONE, BiomeType.CITY_RUINS, BiomeType.METRO],
+    weaknesses: [
+      DamageType.STAB,
+      DamageType.LIGHT,
+      DamageType.VOLT,
+    ],
+    attacks: [
+      {
+        name: "Necro Repeater",
+        damage: [DiceType.D8, DiceType.D10, DiceType.D8],
+        damageTypes: [DamageType.GUN, DamageType.STAB, DamageType.BURST],
+      },
+      {
+        name: "Necro Bleeder",
+        damage: [DiceType.D8, DiceType.D6, DiceType.D6],
+        damageTypes: [DamageType.PAIN, DamageType.STAB],
+      },
+    ],
+    actions: [
+      {
+        id: "",
+        name: "Rally",
+        description:
+          "The Taskmaster chooses an action, melee, ranged, assist, or defend. All Ooze Mutants performing this action in the Taskmasters group has their armor value increase by 1 for the round. Recharges on a 4",
+      },
+      {
+        id: "",
+        name: "Blind Rage",
+        description:
+          "When alone without minions, the Taskmaster can use blind rage. When using blind rage the Taskmaster restores their endurance to max, loses all armor value, doubles their movement speed, and all their attack dice are increaed by +1. When used, the taskmaster can only use the melee or ranged action, only the charge or stand ground movement types, and cannot use further tactical actions.",
+      },
+    ],
+  },
+  {
+    id: "Brine Skipper",
+    name: "Brine Skipper",
+    description:
+      "An insect and sole predator the size of a puma, with two very sharp mandibles. The Brine skipper hunts by hit-and-run attacks, either taking parts, or their whole pray depending on its size.",
+    image: "",
+    level: 1,
+    strength: 6,
+    dexterity: 14,
+    will: 3,
+    endurance: 40,
+    maxEndurance: 40,
+    av: 1,
+    gameEntityType: GameEntityType.ENEMY,
+    habitats: [BiomeType.SALT_FLATS, BiomeType.ZONE],
+    weaknesses: [
+      DamageType.GUN,
+      DamageType.OOZE,
+      DamageType.NUKE,
+      DamageType.BURST,
+      DamageType.BLAST,
+    ],
+    attacks: [
+      {
+        name: "Rend",
+        damage: [DiceType.D4, DiceType.D12, DiceType.D8],
+        damageTypes: [DamageType.CUT, DamageType.PAIN],
+      }
+    ],
+    actions: [
+      {
+        id: "",
+        name: "Maim",
+        description:
+          "Targets an enemy in melee with less than, or at half endurance. The next melee attack against this target deals critical damage, with advantage. If this attack wounds its target, they an automatic additional injury, and still have to check STR for another injury.",
+      },
+      {
+        id: "",
+        name: "Skip",
+        description:
+          "The Brine Skipper forfeits its action for the first turn of the round to move upto 5 tiles.",
+      },
+    ],
+  },
 ];

@@ -1,12 +1,13 @@
 import { bindable, EventAggregator, inject } from "aurelia";
-import { getItemValue, IItem } from "../../../../../../../collections/items";
+import { IItem } from "../../../../../../../collections/items";
+import { getItemValue } from "../../../../../../../contracts/models/item";
 import { Client } from "../../../../../infrastructure/client";
 import { ISelectable, SelectionHandler } from "../../../../../infrastructure/selection";
 import { ItemSlotsSetter } from "../itemSlotsSetter";
 
 @inject(Client, Element)
 export class Item extends ItemSlotsSetter implements ISelectable {
-  public selectionGroup: string = "AllItems";
+  @bindable public selectionGroup: string = "AllItems";
   isSelected: boolean;
   statsValue: number;
   @bindable clickable: boolean = true;
@@ -17,6 +18,7 @@ export class Item extends ItemSlotsSetter implements ISelectable {
   @bindable value: any;
   @bindable index: number;
   @bindable isItemSlot: boolean = false;
+  @bindable tooltipVisible: boolean;
   constructor(public client: Client, public element: Element, private selectionHandler: SelectionHandler, private eventAggregator: EventAggregator){
     super(client);
   }
@@ -73,6 +75,11 @@ export class Item extends ItemSlotsSetter implements ISelectable {
   onClick() {
     if(!this.clickable) return;
     this.selectionHandler.select(this);
+  }
+  setTooltipVisibility(value: boolean): void {
+    if (this.selectionGroup == "AllItems") return;
+    if (!this.getItem().tooltipPaths && !this.getItem().tooltipText) return;
+    this.tooltipVisible = value;
   }
   getItemStatsValue(item: IItem): number {
     return getItemValue(item);

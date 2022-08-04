@@ -100,7 +100,7 @@
             <h4>Round lifecycle</h4>
             <ol>
                 <li>Handle battlemat features</li>
-                <li>Roll for initiative, and set combat intensity</li>
+                <li>Determine whether to roll initiative, and set combat intensity</li>
                 <li>Take tactical action</li>
                 <li>Planning movement and action</li>
             </ol>
@@ -129,12 +129,11 @@
 
         <box>
             <h3>Rounds and Turns</h3>
-            <p>A round of combat is an amount of turns decided by both the fighting parties. A turn of combat is enough time for every combatant involved to move, and perform an action.</p>
+            <p>A round of combat lasts for an amount of turns ranging between 2-5. A turn of combat is enough time for every combatant involved to move, and perform an action.</p>
 
             <h4>Commitment</h4>
-            <p>As a round of combat starts, the GM rolls 1d10 for initiative. If the result is below or equal to the initiative threshold, the players has it, if above the enemies have it</p>
-            <p>Turn amount starts at 3. After rolling for initiative,  the side which gets it chooses to increase, or decrease the turn amount by 1.</p>
-            <p>After determining turn amount, all combatants take tactical action, then plan for the round</p>
+            <p>At the start of a round, all combatants take tactical action, then plan for the round</p>
+            <p>Turn amount starts at 3. The turn amount can be changed by using the initiative tactical action.</p>
             
             <img src="${getImage('art/hqdefault.jpg')}" alt="">
             
@@ -175,13 +174,13 @@
                 <info-row>
                     <inner>
                         <h4>Catch Breath</h4>
-                        <span>Using the catch breath action increases your endurance by your level die.</span>
+                        <span>Using the catch breath action increases your endurance by twice your level die.</span>
                     </inner>
                 </info-row>
                 <info-row>
                     <inner>
                         <h4>Initiative</h4>
-                        <span>The initiative action increases <i>initiative threshold</i> by 1 when used by the player side, and reduces it by 1 when used by the enemy side</span>
+                        <span>When using initiative, the combatant may increase or decrease the amount of turns for the current round by 1. At the start of the next round, the combatant takes their tactical action after all other combatants decide on their tactical actions.</span>
                     </inner>
                 </info-row>
                 <info-row>
@@ -221,8 +220,8 @@
             <info-list class="separator-pipes no-roll" style="counter-set: list 0;">
                 <info-row>
                     <inner>
-                        <h4>Move to tile</h4>
-                        <span>A character may move towards a tile. They will move towards that tile every other turn.</span>
+                        <h4>Careful movement</h4>
+                        <span>A character may move carefully. They will move at half speed, but with precision and balance.</span>
                     </inner>
                 </info-row>
                 <info-row>
@@ -1187,6 +1186,12 @@
                                 <span>Deadly and silent, strong and fast</span>
                             </inner>
                         </info-row>
+                        <info-row>
+                            <inner>
+                                <h4>Mastermind</h4>
+                                <span>Cold and calculating, manipulative and pragmatic, patient and malevolent</span>
+                            </inner>
+                        </info-row>
                     </info-list>
                 </box>
             </row>
@@ -1519,6 +1524,73 @@
                 <li>Taking an active part in irl game scheduling.</li>
                 <li>Bringing snacks to the table.</li>
             </ul>
+        </box>
+    </row>
+    <row>
+        <box class="x3">
+            <h2>Gameplay</h2>
+            <p>Playing Into the Apocalypse is more than combat. It is exploration, travel, trade, injury, sickness, capture, rescue, and death. Below follows various rules for how to handle these endeavors, situations, and maladies.</p>
+        </box>
+        <box class="x1-5">
+            <h3>Time</h3>
+            <p>First of all, time is important. Any undertaking by the players will more often than not be on the clock. When retrieving a stolen thing, or rescuing a kidnapped person will be impossible after a short time. Delivering goods will need to be done on time. Routing bandits for a contractor needs to be done before they can cause more damage, or worse, retaliate.</p>
+            <h4>Time slots</h4>
+            <p>Most creatures are estimated to sleep 8 hours per day, and as such there are 16 waking hours each day. These 16 hours are divided into 8 time slots of two hours each. During each time slot any time consuming action can be taken, given the character has the right tools and conditions to do so, including, but not limited to;</p>
+            <ul>
+                <li>Reading from a book or device</li>
+                <li>Tutoring and teaching</li>
+                <li>Performing repairs on inventory or vehicles</li>
+                <li>Crafting or prototyping new equipment</li>
+                <li>Setting a brew, or mixing a salve</li>
+                <li>Wild game care and food preservation</li>
+                <li>Water extraction and purification</li>
+                <li>Haggling for prices or bargain hunting</li>
+                <li>Exploring, and mapping unknown territory</li>
+                <li>Meditation, or performing magic ritual</li>
+            </ul>
+        </box>
+        <box class="x1-5">
+            <h3>Skills</h3>
+            <p>All characters have skills inherent to their background. A Hag might be able to brew or mix poisons and hallucinogenics, while a Moneybags will be skilled at intimidation and persuasion, and a Purifier will be able to purify dirty water. This is all up to the GM and the player in tandem to decide what background knows what, with the GM having the final veto.</p>
+            <h4>Secondary skills</h4>
+            <p>Skills not inherent to a characters background can be learned as secondary skills. While not ever as useful as the skills inherent to the background, these skills will help with versatility during downtime timeslots. These skills needs to be learned, explained below</p>
+            <p>A character can only ever have as many secondary skills as they have weaknesses. If they learn a new one, they have to choose one to forget.</p>
+            <img src="${getImage('art/skill.jpg')}" alt="">
+        </box>
+        <box class="x1-5">
+            <h4>Learning and teaching</h4>
+            <p>Skills, such as repairing a combustion engine, how to brew a beverage, how to repair a chipped knife, how to setup an electrical grid, or how to hack a console, are all very valuable. These cannot be learned in a vaccum, or by experimentation only.</p>
+            <p>Before a skill can be used, a character must at least learn the basics. This is done by any of the following;</p>
+            <ul>
+                <li>16 timeslots of book studies</li>
+                <li>12 timeslots of tutoring</li>
+                <li>10 timeslots of book studies mixed with tutoring</li>
+            </ul>
+            <p>After spending this effort, a secondary skill is learned and may be used</p>
+            <img src="${getImage('art/terminal.png')}" alt="">
+        </box>
+        <box class="x1-5">
+            <h4>Crafts, and repairs</h4>
+            <p>These endeavors usually take more than a single time slot, but can be done over a longer time. They also require skill, inherent, or secondary.</p>
+            <p>Repairs of a vehicle yields anything between 1 point of integrity per timeslot with protable tools, and 5 points if a proper workshop dedicated to vehicle repairs is available</p>
+            <p>Repairing the durability of a non relic, artifact, perishable, consumable, or explosive item takes 1 timeslot per durability and 10 item value. It will also require materials and tools relevant to the item being repaired</p>
+            <p>Crafting works similarily to repairs, but requires thrice the timeslots.</p>
+        </box>
+        <box class="x1-5">
+            <h4>Exploration</h4>
+            <p>To explore an area requires 2 timeslots, which can be divided between several explorers working together. Each time an area is explored, it yields more detailed information about the area being explored, in these steps;</p>
+            <ul>
+                <li>General topology, any structures or natural features</li>
+                <li>Secluded areas, hidden buildings or structures</li>
+                <li>Contents of uninhabited buildings and abandoned vehicles. Flora and fauna.</li>
+            </ul>
+            <p>Exploration can also include scouting the habits of people, such as mapping patrol routes and shift rotations of police and guards, to individual daily routines for people</p>
+        </box>
+        <box class="x1-5">
+            <h4>Meditation and ritual</h4>
+            <p>Magic users may meditate to recover charges for their spells. For each charge to recover, 2 interrupted timeslots. If interrupted, the time is wasted.</p>
+            <p>Magic rituals can be performed, and depending on their effect, their requirement of physical requirements and/or their time consumption goes up. Generally, a magic ritual takes no less than 2 timeslots.</p>
+            <img src="${getImage('art/ritual.png')}" alt="">
         </box>
     </row>
     <row>

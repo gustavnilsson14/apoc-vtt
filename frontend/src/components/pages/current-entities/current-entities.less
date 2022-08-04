@@ -4,23 +4,29 @@ current-entities {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     row-gap: 5px;
     column-gap: 5px;
+
     entity {
       display: block;
       padding: 8px;
       border: 1px solid black;
+
       custom-form {
         display: block;
         margin-top: 10px;
+
         form {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
+
           h2 {
             display: contents;
           }
+
           custom-input {
             display: flex;
             flex-direction: row;
-            label.form-label{
+
+            label.form-label {
               text-transform: uppercase;
               display: flex;
               flex-direction: column;
@@ -33,60 +39,90 @@ current-entities {
               border-right: 1px solid black;
               border: 1px solid black;
             }
-            inner{
+
+            inner {
               display: flex;
               flex: 1;
             }
-            input.form-control{
+
+            input.form-control {
               height: 32px;
             }
             &.name,
             &.state,
-            &.weaknesses{
+            &.weaknesses {
               grid-column: 1 / -1;
+
               inner {
                 flex: 3.5;
                 width: 100%;
+
                 input {
                   text-align: center;
                   text-transform: uppercase;
                 }
               }
             }
+
             inner {
+              position: relative;
               &.state {
                 text-align: center;
-                
+
+                &::before {
+                  content: "";
+                  width: 100%;
+                  height: 34px;
+                  transition: all 1s;
+                }
+                input.form-control{
+                  position: absolute;
+                  line-height: 34px;
+                  background-color: transparent;
+                }
                 &.exhausted {
                   input {
+                    color: white;
+                  }
+                  &::before{
                     background-color: black;
-                    color: white;
                   }
                 }
+
                 &.holding-on {
-                  input {
-                    background-color: red;
-                    color: white;
+                  &::before{
+                    background-color: #cc0000;
+                    width: 16%;
                   }
                 }
-                &.wavering,
+                &.wavering {
+                  &::before{
+                    background-color: #d84600;
+                    width: 33%;
+                  }
+                }
                 &.tired {
-                  input {
-                    background-color: darkgoldenrod;
-                    color: white;
+                  &::before{
+                    background-color: #b8860b;
+                    width: 49%;
                   }
                 }
-                &.determined,
+                &.determined {
+                  &::before{
+                    background-color: #d8a62b;
+                    width: 66%;
+                  }
+                }
                 &.fresh {
-                  input {
-                    background-color: lightyellow;
-                    color: black;
+                  &::before{
+                    background-color: #60cc60;
+                    width: 82%;
                   }
                 }
+
                 &.vigorous {
-                  input {
-                    background-color: lightgreen;
-                    color: black;
+                  &::before{
+                    background-color: #90EE90;
                   }
                 }
               }
@@ -96,5 +132,6 @@ current-entities {
       }
     }
   }
+
   margin-bottom: 200px;
 }

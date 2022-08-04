@@ -4,6 +4,7 @@
   <require from="../die-roller/die-roller"></require>
   <require from="../rulebook/rulebook"></require>
   <require from="../profile/profile"></require>
+  <require from="../time-tracker/time-tracker"></require>
   <require from="../entity-picker/entity-picker"></require>
   <require from="../current-entities/current-entities"></require>
   <require from="../notes/notes"></require>
@@ -30,6 +31,7 @@
         <entity-picker if.bind="client.user.userType == 'GM'"></entity-picker>
       </grid-box>
       <grid-box class="current-entities">
+        <time-tracker></time-tracker>
         <current-entities></current-entities>
       </grid-box>
       <grid-box class="notes">

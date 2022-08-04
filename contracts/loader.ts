@@ -35,6 +35,7 @@ export interface IController extends ILoaderModule {
   remove(session: ISession, message: IMessage): IMessage;
   request(session: ISession, message: IMessage): IMessage;
   getItem(id: string): IBase | null;
+  setCollection(collection: any[]): void;
 }
 export interface ISubscription extends IBase {
   key: string;

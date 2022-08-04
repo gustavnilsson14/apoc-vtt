@@ -29,6 +29,7 @@ export class Assets extends BasePage {
     expandable: true,
     alwaysUpdate: false,
     itemClassKey: 'gameEntityType',
+    hasDeleteButton: true,
     getExpansionFormSettings: (value: any): IFormSettings => {
       let form;
       switch ((value as IGameEntity).gameEntityType) {
@@ -48,7 +49,6 @@ export class Assets extends BasePage {
       }
     },
   };
-  @bindable assetIds: string[] = [];
   @bindable assetsListExpanded: string[] = [];
   
   constructor(

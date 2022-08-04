@@ -194,6 +194,7 @@ export class Character extends BasePage {
 
   @bindable onItemSlotContext(settings: IInputSettings, result: any): void {
     const item: IItem = result.item;
+    if (!item.hasSkill) return;
     this.diceHelper.handleItemRoll(item, this.selectedCharacter);
   }
 

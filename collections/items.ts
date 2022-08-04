@@ -1,4 +1,11 @@
+import {
+  IHasToolTip,
+  TooltipSourceType,
+} from "../frontend/src/infrastructure/tooltip";
+import { DamageType } from "./damageType";
+
 export enum ItemType {
+  NONE = "NONE",
   MELEE = "MELEE",
   RANGED = "RANGED",
   EXPLOSIVE = "EXPLOSIVE",
@@ -17,7 +24,8 @@ export enum ItemType {
   GOODS = "GOODS",
   AFFLICTION = "AFFLICTION",
   PHYSICAL = "PHYSICAL",
-  MENTAL = "MENTAL"
+  MENTAL = "MENTAL",
+  RELIC = "RELIC",
 }
 
 export const physicalItemTypes: ItemType[] = [
@@ -34,10 +42,11 @@ export const physicalItemTypes: ItemType[] = [
   ItemType.CYBERNETICS,
   ItemType.INJURY,
   ItemType.GOODS,
+  ItemType.RELIC,
 ];
 export const mentalItemTypes: ItemType[] = [
   ItemType.AFFLICTION,
-  ItemType.MAGIC
+  ItemType.MAGIC,
 ];
 export const unMoveableItems: ItemType[] = [
   ItemType.INJURY,
@@ -56,7 +65,7 @@ export interface IItemStat {
   type: StatType;
   filled?: boolean;
 }
-export interface IItem {
+export interface IItem extends IHasToolTip {
   name: string;
   type: ItemType;
   stats: StatType[];
@@ -67,37 +76,6 @@ export interface IItem {
   size: ItemSize;
   horizontal: boolean;
   image: string;
-}
-
-export function getItemValue(item: IItem):number {
-  let baseValue = 0;
-  item.stats.forEach(stat => {
-    baseValue += getItemStatValue(stat);
-  });
-  return getValueOnItemType(item, baseValue);
-}
-export function getValueOnItemType(item: IItem, baseValue: number): number {
-  const val = item.damageTypes ? item.damageTypes.length : 0;
-  if(item.type == ItemType.STUFF) return 2;
-  if(item.type == ItemType.TOOL) return 4;
-  if(item.type == ItemType.EXPLOSIVE) return Math.floor(baseValue / 2) + (val * 2);
-  if(item.type == ItemType.CONSUMABLE) return Math.floor(baseValue / 2);
-  if(item.type == ItemType.MELEE) return baseValue + val;
-  if(item.type == ItemType.RANGED) return baseValue + val + 2;
-  if(item.type == ItemType.MAGIC) return 10 + (val * 3);
-  if(item.type == ItemType.ARMOR) return baseValue + (val * 2);
-  if(item.type == ItemType.HEADGEAR) return baseValue + (val * 2);
-  if(item.type == ItemType.SHIELD) return baseValue + (val * 1);
-  if(item.type == ItemType.GOODS) return 5 + (baseValue * 2);
-  if(item.type == ItemType.CYBERNETICS) return 10 + (baseValue * 3) + (val * 2);
-  if(item.type == ItemType.ARTIFACT) return 20 + (baseValue * 5);
-  return baseValue + val;
-}
-export function getItemStatValue(stat: StatType): number {
-  if(stat == StatType.DURABILITY) return 1;
-  if(stat == StatType.EFFECT) return 3;
-  if(stat == StatType.QUALITY) return 4;
-  return 0;
 }
 
 export const itemList: IItem[] = [
@@ -716,7 +694,7 @@ export const itemList: IItem[] = [
       StatType.DURABILITY,
       StatType.DURABILITY,
     ],
-    damageTypes: ["","","","","","","","","","","","*","SMASH"],
+    damageTypes: ["", "", "", "", "", "", "", "", "", "", "", "*", "SMASH"],
     hasSkill: true,
     size: ItemSize.SMALL,
     horizontal: true,
@@ -725,10 +703,8 @@ export const itemList: IItem[] = [
   {
     name: "GUITAR",
     type: ItemType.MELEE,
-    stats: [
-      StatType.DURABILITY,
-    ],
-    damageTypes: ["","","","*","SMASH"],
+    stats: [StatType.DURABILITY],
+    damageTypes: ["", "", "", "*", "SMASH"],
     hasSkill: true,
     size: ItemSize.SMALL,
     horizontal: true,
@@ -2013,9 +1989,7 @@ export const itemList: IItem[] = [
   {
     name: "SALT",
     type: ItemType.GOODS,
-    stats: [
-      StatType.DURABILITY,
-    ],
+    stats: [StatType.DURABILITY],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -2544,6 +2518,362 @@ export const itemList: IItem[] = [
     image: "img/items/windturbine.png",
   },
   {
+    name: "ETHER SPEAR",
+    type: ItemType.RELIC,
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: ["", "", "", DamageType.STAB, DamageType.VOLT],
+    hasSkill: true,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/relics/ether-spear.png",
+    tooltipText:
+      "The Ether Spear phases through the physical plane as it is thrown. Using a tactical action the Ether spear can be commanded to hit a specific target in vision. Until the end of combat, or until commanded otherwise, the spear will always hit the same target. When attacking with the Ether Spear, the wielder can spend a volt magic charge to roll with advantage. The Ether Spear returns to its wielders hand after being thrown.",
+    tooltipSource: TooltipSourceType.TEXT,
+  },
+  {
+    name: "THE ISOTOPE",
+    type: ItemType.RELIC,
+    stats: [
+      StatType.EFFECT,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [DamageType.CUT, DamageType.NUKE, DamageType.SMASH],
+    hasSkill: true,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/relics/the-isotope.png",
+    tooltipText:
+      "The Isotope can be commanded to glow in a green light, giving off a bright light reaching up to 20 meters. Dealing critical damage with The Isotope causes the target to be knocked back one tile. Also, when attacking with The Isotope, the wielder can spend a nuke magic charge to roll with advantage.",
+    tooltipSource: TooltipSourceType.TEXT,
+  },
+  {
+    name: "LIVING FLAME",
+    type: ItemType.RELIC,
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+    ],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/relics/living-fire.png",
+    tooltipText:
+      "A locket containing sentient fire. Using the Living fire pendant costs a point of durability, a point of durability regenerates if spending a unit of downtime on recharging the pendant. When opened, the pendant does a choice of the following; Illuminate 100 cubic meters in radiant light. Cauterize a fresh infection, treating it and filling two slots. As a tactical action, deals 2d6 light damage at any range, and on failed STR the victim cannot attack during the first turn.",
+    tooltipSource: TooltipSourceType.TEXT,
+  },
+  {
+    name: "OOZEKEEPER",
+    type: ItemType.RELIC,
+    stats: [
+      StatType.EFFECT,
+      StatType.EFFECT,
+      StatType.EFFECT,
+      StatType.EFFECT,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [
+      DamageType.OOZE,
+      "",
+      "",
+      "",
+      "",
+      "",
+    ],
+    hasSkill: true,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/relics/oozekeeper.png",
+    tooltipText: "The Oozekeeper sprays short bursts of pressurized ooze at high velocity. Oozekeeper ignores armovr completely. As a tactical action, the wielder may create a pool of ooze at any one tile. Anyone starting their turn on this tile suffers 1d6 ooze damage, which ignores armor.",
+    tooltipSource: TooltipSourceType.TEXT,
+  },
+  {
+    name: "STATIC",
+    type: ItemType.RELIC,
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [
+      DamageType.VOLT,
+      DamageType.NUKE,
+      DamageType.OOZE,
+      DamageType.LIGHT,
+      DamageType.NEURAL,
+    ],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/relics/static-plate.png",
+    tooltipText: "A plate infused with volt powers, granting protection against all magic. When the wearer would take volt damage, they instead make a STR save with advantage, on take damage only if it fails.",
+    tooltipSource: TooltipSourceType.TEXT,
+  },
+  {
+    name: "GUNDAM SUIT",
+    type: ItemType.RELIC,
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.QUALITY,
+    ],
+    damageTypes: [
+      DamageType.CUT,
+      DamageType.GUN,
+      DamageType.STAB,
+      DamageType.SMASH,
+      DamageType.BURST,
+      DamageType.BLAST,
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+    ],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/relics/gundam-suit.png",
+    tooltipText: "A gundam mobile suit fit for a human. As a tactical action, or out of combat, the Gundam suit can be powered for 5 minutes by spending a volt magic charge. While powered, the Gundam suit can fly at a speed up to 150km/h.",
+    tooltipSource: TooltipSourceType.TEXT,
+  },
+  {
+    name: "FLASHMELTER",
+    type: ItemType.RELIC,
+    stats: [
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [
+      DamageType.NUKE,
+      DamageType.PAIN,
+    ],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/relics/fleshmelter.png",
+    tooltipText: "A beam of radiation melting skin and flesh. The Flashmelter can be overcharged using a tactical action and by spending a durability. When overcharged, it deals its damage, and skill die as splash damage.",
+    tooltipSource: TooltipSourceType.TEXT,
+  },
+  {
+    name: "PRESERVED VESSEL",
+    type: ItemType.RELIC,
+    stats: [
+      StatType.DURABILITY,
+    ],
+    damageTypes: [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+    ],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/relics/preservedvessel.png",
+    tooltipText: "A preserved vessel is a powerful neural relic, which may move the mind of a sentient creature into it, and then discharge this mind into a new, similar, mindless body. The procedure to store a mind is instant, but requires all remaining charges of a neural spell, and can be performed on someone who died the last 5 seconds. While stored, the mind is confused, but able to speak through the preserved vessel. When discharged, the mind enters its new body, and the vessel crumbles.",
+    tooltipSource: TooltipSourceType.TEXT,
+  },
+  {
+    name: "THE TEAMMATE",
+    type: ItemType.RELIC,
+    stats: [
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [
+      DamageType.NEURAL,
+      DamageType.VOLT,
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+    ],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/relics/headset.png",
+    tooltipText: "The Teammate, when worn as a helmet can be attuned to another willing creature by the wearer spending a neural, or volt magic charge and a timeslot for both wearer and target. While attuned, the wearer and the target can communicate telepathically, over any distances. If the wearer removes the helmet the attunement is forfeit. If any of the linked creatures die while attuned, the other one suffers a madness.",
+    tooltipSource: TooltipSourceType.TEXT,
+  },
+  {
+    name: "POP POP",
+    type: ItemType.RELIC,
+    stats: [
+      StatType.EFFECT,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.QUALITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [
+      DamageType.GUN,
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+    ],
+    hasSkill: true,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/relics/goldengun.png",
+    tooltipText: "Pop pop can shoot multiple bullets. By using a tactical action Pop pop goes brrrap, and attacks twice, but can only fire every third turn.",
+    tooltipSource: TooltipSourceType.TEXT,
+  },
+  {
+    name: "ORM THE URN",
+    type: ItemType.RELIC,
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+    ],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/relics/urn.png",
+    tooltipText: "Orm is an urn, sentient by use of neural magic. Orm is friendly, adventurous, but greedy. Orm is stealthy, and very fast for being an urn, and moves as fast as any human or mutant. He can carry up to one litre of water, or equivalent in size, he does not corrode or melt, but might be dented or broken. For proper payment, or for a friend, Orm will carry, or deliver things.",
+    tooltipSource: TooltipSourceType.TEXT,
+  },
+  {
+    name: "UNIVERSAL REMOTE",
+    type: ItemType.RELIC,
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+    ],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/relics/the-universal.png",
+    tooltipText: "The universal is an ancient, state of the art remote, which can issue one of its four commands to any hardware with a reciever, but fragile as it is it suffers one point of damage when doing so. The commands are; Shutdown, self-destruct, factory restore, and overclock.",
+    tooltipSource: TooltipSourceType.TEXT,
+  },
+  {
+    name: "GEM DIMENSION 4",
+    type: ItemType.RELIC,
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+    ],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/relics/4d-gem.png",
+    tooltipText: "The Gem dimension 4 is a magical artifact of unknown origin. It is used by spending a tactical action and one of its 3 durability. When used, the gem first stores the users state, and can then be used again for no durability cost, within 30 minutes, to restore their position and bodily state, moving the user back to that position, and restoring their state of injury back to what it was. If the Gem passes to another creatures possesion, it loses any stored information. The Gem cannot be repaired, but only recharged by spending 1 point of experience and a time slot",
+    tooltipSource: TooltipSourceType.TEXT,
+  },
+  {
     name: "BUSTED RIBCAGE",
     type: ItemType.INJURY,
     stats: [
@@ -2657,11 +2987,7 @@ export const itemList: IItem[] = [
   {
     name: "DRAINED",
     type: ItemType.AFFLICTION,
-    stats: [
-      StatType.DURABILITY,
-      StatType.DURABILITY,
-      StatType.DURABILITY,
-    ],
+    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,
@@ -2671,11 +2997,7 @@ export const itemList: IItem[] = [
   {
     name: "DRUGGED",
     type: ItemType.AFFLICTION,
-    stats: [
-      StatType.DURABILITY,
-      StatType.DURABILITY,
-      StatType.DURABILITY,
-    ],
+    stats: [StatType.DURABILITY, StatType.DURABILITY, StatType.DURABILITY],
     damageTypes: [],
     hasSkill: false,
     size: ItemSize.SMALL,

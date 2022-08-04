@@ -21,6 +21,7 @@ import {
 import { ItemSlotsSetter } from "./itemSlotsSetter";
 import { DiceType } from "../../../../../../contracts/models/dice";
 import { Client } from "../../../../infrastructure/client";
+import { matchItemType } from "../../../../../../contracts/models/item";
 
 @inject(EventAggregator, SelectionHandler, Element, Client)
 export class ItemSlot extends ItemSlotsSetter implements ISelectable {
@@ -108,17 +109,9 @@ export class ItemSlot extends ItemSlotsSetter implements ISelectable {
     const itemSlot: IItemSlot = this.getItemSlot();
     let result: boolean = false;
     itemSlot.allowedTypes.forEach(allowedType => {
-      if (item.type == allowedType) result = true;
-      if (allowedType == ItemType.PHYSICAL && physicalItemTypes.includes(item.type)) result = true;
-      if (allowedType == ItemType.MENTAL && mentalItemTypes.includes(item.type)) result = true;
-      if (allowedType == ItemType.ANY) result = true;
+      result = matchItemType(item, allowedType);
     });
     return result;
-    return (
-      this.value[this.index].allowedTypes.find(
-        (x) => x == item.type || x == ItemType.ANY
-      ) != null
-    );
   }
   handleBreakage() {
     if (!this.getItem()) return;

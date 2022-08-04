@@ -1,7 +1,7 @@
 <template>
   <require from="./custom-list-header/custom-list-header"></require>
   <require from="./custom-list-item/custom-list-item"></require>
-  <custom-list-inner style="grid-template-columns: repeat(${settings.indexes.length}, 1fr)">
+  <custom-list-inner style="grid-template-columns: repeat(${getItemGridLength()}, 1fr)">
     <custom-list-header if.bind="settings.headers != false" settings.bind="settings"></custom-list-header>
     <custom-list-item repeat.for="item of data" item.bind="item" data.bind="data" settings.bind="settings" index.bind="$index" expanded-ids.two-way="expandedIds" class="${getItemClass(item)}"></custom-list-item>
   </custom-list-inner>

@@ -40,7 +40,7 @@ export interface IDefaultInputSettings extends IInputSettings {
 export interface ISelectInputSettings extends IInputSettings {
   labelIndex: string;
   options: any[];
-  isTemplate: boolean;
+  isTemplate?: boolean;
 }
 export interface IMultipleSelectInputSettings extends IInputSettings {
   labelIndex: string;
@@ -83,9 +83,10 @@ export class DefaultInput extends BaseInput implements IDefaultInputSettings {
 export class SelectInput extends BaseInput implements ISelectInputSettings {
   labelIndex: string;
   options: any[];
-  isTemplate: boolean;
+  isTemplate?: boolean;
   public getInputValue(data: any): any {
     if (!data) return null;
+    if (this.isTemplate) return data;
     if (!data.hasOwnProperty(this.key)) return null;
     const item: any = this.options.find(x => JSON.stringify(data[this.key]) == JSON.stringify(x));
     return item;
