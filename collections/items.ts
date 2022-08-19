@@ -1006,6 +1006,28 @@ export const itemList: IItem[] = [
       "img/items/nailgun_01.png14672430-033D-4D2C-858B-E5B447482AF8Large-removebg-preview.png",
   },
   {
+    name: "DART GUN",
+    type: ItemType.RANGED,
+    stats: [
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+      StatType.DURABILITY,
+    ],
+    damageTypes: ["*","","","","","",""],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: true,
+    image:
+      "img/items/dartgun.png",
+  },
+  {
     name: "NECRO RIFLE",
     type: ItemType.RANGED,
     stats: [

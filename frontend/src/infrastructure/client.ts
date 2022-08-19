@@ -18,7 +18,7 @@ export enum ENV{
 export class Client extends BasePage{
   public environment: ENV = ENV.DEVELOPMENT;
   private devHost: string = "localhost";
-  private prodHost: string = "http://185.229.225.204/";
+  private prodHost: string = "185.229.225.204";
   private port: number = 8080;
   private ignoreChanges: boolean = false;
   private webSocket: WebSocket;
