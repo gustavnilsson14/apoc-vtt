@@ -2109,6 +2109,16 @@ export const itemList: IItem[] = [
     image: "img/items/kevlar.jpg",
   },
   {
+    name: "GRAPHITE VEST",
+    type: ItemType.ARMOR,
+    stats: [StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY],
+    damageTypes: ["STAB"],
+    hasSkill: false,
+    size: ItemSize.SMALL,
+    horizontal: false,
+    image: "img/items/kevlar.jpg",
+  },
+  {
     name: "HOCKEY ARMOR",
     type: ItemType.ARMOR,
     stats: [StatType.QUALITY, StatType.DURABILITY, StatType.DURABILITY],

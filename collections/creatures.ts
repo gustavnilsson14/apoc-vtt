@@ -1989,4 +1989,95 @@ export const creaturesList: ICreature[] = [
       },
     ],
   },
+  {
+    id: "Duster",
+    name: "Duster",
+    description:
+      "Thick skinned, travelling merchants. Dusters are known for their ruthless, and often times sly bargains, while having no qualms on ethics.",
+    image: "",
+    level: 1,
+    strength: 6,
+    dexterity: 8,
+    will: 9,
+    endurance: 53,
+    maxEndurance: 53,
+    av: 1,
+    gameEntityType: GameEntityType.ENEMY,
+    habitats: [BiomeType.SALT_FLATS, BiomeType.DESERT],
+    weaknesses: [
+      DamageType.GUN,
+      DamageType.BLAST,
+      DamageType.NUKE,
+      DamageType.LIGHT,
+    ],
+    attacks: [
+      {
+        name: "Beretta",
+        damage: [DiceType.D4, DiceType.D6, DiceType.D8],
+        damageTypes: [DamageType.GUN],
+      },
+      {
+        name: "Winchester",
+        damage: [DiceType.D4, DiceType.D6, DiceType.D10],
+        damageTypes: [DamageType.GUN],
+      },
+      {
+        name: "Knife",
+        damage: [DiceType.D4, DiceType.D6, DiceType.D6],
+        damageTypes: [DamageType.CUT, DamageType.STAB],
+      },
+    ],
+    actions: [
+      {
+        id: "",
+        name: "Human shield",
+        description:
+          "If in melee with an enemy, this tactical action makes the Duster untargetable by ranged attacks.",
+      },
+    ],
+  },
+  {
+    id: "Gorg",
+    name: "Gorg",
+    description:
+      "A dog bred for fighting. Commonly used as wardogs by wastelanders",
+    image: "",
+    level: 1,
+    strength: 6,
+    dexterity: 9,
+    will: 6,
+    endurance: 51,
+    maxEndurance: 51,
+    av: 0,
+    gameEntityType: GameEntityType.ENEMY,
+    habitats: [],
+    weaknesses: [
+      DamageType.CUT,
+      DamageType.STAB,
+      DamageType.BLAST,
+      DamageType.OOZE,
+      DamageType.NEURAL,
+    ],
+    attacks: [
+      {
+        name: "Bite",
+        damage: [DiceType.D4, DiceType.D6, DiceType.D6],
+        damageTypes: [DamageType.PAIN],
+      },
+    ],
+    actions: [
+      {
+        id: "",
+        name: "Subdue",
+        description:
+          "If in melee with an enemy, subdue will remove a targets first melee attack on a failed WIL.",
+      },
+      {
+        id: "",
+        name: "Hunt",
+        description:
+          "Increases charge speed to two tiles per turn if charging against an enemy who is retreating.",
+      },
+    ],
+  },
 ];

@@ -1,5 +1,5 @@
 import { ICharacter } from "./../models/character";
-import { IUser } from "./../models/user";
+import { IUser, UserType } from "./../models/user";
 import { CharacterController } from "./character";
 import { LoaderModuleType } from "./../loader";
 import { UserController } from "./user";
@@ -31,6 +31,7 @@ export class EntityController extends BaseController {
       userController.collection.forEach((model2) => {
         const user = model2 as IUser;
         if (!user.connected) return;
+        if (user.userType == UserType.GM) return;
         if (user.selectedCharacterId != character.id) return;
         characters.push(character);
       });

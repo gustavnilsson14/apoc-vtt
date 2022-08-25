@@ -27,7 +27,7 @@
       <grid-box><die-roller></die-roller></grid-box>
       <grid-box><all-items></all-items></grid-box>
       <grid-box class="character">
-        <character></character>
+        <character if.bind="client.user.userType != 'GM'"></character>
         <entity-picker if.bind="client.user.userType == 'GM'"></entity-picker>
       </grid-box>
       <grid-box class="current-entities">
